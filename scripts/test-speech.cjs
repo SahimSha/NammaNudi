@@ -120,3 +120,4 @@ setTimeout(() => {
   console.log('✓ PASS: language-unavailable error is cleanly intercepted without silent failure');
   console.log('\nAll 3 speech synthesis unit tests PASSED successfully!');
 }, 200);
+

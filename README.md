@@ -32,14 +32,16 @@ flowchart TD
         UI["React 19 Presentation Layer\nTailwind CSS v4 + Noto Sans Kannada"]
         Router["React Router v7 SPA Routing\n(/, /phrasebook, /quiz, /saved, /progress, /search, /about)"]
         State["Application Context & State\n(Bookmarks, Recents, Quiz History, Modals)"]
-        TTS["Speech Engine (Web SpeechSynthesis API)\nNative Kannada Voice Detector + Graceful Fallback"]
+        TTS["Speech Engine (Web SpeechSynthesis API)\nNative kn-IN Voice Detection"]
+        AudioFallback["Prerecorded Audio Player\n(HTML5 Audio + Offline Audio Registry)"]
         Storage["On-Device LocalStorage\n(100% Private, Zero Cloud Sync)"]
-        SW["Service Worker (sw.js)\nCache-First Static Assets + Offline SPA Navigation Fallback"]
+        SW["Service Worker (sw.js)\nCache-First Static Assets + Offline Audio Caching"]
     end
 
     subgraph Data ["Local Knowledge Base (Embedded)"]
         Phrases["95+ Curated Phrases\n(Kannada, Transliteration, English, Phonetics, Context)"]
         Categories["9 Everyday Situation Categories"]
+        AudioMap["Audio Registry (audioRegistry.ts)\n(Mapping phrase IDs to static audio assets)"]
     end
 
     UI --> Router
@@ -48,6 +50,8 @@ flowchart TD
     State --> Categories
     State --> Storage
     UI --> TTS
+    UI --> AudioFallback
+    AudioFallback --> AudioMap
     UI <--> SW
     SW --> UI
 ```
@@ -199,9 +203,17 @@ The included [`vercel.json`](file:///c:/Users/Sahim%20Sha/Desktop/Projects/Namma
 3. **Storage:** All bookmarks, quiz history, and streaks are stored locally in the browser's `localStorage`.
 4. **PWA Standalone:** Users can install NammaNudi on Android or iOS ("Add to Home Screen") to launch it like an app even without cellular connectivity.
 
-### Honest Audio Voice Disclosure
-- **Browser Kannada TTS Voice:** Text-to-speech audio depends on whether the user's OS or browser has a Kannada voice (`kn-IN` or `kn`) installed (standard on Android with Google TTS; optional language pack on Windows).
-- **Graceful Fallback:** If a system lacks a Kannada voice, NammaNudi **never fabricates audio playback** or claims it succeeded. Instead, it alerts the user with a gentle toast, displays syllable phonetic guides, and encourages using **Show-to-Speak mode**.
+### Multi-Tier Audio Strategy & Voice Disclosure
+1. **Tier 1 — Native Browser Kannada TTS:**
+   - Evaluates system voices using `speechSynthesis.getVoices()` for `kn-IN` or `kn` language tags.
+   - Sets utterance script directly to authentic Kannada text.
+   - Standard on Android devices with Google Text-to-Speech language pack installed.
+2. **Tier 2 — Offline Prerecorded Audio Fallback:**
+   - If device TTS lacks a Kannada voice (standard on Windows/macOS where Kannada language pack only provides typing/handwriting, not a TTS speech engine), the app attempts to play authentic human audio files cached in `public/audio/<phraseId>.mp3`.
+   - Audio files are registered in `src/data/audioRegistry.ts` and managed by `src/utils/audioPlayer.ts`.
+3. **Tier 3 — Syllable Phonetics & Show-to-Speak:**
+   - If neither native TTS nor a prerecorded audio file exists for a phrase, NammaNudi **never fabricates audio playback** or substitutes English speech.
+   - It alerts the user with an honest, gentle notification, presents the phonetic syllable breakdown (e.g. `[yis-h-TOO A-yee-THU?]`), and encourages using the full-screen **Show-to-Speak** display to communicate on the spot.
 
 ### Phrase Data Integrity & Dialect Transparency
 - All 95+ phrases reflect contemporary, polite, real-world spoken Kannada in Bengaluru and urban Karnataka.
@@ -211,7 +223,7 @@ The included [`vercel.json`](file:///c:/Users/Sahim%20Sha/Desktop/Projects/Namma
 
 ## 🔮 Future Enhancements (Post-MVP Roadmap)
 
-1. **Pre-recorded Native Human Audio Pack:** Bundle compressed audio clips for top everyday phrases to ensure audio playback on devices without native TTS engines.
+1. **Expanding Human Audio Library:** Record and drop additional compressed audio clips into `public/audio/<phraseId>.mp3` using the ready fallback infrastructure.
 2. **AI Voice Pronunciation Scoring:** Browser WebAudio / WebAssembly acoustic scoring to rate pronunciation accuracy.
 3. **Kannada Script Practice:** Canvas-based stroke recognition for learning basic Kannada alphabet (Aksharamale).
 4. **Contextual Geofencing:** Suggesting bus phrases when near BMTC bus stands or Darshini phrases during meal times.

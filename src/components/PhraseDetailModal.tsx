@@ -16,6 +16,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
 import { CATEGORIES } from '../data/categories';
+import { hasPrerecordedAudio } from '../data/audioRegistry';
 
 export const PhraseDetailModal: React.FC = () => {
   const {
@@ -82,7 +83,7 @@ export const PhraseDetailModal: React.FC = () => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(activeDetailPhrase.kannada);
+      speak(activeDetailPhrase.kannada, undefined, activeDetailPhrase.id);
     }
   };
 
@@ -206,6 +207,10 @@ export const PhraseDetailModal: React.FC = () => {
               {hasKannadaVoice ? (
                 <span className="text-emerald-700 font-medium">
                   ✓ Native browser Kannada voice ready ({voiceStatus.voiceName})
+                </span>
+              ) : hasPrerecordedAudio(activeDetailPhrase.id) ? (
+                <span className="text-emerald-700 font-medium">
+                  ✓ Offline audio recording available
                 </span>
               ) : (
                 <span className="text-stone-500">

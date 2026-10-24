@@ -52,11 +52,15 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
       return;
     }
     setThisSpeaking(true);
-    speak(phrase.kannada, {
-      onStart: () => setThisSpeaking(true),
-      onEnd: () => setThisSpeaking(false),
-      onError: () => setThisSpeaking(false)
-    });
+    speak(
+      phrase.kannada,
+      {
+        onStart: () => setThisSpeaking(true),
+        onEnd: () => setThisSpeaking(false),
+        onError: () => setThisSpeaking(false)
+      },
+      phrase.id
+    );
   };
 
   const handleToggleSave = (e: React.MouseEvent) => {

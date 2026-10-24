@@ -284,7 +284,7 @@ export const QuizPage: React.FC = () => {
                       if (isSpeaking) {
                         stop();
                       } else {
-                        speak(questionPhrase.kannada);
+                        speak(questionPhrase.kannada, undefined, questionPhrase.id);
                       }
                     }}
                     className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${

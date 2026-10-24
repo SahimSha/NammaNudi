@@ -210,7 +210,7 @@ export const HomePage: React.FC = () => {
                   if (isSpeaking) {
                     stop();
                   } else {
-                    speak(dailyPhrase.kannada);
+                    speak(dailyPhrase.kannada, undefined, dailyPhrase.id);
                   }
                 }}
                 aria-label={isSpeaking ? 'Stop audio' : 'Listen to pronunciation'}

@@ -90,10 +90,13 @@ export const AboutPage: React.FC = () => {
 
         <div className="space-y-2 text-xs sm:text-sm text-stone-600 leading-relaxed">
           <p>
-            • NammaNudi uses the standard browser <code>SpeechSynthesis API</code> to detect whether a Kannada (<code>kn-IN</code>) voice is installed on your OS.
+            • <strong>Multi-tier Audio Architecture:</strong> NammaNudi uses the browser <code>SpeechSynthesis API</code> to detect whether a genuine Kannada (<code>kn-IN</code>) voice is installed on your operating system.
           </p>
           <p>
-            • If your device does not have a native Kannada TTS engine installed (common on some Windows/Mac setups), NammaNudi <strong>never falsely claims audio played</strong>. Instead, it provides syllable-by-syllable phonetic breakdowns and encourages using <strong>Show-to-Speak mode</strong>.
+            • <strong>Prerecorded Audio Fallback:</strong> If speech synthesis lacks a Kannada voice on your device (standard on Windows/macOS), the app seamlessly falls back to authentic prerecorded audio files (cached offline in <code>public/audio/</code>) without requiring any server or backend.
+          </p>
+          <p>
+            • <strong>Honest Guidance:</strong> If neither a native TTS voice nor an offline recording is present for a phrase, NammaNudi <strong>never falsely claims audio played</strong> or substitutes English speech. Instead, it guides the learner using the syllable-by-syllable phonetic guide and encourages opening full-screen <strong>Show-to-Speak mode</strong>.
           </p>
           <p>
             • <em>Tip for Android users:</em> Ensure Google Text-to-Speech has the Kannada language pack downloaded under Settings → Accessibility → Text-to-speech output.

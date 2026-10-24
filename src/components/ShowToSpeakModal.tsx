@@ -14,6 +14,7 @@ import {
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
 import { CATEGORIES } from '../data/categories';
+import { hasPrerecordedAudio } from '../data/audioRegistry';
 
 export const ShowToSpeakModal: React.FC = () => {
   const {
@@ -92,7 +93,7 @@ export const ShowToSpeakModal: React.FC = () => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(showToSpeakPhrase.kannada);
+      speak(showToSpeakPhrase.kannada, undefined, showToSpeakPhrase.id);
     }
   };
 
@@ -199,12 +200,20 @@ export const ShowToSpeakModal: React.FC = () => {
             </div>
           )}
 
-          {/* Fallback voice notice if no Kannada voice is in browser */}
+          {/* Fallback voice notice if no Kannada voice is in browser and no prerecorded audio */}
           {!hasKannadaVoice && (
-            <div className="mt-4 p-2.5 bg-amber-50 rounded-xl border border-amber-200/80 text-amber-900 text-xs flex items-center justify-center space-x-1.5">
-              <Info className="w-4 h-4 text-amber-700 flex-shrink-0" />
+            <div className={`mt-4 p-2.5 rounded-xl border text-xs flex items-center justify-center space-x-1.5 ${
+              hasPrerecordedAudio(showToSpeakPhrase.id)
+                ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                : 'bg-amber-50 border-amber-200/80 text-amber-900'
+            }`}>
+              <Info className={`w-4 h-4 flex-shrink-0 ${
+                hasPrerecordedAudio(showToSpeakPhrase.id) ? 'text-emerald-700' : 'text-amber-700'
+              }`} />
               <span>
-                Kannada voice not installed in device TTS. Display this screen directly or use phonetics!
+                {hasPrerecordedAudio(showToSpeakPhrase.id)
+                  ? 'Offline audio recording ready for this phrase!'
+                  : 'Kannada voice not installed in device TTS. Display this screen directly or use phonetics!'}
               </span>
             </div>
           )}

@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { speechService } from '../utils/speech';
 import type { VoiceStatus, SpeechErrorReason } from '../utils/speech';
+import { audioPlayerService } from '../utils/audioPlayer';
+import { getPhraseAudioUrl } from '../data/audioRegistry';
 
 export interface UseSpeechOptions {
   onErrorNotice?: (message: string) => void;
@@ -11,6 +13,11 @@ export function useSpeech(options?: UseSpeechOptions) {
   const [voiceStatus, setVoiceStatus] = useState<VoiceStatus>(() =>
     speechService.getVoiceStatus()
   );
+
+  const optionsRef = useRef(options);
+  useEffect(() => {
+    optionsRef.current = options;
+  }, [options]);
 
   useEffect(() => {
     const updateVoiceStatus = () => {
@@ -25,62 +32,109 @@ export function useSpeech(options?: UseSpeechOptions) {
     };
   }, []);
 
+  const stop = useCallback(() => {
+    speechService.stop();
+    audioPlayerService.stop();
+    setIsSpeaking(false);
+  }, []);
+
   const speak = useCallback(
     (
       text: string,
       callbacks?: {
         onStart?: () => void;
         onEnd?: (wasAudioProduced: boolean) => void;
-        onError?: (reason: SpeechErrorReason) => void;
-      }
+        onError?: (reason: string) => void;
+      },
+      phraseId?: string
     ) => {
-      setIsSpeaking(true);
+      // Cleanly stop any existing speech or audio playback
+      speechService.stop();
+      audioPlayerService.stop();
 
-      const success = speechService.speak(text, {
-        onStart: () => {
+      const currentStatus = speechService.getVoiceStatus();
+      const prerecordedUrl = phraseId ? getPhraseAudioUrl(phraseId) : null;
+
+      // Helper to play prerecorded audio fallback
+      const tryPrerecordedAudio = (ttsFailureReason?: string) => {
+        if (prerecordedUrl) {
           setIsSpeaking(true);
-          callbacks?.onStart?.();
-        },
-        onEnd: (wasAudioProduced: boolean) => {
-          setIsSpeaking(false);
-          callbacks?.onEnd?.(wasAudioProduced);
-        },
-        onError: (reason) => {
-          setIsSpeaking(false);
-          callbacks?.onError?.(reason);
+          const audioStarted = audioPlayerService.play(prerecordedUrl, {
+            onStart: () => {
+              setIsSpeaking(true);
+              callbacks?.onStart?.();
+            },
+            onEnd: () => {
+              setIsSpeaking(false);
+              callbacks?.onEnd?.(true);
+            },
+            onError: () => {
+              setIsSpeaking(false);
+              callbacks?.onError?.('audio-playback-failed');
+              optionsRef.current?.onErrorNotice?.(
+                'Failed to play prerecorded Kannada audio. Please refer to the phonetic guide.'
+              );
+            }
+          });
 
-          if (reason === 'canceled' || reason === 'interrupted') {
-            return;
+          if (!audioStarted) {
+            setIsSpeaking(false);
           }
-
-          let userMessage = '';
-          if (reason === 'language-unavailable' || reason === 'voice-unavailable') {
-            userMessage = 'Kannada voice not installed in browser/OS (kn-IN). Use the phonetic breakdown below.';
-          } else if (reason === 'immediate-silent-end') {
-            userMessage = 'Speech engine ended without audible sound. Kannada TTS is missing on this OS; check phonetics!';
-          } else if (reason === 'not-allowed') {
-            userMessage = 'Audio autoplay blocked by browser. Please tap the button again.';
-          } else if (reason === 'unsupported') {
-            userMessage = 'Speech synthesis is unsupported in this browser.';
-          } else {
-            userMessage = 'Kannada audio unavailable on this device. Refer to the phonetic guide.';
-          }
-
-          options?.onErrorNotice?.(userMessage);
+          return;
         }
-      });
 
-      if (!success) {
+        // Neither native Kannada TTS nor prerecorded audio is available
         setIsSpeaking(false);
-      }
-    },
-    [options]
-  );
+        callbacks?.onError?.(ttsFailureReason || 'no-kannada-audio');
 
-  const stop = useCallback(() => {
-    speechService.stop();
-    setIsSpeaking(false);
-  }, []);
+        let message = '';
+        if (currentStatus.hasKannadaVoice) {
+          message = 'Kannada speech synthesis encountered an error on this device. Please refer to the phonetic pronunciation guide.';
+        } else {
+          message = 'Kannada audio unavailable on this device: Windows/browser lacks a native Kannada TTS voice, and no offline recording has been added for this phrase yet. Please use the phonetic pronunciation guide!';
+        }
+        optionsRef.current?.onErrorNotice?.(message);
+      };
+
+      // 1. If native Kannada voice is installed, prioritize browser SpeechSynthesis
+      if (currentStatus.hasKannadaVoice) {
+        setIsSpeaking(true);
+        const ttsInitiated = speechService.speak(text, {
+          onStart: () => {
+            setIsSpeaking(true);
+            callbacks?.onStart?.();
+          },
+          onEnd: (wasAudioProduced: boolean) => {
+            if (wasAudioProduced) {
+              setIsSpeaking(false);
+              callbacks?.onEnd?.(true);
+            } else {
+              // Immediate silent completion: fallback to prerecorded audio if available
+              tryPrerecordedAudio('immediate-silent-end');
+            }
+          },
+          onError: (reason: SpeechErrorReason) => {
+            if (reason === 'canceled' || reason === 'interrupted') {
+              setIsSpeaking(false);
+              callbacks?.onError?.(reason);
+              return;
+            }
+            // TTS failed: attempt prerecorded audio fallback
+            tryPrerecordedAudio(reason);
+          }
+        });
+
+        if (!ttsInitiated) {
+          tryPrerecordedAudio('tts-initiation-failed');
+        }
+        return;
+      }
+
+      // 2. If no Kannada voice exists on this device, directly attempt prerecorded audio fallback
+      tryPrerecordedAudio();
+    },
+    []
+  );
 
   return {
     speak,
