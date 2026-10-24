@@ -194,6 +194,12 @@ export const HomePage: React.FC = () => {
               <p className="text-sm sm:text-base font-semibold text-teal-700 italic">
                 {dailyPhrase.transliteration}
               </p>
+              {dailyPhrase.pronunciationGuide && (
+                <div className="text-xs font-mono font-medium text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5 my-1">
+                  <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800">Phonetic:</span>
+                  <span>{dailyPhrase.pronunciationGuide}</span>
+                </div>
+              )}
               <p className="text-sm font-medium text-stone-800">
                 "{dailyPhrase.english}"
               </p>

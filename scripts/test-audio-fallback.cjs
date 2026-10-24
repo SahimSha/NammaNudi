@@ -168,32 +168,35 @@ setTimeout(() => {
     assert.strictEqual(player.isPlaying(), false, 'Playing state must reset to false on error');
     console.log('✓ PASS: Corrupt or missing audio triggers onError and resets state immediately');
 
-    console.log('--- TEST 4: Fallback Routing (TTS -> Recorded Audio -> Honest Guidance) ---');
-    // Scenario A: Kannada TTS available
+    console.log('--- TEST 4: Fallback Routing (Prerecorded Audio -> Native TTS -> Phonetic Guidance) ---');
     let routedTo = null;
     function simulateOrchestrator({ hasKannadaVoice, phraseId }) {
       const audioUrl = getPhraseAudioUrl(phraseId);
-      if (hasKannadaVoice) {
-        routedTo = 'tts';
-        return;
-      }
       if (audioUrl) {
         routedTo = 'prerecorded-audio';
+        return;
+      }
+      if (hasKannadaVoice) {
+        routedTo = 'tts';
         return;
       }
       routedTo = 'phonetic-guidance';
     }
 
+    // Scenario 1: Authentic human audio registered -> uses prerecorded audio
     simulateOrchestrator({ hasKannadaVoice: true, phraseId: 'bs-01' });
-    assert.strictEqual(routedTo, 'tts', 'Should use TTS when Kannada voice is present');
+    assert.strictEqual(routedTo, 'prerecorded-audio', 'Should use authentic human recording when registered');
 
-    simulateOrchestrator({ hasKannadaVoice: false, phraseId: 'bs-01' });
-    assert.strictEqual(routedTo, 'prerecorded-audio', 'Should use prerecorded audio when TTS is missing');
+    // Scenario 2: No prerecorded audio, but device has Kannada TTS voice -> uses TTS
+    simulateOrchestrator({ hasKannadaVoice: true, phraseId: 'unrecorded-phrase' });
+    assert.strictEqual(routedTo, 'tts', 'Should use native Kannada TTS when voice is present');
 
+    // Scenario 3: Neither prerecorded audio nor Kannada TTS voice is present -> guides to phonetics
     simulateOrchestrator({ hasKannadaVoice: false, phraseId: 'unrecorded-phrase' });
     assert.strictEqual(routedTo, 'phonetic-guidance', 'Should guide to phonetics when neither is available');
 
-    console.log('✓ PASS: Multi-tier fallback accurately selects the highest-fidelity option');
+    console.log('✓ PASS: Multi-tier fallback accurately selects authentic audio > native TTS > phonetic guidance');
     console.log('\nAll audio fallback tests PASSED successfully!');
   }, 50);
 }, 50);
+

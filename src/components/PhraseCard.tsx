@@ -140,9 +140,17 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
         </h3>
 
         {/* Transliteration */}
-        <p className="text-sm font-semibold text-teal-700 mb-1.5 italic tracking-tight">
+        <p className="text-sm font-semibold text-teal-700 mb-1 italic tracking-tight">
           {phrase.transliteration}
         </p>
+
+        {/* Phonetic Pronunciation Guide */}
+        {phrase.pronunciationGuide && (
+          <div className="text-[11px] font-mono text-stone-700 bg-amber-50/90 border border-amber-200/80 px-2 py-0.5 rounded-md inline-flex items-center gap-1 mb-1.5">
+            <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800">Phonetic:</span>
+            <span>{phrase.pronunciationGuide}</span>
+          </div>
+        )}
 
         {/* English Meaning */}
         <p className="text-sm font-medium text-stone-800 line-clamp-2">

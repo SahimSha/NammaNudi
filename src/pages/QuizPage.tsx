@@ -278,7 +278,7 @@ export const QuizPage: React.FC = () => {
 
               {/* Audio Listen Button if available */}
               {questionPhrase && (
-                <div className="pt-2">
+                <div className="pt-2 flex flex-col items-center gap-1.5">
                   <button
                     onClick={() => {
                       if (isSpeaking) {
@@ -305,6 +305,11 @@ export const QuizPage: React.FC = () => {
                       </>
                     )}
                   </button>
+                  {questionPhrase.pronunciationGuide && (
+                    <span className="text-[11px] font-mono text-stone-500">
+                      Phonetic: {questionPhrase.pronunciationGuide}
+                    </span>
+                  )}
                 </div>
               )}
             </div>
