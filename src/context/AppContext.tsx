@@ -201,9 +201,9 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setRecentPhraseIds([]);
     setProgress(defaultProgress);
     try {
-      localStorage.removeItem(STORAGE_KEY_FAVOURITES);
-      localStorage.removeItem(STORAGE_KEY_RECENTS);
-      localStorage.removeItem(STORAGE_KEY_PROGRESS);
+      localStorage.setItem(STORAGE_KEY_FAVOURITES, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEY_RECENTS, JSON.stringify([]));
+      localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(defaultProgress));
     } catch {}
     showToast('All progress reset successfully', 'info');
   };

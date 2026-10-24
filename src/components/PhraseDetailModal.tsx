@@ -72,6 +72,10 @@ export const PhraseDetailModal: React.FC = () => {
   };
 
   const handleSpeak = () => {
+    if (!hasKannadaVoice) {
+      showToast('Kannada voice not installed on device. Refer to the phonetic breakdown below!', 'warning');
+      return;
+    }
     if (isSpeaking) {
       stop();
     } else {
@@ -235,6 +239,16 @@ export const PhraseDetailModal: React.FC = () => {
               {activeDetailPhrase.contextNote}
             </p>
           </div>
+
+          {/* Dialect notice if flagged */}
+          {activeDetailPhrase.needsDialectReview && (
+            <div className="p-3 rounded-xl bg-amber-50/80 border border-amber-200 text-[11px] text-amber-950 flex items-start space-x-2">
+              <Info className="w-3.5 h-3.5 text-amber-700 flex-shrink-0 mt-0.5" />
+              <span>
+                <strong>Dialect note:</strong> This expression reflects colloquial Bengaluru spoken usage. Regional variations (e.g. Uttara Karnataka or Coastal dialects) may vary and welcome native speaker feedback.
+              </span>
+            </div>
+          )}
 
           {/* Tags */}
           {activeDetailPhrase.tags && activeDetailPhrase.tags.length > 0 && (

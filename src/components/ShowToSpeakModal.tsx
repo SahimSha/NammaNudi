@@ -82,6 +82,10 @@ export const ShowToSpeakModal: React.FC = () => {
   };
 
   const handleSpeak = () => {
+    if (!hasKannadaVoice) {
+      showToast('No Kannada voice installed on device. Display this card directly or use phonetics below!', 'warning');
+      return;
+    }
     if (isSpeaking) {
       stop();
     } else {
@@ -257,3 +261,4 @@ export const ShowToSpeakModal: React.FC = () => {
     </div>
   );
 };
+

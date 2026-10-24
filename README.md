@@ -24,6 +24,36 @@ Non-Kannada speakers in Karnataka frequently struggle with everyday micro-intera
 
 ---
 
+## 🏛️ System Architecture
+
+```mermaid
+flowchart TD
+    subgraph Client ["Client Device (Browser / Standalone PWA)"]
+        UI["React 19 Presentation Layer\nTailwind CSS v4 + Noto Sans Kannada"]
+        Router["React Router v7 SPA Routing\n(/, /phrasebook, /quiz, /saved, /progress, /search, /about)"]
+        State["Application Context & State\n(Bookmarks, Recents, Quiz History, Modals)"]
+        TTS["Speech Engine (Web SpeechSynthesis API)\nNative Kannada Voice Detector + Graceful Fallback"]
+        Storage["On-Device LocalStorage\n(100% Private, Zero Cloud Sync)"]
+        SW["Service Worker (sw.js)\nCache-First Static Assets + Offline SPA Navigation Fallback"]
+    end
+
+    subgraph Data ["Local Knowledge Base (Embedded)"]
+        Phrases["95+ Curated Phrases\n(Kannada, Transliteration, English, Phonetics, Context)"]
+        Categories["9 Everyday Situation Categories"]
+    end
+
+    UI --> Router
+    Router --> State
+    State --> Phrases
+    State --> Categories
+    State --> Storage
+    UI --> TTS
+    UI <--> SW
+    SW --> UI
+```
+
+---
+
 ## 🚀 Key Features
 
 ### 1. Home Dashboard
@@ -87,53 +117,6 @@ Every phrase includes Kannada Unicode script, English translation, Roman transli
 
 ---
 
-## 🏛️ Architecture Overview
-
-```
-NammaNudi/
-├── public/
-│   ├── favicon.svg             # Custom Kannada 'ನ' vector favicon
-│   ├── manifest.webmanifest    # PWA configuration
-│   └── sw.js                   # Offline-first caching Service Worker
-├── src/
-│   ├── components/             # Reusable UI components
-│   │   ├── CategoryIcon.tsx    # Dynamic Lucide icon mapper
-│   │   ├── Header.tsx          # Top navigation & offline status badge
-│   │   ├── MobileNav.tsx       # Bottom mobile tab navigation
-│   │   ├── PhraseCard.tsx      # Interactive phrase card
-│   │   ├── PhraseDetailModal.tsx # Full phrase learning view
-│   │   ├── ShowToSpeakModal.tsx  # Giant full-screen Show-to-Speak view
-│   │   └── Toast.tsx           # Non-blocking user notifications
-│   ├── context/
-│   │   └── AppContext.tsx      # Global state (favourites, recents, progress, modals)
-│   ├── data/
-│   │   ├── categories.ts       # 9 Everyday situation categories
-│   │   └── phrases.ts          # 95+ verified everyday Kannada phrases
-│   ├── hooks/
-│   │   ├── useOnlineStatus.ts  # Live navigator.onLine hook
-│   │   └── useSpeech.ts        # Browser SpeechSynthesis hook
-│   ├── pages/
-│   │   ├── AboutPage.tsx       # Hackathon problem statement & documentation
-│   │   ├── HomePage.tsx        # Dashboard, daily phrase, hero search
-│   │   ├── PhrasebookPage.tsx  # Categorized phrase directory with filters
-│   │   ├── ProgressPage.tsx    # Learning analytics and category mastery
-│   │   ├── QuizPage.tsx        # Interactive practice quiz
-│   │   ├── SavedPage.tsx       # Starred favorites and recent history
-│   │   └── SearchPage.tsx      # Instant client-side search
-│   ├── types/
-│   │   └── index.ts            # TypeScript interfaces & types
-│   ├── utils/
-│   │   └── speech.ts           # SpeechService engine with fallback logic
-│   ├── App.tsx                 # Root application component and router
-│   ├── index.css               # Tailwind CSS imports and Kannada fonts
-│   └── main.tsx                # React root entry point
-├── package.json
-├── tsconfig.json
-└── vite.config.ts
-```
-
----
-
 ## 💻 Local Setup & Run Instructions
 
 ### Prerequisites
@@ -142,13 +125,14 @@ NammaNudi/
 
 ### Installation
 ```bash
-# Clone or navigate into the project directory
+# 1. Clone or navigate into the project directory
+git clone https://github.com/<your-username>/NammaNudi.git
 cd NammaNudi
 
-# Install dependencies
+# 2. Install dependencies
 npm install
 
-# Start development server
+# 3. Start development server
 npm run dev
 ```
 
@@ -166,41 +150,72 @@ npm run build
 npm run preview
 ```
 
-Static assets are compiled into the `dist/` directory, ready for deployment to any static host (Vercel, Netlify, Cloudflare Pages, GitHub Pages).
+Static assets are compiled into the `dist/` directory.
 
 ---
 
-## 📴 Offline Capability & Limitations
+## 🌐 Deployment Instructions (Vercel)
+
+NammaNudi is configured for deployment on **Vercel** with SPA client-side routing and PWA headers pre-configured in `vercel.json`.
+
+### Option A: Via Vercel CLI
+```bash
+# Install Vercel CLI globally (if not installed)
+npm install -g vercel
+
+# Deploy
+vercel --prod
+```
+
+### Option B: Via Vercel Web Dashboard
+1. Push your repository to GitHub.
+2. In the Vercel dashboard, click **"Add New Project"** and import the `NammaNudi` repository.
+3. Keep default settings:
+   - **Framework Preset:** Vite
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist`
+4. Click **Deploy**.
+
+### SPA Routing & Service Worker Headers on Vercel
+The included [`vercel.json`](file:///c:/Users/Sahim%20Sha/Desktop/Projects/NammaNudi/vercel.json) automatically ensures:
+- All client-side routes (`/phrasebook`, `/quiz`, `/saved`, etc.) rewrite to `/index.html` on direct visit or refresh.
+- `sw.js` and `manifest.webmanifest` are served with `Cache-Control: public, max-age=0, must-revalidate` so updates deploy cleanly to user devices.
+
+---
+
+## 🔒 Security, Credentials & HTTPS
+
+- **Zero Secrets / Zero API Keys:** The application requires no external backend, API keys, database credentials, or paid third-party tokens.
+- **HTTPS Enforcement:** When deployed to production (e.g. Vercel, Netlify, Cloudflare), all connections use HTTPS. Service Workers and PWA install capabilities strictly enforce secure HTTPS contexts (with localhost supported for local testing).
+- **No Personal Data Collected:** User bookmarks, recents, and quiz streaks remain entirely on the user's client device in `localStorage`.
+
+---
+
+## 📴 Offline Capability & Honest Voice Disclosure
 
 ### How Offline Works
 1. **Initial Visit:** On your first online visit, the Service Worker registers and caches the core app shell (`index.html`, stylesheets, scripts, icons).
-2. **Phrase Database:** All 95+ phrases and 9 categories are bundled directly in the client bundle—**no API calls** are required to read, search, or practice phrases.
+2. **Phrase Database:** All 95+ phrases and 9 categories are bundled directly in the client bundle—**no network requests** are required to read, search, or practice phrases.
 3. **Storage:** All bookmarks, quiz history, and streaks are stored locally in the browser's `localStorage`.
 4. **PWA Standalone:** Users can install NammaNudi on Android or iOS ("Add to Home Screen") to launch it like an app even without cellular connectivity.
 
-### Limitations & Honest Disclosure
-- **Browser Kannada TTS Voice:** Text-to-speech audio depends on whether the user's OS or browser has a Kannada voice (`kn-IN` or `kn`) installed. If a system lacks a Kannada voice (such as barebones desktop browsers), NammaNudi gracefully warns the user and presents syllable phonetic guides rather than fabricating audio playback.
-- **Initial Load:** A device must open the app at least once online to download and cache the static shell for subsequent offline visits.
+### Honest Audio Voice Disclosure
+- **Browser Kannada TTS Voice:** Text-to-speech audio depends on whether the user's OS or browser has a Kannada voice (`kn-IN` or `kn`) installed (standard on Android with Google TTS; optional language pack on Windows).
+- **Graceful Fallback:** If a system lacks a Kannada voice, NammaNudi **never fabricates audio playback** or claims it succeeded. Instead, it alerts the user with a gentle toast, displays syllable phonetic guides, and encourages using **Show-to-Speak mode**.
 
----
-
-## 📸 Screenshots & Visual Walkthrough
-
-- **Home Screen:** Clean warm palette with daily phrase card and instant situation categories.
-- **Show-to-Speak Mode:** Giant Kannada font on high-contrast backdrop designed for one-handed communication.
-- **Category Phrasebook:** Filterable tabs with formality indicators and audio triggers.
-- **Practice Quiz:** Real-world multiple-choice scenarios with instant feedback.
-- **Progress Dashboard:** Streak counter, overall accuracy percentage, and category mastery breakdown.
+### Phrase Data Integrity & Dialect Transparency
+- All 95+ phrases reflect contemporary, polite, real-world spoken Kannada in Bengaluru and urban Karnataka.
+- Everyday expressions with strong regional dialectal variance (e.g., North Karnataka / Hubballi vs Karavali / Coastal) are explicitly noted in context notes and tagged for ongoing native-speaker peer review, rather than falsely claiming universal external academic certification.
 
 ---
 
 ## 🔮 Future Enhancements (Post-MVP Roadmap)
 
-1. **AI Voice Pronunciation Scoring:** Browser WebAudio / WebAssembly acoustic scoring to rate pronunciation accuracy.
-2. **Pre-recorded Native Audio Pack:** Bundled high-fidelity studio voice clips for all core phrases to ensure consistent audio on devices without native TTS.
+1. **Pre-recorded Native Human Audio Pack:** Bundle compressed audio clips for top everyday phrases to ensure audio playback on devices without native TTS engines.
+2. **AI Voice Pronunciation Scoring:** Browser WebAudio / WebAssembly acoustic scoring to rate pronunciation accuracy.
 3. **Kannada Script Practice:** Canvas-based stroke recognition for learning basic Kannada alphabet (Aksharamale).
 4. **Contextual Geofencing:** Suggesting bus phrases when near BMTC bus stands or Darshini phrases during meal times.
-5. **Community Submissions:** Verified crowdsourcing of regional Kannada dialects (e.g., Bengaluru, Mysuru, Hubballi-Dharwad, Mangaluru).
+5. **Community Submissions:** Verified crowdsourcing of regional Kannada dialects.
 
 ---
 

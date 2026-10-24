@@ -92,3 +92,4 @@ export const CATEGORIES: Category[] = [
     badgeText: 'text-purple-700'
   }
 ];
+

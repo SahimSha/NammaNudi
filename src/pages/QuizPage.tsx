@@ -17,8 +17,8 @@ import { useSpeech } from '../hooks/useSpeech';
 import type { QuizQuestion, QuizResult } from '../types';
 
 export const QuizPage: React.FC = () => {
-  const { recordQuizResult, progress, setShowToSpeakPhrase } = useApp();
-  const { speak } = useSpeech();
+  const { recordQuizResult, progress, setShowToSpeakPhrase, showToast } = useApp();
+  const { speak, hasKannadaVoice } = useSpeech();
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -275,7 +275,13 @@ export const QuizPage: React.FC = () => {
               {questionPhrase && (
                 <div className="pt-2">
                   <button
-                    onClick={() => speak(questionPhrase.kannada)}
+                    onClick={() => {
+                      if (!hasKannadaVoice) {
+                        showToast('Kannada audio voice not installed on device. Refer to transliteration below!', 'warning');
+                        return;
+                      }
+                      speak(questionPhrase.kannada);
+                    }}
                     className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold transition-colors"
                   >
                     <Volume2 className="w-3.5 h-3.5 text-teal-800" />
@@ -430,3 +436,4 @@ export const QuizPage: React.FC = () => {
     </div>
   );
 };
+

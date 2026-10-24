@@ -48,3 +48,4 @@ export function useSpeech() {
     hasKannadaVoice: voiceStatus.hasKannadaVoice
   };
 }
+

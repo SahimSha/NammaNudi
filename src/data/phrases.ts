@@ -346,11 +346,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'sm-09',
     categoryId: 'shopping-markets',
-    kannada: 'ಕ್ಯಾರಿ ಬ್ಯಾಗ್ (ಚೀಲ) ಇದೆಯಾ?',
-    transliteration: 'Carry bag / cheela ideya?',
-    english: 'Do you have a carry bag / cloth bag?',
-    contextNote: '"Cheela" is the traditional Kannada word for bag.',
-    pronunciationGuide: 'Car-ry bag / chee-la i-de-yaa?',
+    kannada: 'ಕ್ಯಾರಿ ಬ್ಯಾಗ್ ಅಥವಾ ಚೀಲ ಇದೆಯಾ?',
+    transliteration: 'Carry bag athava cheela ideya?',
+    english: 'Do you have a carry bag or cloth bag?',
+    contextNote: '"Cheela" is the traditional Kannada word for cloth/jute bag.',
+    pronunciationGuide: 'Car-ry bag a-tha-va chee-la i-de-yaa?',
     formality: 'polite',
     situation: 'At billing counter when you forgot your bag',
     tags: ['bag', 'cheela', 'shopping']
@@ -1033,11 +1033,12 @@ export const PHRASES: Phrase[] = [
     kannada: 'ಕಸ ತಗೋಳೋ ಗಾಡಿ ಬಂತಾ?',
     transliteration: 'Kasa thagolo gaadi banthaa?',
     english: 'Has the garbage collection vehicle arrived?',
-    contextNote: 'BBMP garbage vehicle plays a whistle or bell every morning.',
+    contextNote: 'BBMP garbage vehicle plays a whistle or bell every morning. Colloquial Bengaluru spoken phrasing; North Karnataka uses "ಕಸದ ಗಾಡಿ ಬಂತೇನ್ರೀ?".',
     pronunciationGuide: 'Ka-sa tha-go-lo gaa-di ban-thaa?',
     formality: 'casual',
     situation: 'Asking neighbors about morning waste collection',
-    tags: ['garbage', 'bbmp', 'waste', 'morning']
+    tags: ['garbage', 'bbmp', 'waste', 'morning'],
+    needsDialectReview: true
   },
   {
     id: 'ad-06',
@@ -1140,14 +1141,14 @@ export const PHRASES: Phrase[] = [
   {
     id: 'bs-04',
     categoryId: 'workplace',
-    kannada: 'ಗೊತ್ತಿಲ್ಲ / ಅರ್ಥವಾಯಿತು.',
-    transliteration: 'Gotthilla / Arthavaayithu.',
-    english: 'I do not know / I understood.',
-    contextNote: '"Gotthilla" = don’t know; "Arthavaayithu" = understood / got it.',
-    pronunciationGuide: 'Got-thil-la / Ar-tha-vaa-yi-thu.',
+    kannada: 'ನನಗೆ ಕನ್ನಡ ಸರಿಯಾಗಿ ಗೊತ್ತಿಲ್ಲ.',
+    transliteration: 'Nanage Kannada sariyaagi gotthilla.',
+    english: 'I do not know Kannada properly.',
+    contextNote: 'Modest and widely appreciated expression when you want to signal you are a beginner learner.',
+    pronunciationGuide: 'Na-na-ge Kan-na-da sa-ri-yaa-gi got-thil-la.',
     formality: 'casual',
-    situation: 'Quick understanding confirmation',
-    tags: ['understood', 'yes', 'no']
+    situation: 'Quick language barrier indication',
+    tags: ['beginner', 'kannada', 'learner']
   },
   {
     id: 'bs-05',

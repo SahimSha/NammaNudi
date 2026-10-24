@@ -41,3 +41,4 @@ export const CategoryIcon: React.FC<CategoryIconProps> = ({ iconName, ...props }
       return <HelpCircle {...props} />;
   }
 };
+

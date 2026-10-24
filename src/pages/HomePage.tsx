@@ -24,10 +24,11 @@ export const HomePage: React.FC = () => {
     savedPhraseIds,
     getPhraseById,
     setShowToSpeakPhrase,
-    progress
+    progress,
+    showToast
   } = useApp();
 
-  const { speak, isSpeaking } = useSpeech();
+  const { speak, isSpeaking, hasKannadaVoice } = useSpeech();
 
   // Search input state on home page
   const [searchInput, setSearchInput] = useState('');
@@ -202,7 +203,13 @@ export const HomePage: React.FC = () => {
 
             <div className="flex sm:flex-col gap-2 flex-shrink-0">
               <button
-                onClick={() => speak(dailyPhrase.kannada)}
+                onClick={() => {
+                  if (!hasKannadaVoice) {
+                    showToast('Kannada voice not installed on device. Use Show-to-Speak mode below!', 'warning');
+                    return;
+                  }
+                  speak(dailyPhrase.kannada);
+                }}
                 className={`flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all ${
                   isSpeaking
                     ? 'bg-rose-600 text-white animate-pulse'
@@ -404,3 +411,4 @@ export const HomePage: React.FC = () => {
     </div>
   );
 };
+

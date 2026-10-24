@@ -23,6 +23,7 @@ export interface Phrase {
   situation: string;
   tags: string[];
   literalMeaning?: string;
+  needsDialectReview?: boolean;
 }
 
 export interface QuizQuestion {
@@ -64,3 +65,4 @@ export interface UserProgress {
   lastActiveDate: string;
   categoryStats: Record<string, { attempted: number; correct: number }>;
 }
+
