@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D5C58" />
+      <stop offset="100%" stop-color="#083835" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+  </defs>
+  <!-- Background rounded squircle -->
+  <rect x="4" y="4" width="92" height="92" rx="24" fill="url(#brandGrad)" />
+  <!-- Speech indicator nib -->
+  <path d="M 28 72 L 20 86 L 40 72 Z" fill="#0D5C58" />
+  <!-- Inner accent circle ring -->
+  <circle cx="50" cy="46" r="32" stroke="url(#goldGrad)" stroke-width="3" fill="none" opacity="0.35" />
+  <!-- Kannada character 'ನ' (Na for NammaNudi) stylized -->
+  <text x="50" y="58" font-family="'Noto Sans Kannada', 'Segoe UI', system-ui, sans-serif" font-size="44" font-weight="900" fill="#FEF3C7" text-anchor="middle">ನ</text>
+  <!-- Karnataka subtle red dot accent (kumkum/flag motif) -->
+  <circle cx="70" cy="28" r="5" fill="#EF4444" />
+</svg>

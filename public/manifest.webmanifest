@@ -1,0 +1,18 @@
+{
+  "name": "NammaNudi — Everyday Kannada Companion",
+  "short_name": "NammaNudi",
+  "description": "Learn it. Say it. Use it. Practical everyday Kannada companion for real-world situations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#0D5C58",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
