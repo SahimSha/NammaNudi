@@ -85,6 +85,9 @@ class SpeechService {
         v.lang.toLowerCase() === 'kn-in' ||
         v.lang.toLowerCase() === 'kn' ||
         v.lang.toLowerCase().startsWith('kn-') ||
+        v.lang.toLowerCase() === 'kan-in' ||
+        v.lang.toLowerCase() === 'kan' ||
+        v.lang.toLowerCase().startsWith('kan-') ||
         v.name.toLowerCase().includes('kannada')
     );
 
@@ -102,7 +105,7 @@ class SpeechService {
       hasKannadaVoice: false,
       voiceName: null,
       statusMessage: this.voicesLoaded
-        ? 'No Kannada voice installed on this device. Kannada speech will be requested via lang="kn-IN" with phonetic fallback.'
+        ? 'No native Kannada voice installed on this device. Use Show-to-Speak mode, phonetic syllables, or add offline audio recordings.'
         : 'Loading browser voices...'
     };
   }
@@ -116,6 +119,9 @@ class SpeechService {
           v.lang.toLowerCase() === 'kn-in' ||
           v.lang.toLowerCase() === 'kn' ||
           v.lang.toLowerCase().startsWith('kn-') ||
+          v.lang.toLowerCase() === 'kan-in' ||
+          v.lang.toLowerCase() === 'kan' ||
+          v.lang.toLowerCase().startsWith('kan-') ||
           v.name.toLowerCase().includes('kannada')
       ) || null
     );

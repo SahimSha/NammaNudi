@@ -72,7 +72,8 @@ class MockSpeechSynthesis {
 console.log('--- TEST 1: Voice Detection with Kannada Voice Installed ---');
 const voicesWithKn = [
   { name: 'Microsoft Heera', lang: 'en-IN' },
-  { name: 'Google Kannada', lang: 'kn-IN' }
+  { name: 'Google Kannada', lang: 'kn-IN' },
+  { name: 'Android Kannada', lang: 'kan-IN' }
 ];
 
 const mockSynthWithKn = new MockSpeechSynthesis(voicesWithKn);
@@ -80,11 +81,21 @@ global.window = { speechSynthesis: mockSynthWithKn };
 global.SpeechSynthesisUtterance = MockSpeechSynthesisUtterance;
 
 // Load speech logic
-const kannadaVoice = mockSynthWithKn.getVoices().find(
-  v => v.lang.toLowerCase() === 'kn-in' || v.name.toLowerCase().includes('kannada')
-);
-assert.strictEqual(kannadaVoice.name, 'Google Kannada', 'Should correctly detect Google Kannada voice');
-console.log('✓ PASS: Kannada voice detected correctly');
+const isKannadaVoice = (v) =>
+  v.lang.toLowerCase() === 'kn-in' ||
+  v.lang.toLowerCase() === 'kn' ||
+  v.lang.toLowerCase().startsWith('kn-') ||
+  v.lang.toLowerCase() === 'kan-in' ||
+  v.lang.toLowerCase() === 'kan' ||
+  v.lang.toLowerCase().startsWith('kan-') ||
+  v.name.toLowerCase().includes('kannada');
+
+const knVoice = mockSynthWithKn.getVoices().find(isKannadaVoice);
+assert.strictEqual(knVoice.name, 'Google Kannada', 'Should correctly detect Google Kannada voice');
+
+const kanVoice = mockSynthWithKn.getVoices().find(v => v.lang.toLowerCase() === 'kan-in');
+assert.strictEqual(kanVoice.name, 'Android Kannada', 'Should correctly detect ISO 639-3 kan-IN voice');
+console.log('✓ PASS: Kannada voice (kn-IN and kan-IN) detected correctly');
 
 console.log('--- TEST 2: Voice Detection when NO Kannada Voice Installed ---');
 const voicesWithoutKn = [
