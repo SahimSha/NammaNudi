@@ -25,7 +25,9 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
     showToast
   } = useApp();
 
-  const { speak, isSpeaking, hasKannadaVoice } = useSpeech();
+  const { speak, stop, isSpeaking } = useSpeech({
+    onErrorNotice: (msg) => showToast(msg, 'warning')
+  });
   const [thisSpeaking, setThisSpeaking] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -44,13 +46,16 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
   const handleSpeak = (e: React.MouseEvent) => {
     e.stopPropagation();
     addRecentPhrase(phrase.id);
-    if (!hasKannadaVoice) {
-      showToast('Kannada audio voice not installed on device. Open details for phonetics!', 'warning');
+    if (thisSpeaking && isSpeaking) {
+      stop();
+      setThisSpeaking(false);
       return;
     }
     setThisSpeaking(true);
-    speak(phrase.kannada, () => {
-      setThisSpeaking(false);
+    speak(phrase.kannada, {
+      onStart: () => setThisSpeaking(true),
+      onEnd: () => setThisSpeaking(false),
+      onError: () => setThisSpeaking(false)
     });
   };
 

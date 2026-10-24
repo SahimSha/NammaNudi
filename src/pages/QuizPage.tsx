@@ -5,6 +5,7 @@ import {
   XCircle,
   RotateCcw,
   Volume2,
+  VolumeX,
   ChevronRight,
   Sparkles,
   HelpCircle,
@@ -18,7 +19,9 @@ import type { QuizQuestion, QuizResult } from '../types';
 
 export const QuizPage: React.FC = () => {
   const { recordQuizResult, progress, setShowToSpeakPhrase, showToast } = useApp();
-  const { speak, hasKannadaVoice } = useSpeech();
+  const { speak, stop, isSpeaking } = useSpeech({
+    onErrorNotice: (msg) => showToast(msg, 'warning')
+  });
 
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -106,6 +109,7 @@ export const QuizPage: React.FC = () => {
   );
 
   const startNewQuiz = (catId: string = selectedCategory) => {
+    stop();
     setSelectedCategory(catId);
     setQuestions(generateQuestions(catId));
     setCurrentQuestionIndex(0);
@@ -143,6 +147,7 @@ export const QuizPage: React.FC = () => {
   };
 
   const handleNextQuestion = () => {
+    stop();
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
       setSelectedOptionId(null);
@@ -276,16 +281,29 @@ export const QuizPage: React.FC = () => {
                 <div className="pt-2">
                   <button
                     onClick={() => {
-                      if (!hasKannadaVoice) {
-                        showToast('Kannada audio voice not installed on device. Refer to transliteration below!', 'warning');
-                        return;
+                      if (isSpeaking) {
+                        stop();
+                      } else {
+                        speak(questionPhrase.kannada);
                       }
-                      speak(questionPhrase.kannada);
                     }}
-                    className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold transition-colors"
+                    className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
+                      isSpeaking
+                        ? 'bg-rose-100 text-rose-800 animate-pulse'
+                        : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
+                    }`}
                   >
-                    <Volume2 className="w-3.5 h-3.5 text-teal-800" />
-                    <span>Pronounce Question</span>
+                    {isSpeaking ? (
+                      <>
+                        <VolumeX className="w-3.5 h-3.5 text-rose-700" />
+                        <span>Stop Audio</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 className="w-3.5 h-3.5 text-teal-800" />
+                        <span>Pronounce Question</span>
+                      </>
+                    )}
                   </button>
                 </div>
               )}

@@ -5,10 +5,33 @@ export interface VoiceStatus {
   statusMessage: string;
 }
 
+export type SpeechErrorReason =
+  | 'language-unavailable'
+  | 'voice-unavailable'
+  | 'synthesis-unavailable'
+  | 'synthesis-failed'
+  | 'not-allowed'
+  | 'audio-busy'
+  | 'interrupted'
+  | 'canceled'
+  | 'immediate-silent-end'
+  | 'unsupported'
+  | 'unknown';
+
+export interface SpeakCallbacks {
+  onStart?: () => void;
+  onEnd?: (wasAudioProduced: boolean) => void;
+  onError?: (reason: SpeechErrorReason, details?: unknown) => void;
+}
+
 class SpeechService {
   private synth: SpeechSynthesis | null = null;
   private listeners: Set<() => void> = new Set();
-  public isVoicesReady: boolean = false;
+  // CRITICAL: Prevent Chromium/Safari garbage collection of active utterances
+  private activeUtterances: Set<SpeechSynthesisUtterance> = new Set();
+  private isSpeakingInternal: boolean = false;
+  private voicesLoaded: boolean = false;
+  private speechStartTime: number = 0;
 
   constructor() {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -20,18 +43,21 @@ class SpeechService {
   private initVoices() {
     if (!this.synth) return;
 
-    const loadVoices = () => {
-      this.isVoicesReady = true;
+    const handleVoicesChanged = () => {
+      this.voicesLoaded = true;
       this.notifyListeners();
     };
 
+    // If voices are already populated
     if (this.synth.getVoices().length > 0) {
-      this.isVoicesReady = true;
+      this.voicesLoaded = true;
     }
 
-    if (typeof window.speechSynthesis.onvoiceschanged !== 'undefined') {
-      window.speechSynthesis.onvoiceschanged = loadVoices;
+    // Attach both standard addEventListener and property assignment for maximum cross-browser support
+    if (typeof this.synth.addEventListener === 'function') {
+      this.synth.addEventListener('voiceschanged', handleVoicesChanged);
     }
+    this.synth.onvoiceschanged = handleVoicesChanged;
   }
 
   public subscribe(listener: () => void) {
@@ -57,7 +83,8 @@ class SpeechService {
     const kannadaVoice = voices.find(
       (v) =>
         v.lang.toLowerCase() === 'kn-in' ||
-        v.lang.toLowerCase().startsWith('kn') ||
+        v.lang.toLowerCase() === 'kn' ||
+        v.lang.toLowerCase().startsWith('kn-') ||
         v.name.toLowerCase().includes('kannada')
     );
 
@@ -66,7 +93,7 @@ class SpeechService {
         supported: true,
         hasKannadaVoice: true,
         voiceName: kannadaVoice.name,
-        statusMessage: `Kannada voice available (${kannadaVoice.name})`
+        statusMessage: `Native Kannada voice ready (${kannadaVoice.name})`
       };
     }
 
@@ -74,7 +101,9 @@ class SpeechService {
       supported: true,
       hasKannadaVoice: false,
       voiceName: null,
-      statusMessage: 'Kannada audio voice is not pre-installed on this device/browser. Use the phonetic pronunciation guide below.'
+      statusMessage: this.voicesLoaded
+        ? 'No Kannada voice installed on this device. Kannada speech will be requested via lang="kn-IN" with phonetic fallback.'
+        : 'Loading browser voices...'
     };
   }
 
@@ -85,67 +114,135 @@ class SpeechService {
       voices.find(
         (v) =>
           v.lang.toLowerCase() === 'kn-in' ||
-          v.lang.toLowerCase().startsWith('kn') ||
+          v.lang.toLowerCase() === 'kn' ||
+          v.lang.toLowerCase().startsWith('kn-') ||
           v.name.toLowerCase().includes('kannada')
       ) || null
     );
   }
 
-  public speak(
-    text: string,
-    callbacks?: {
-      onStart?: () => void;
-      onEnd?: () => void;
-      onError?: (err: unknown) => void;
-    }
-  ): boolean {
-    if (!this.synth) {
-      callbacks?.onError?.('Speech synthesis not supported');
+  public speak(text: string, callbacks?: SpeakCallbacks): boolean {
+    if (!this.synth || typeof SpeechSynthesisUtterance === 'undefined') {
+      callbacks?.onError?.('unsupported');
       return false;
     }
 
-    // Stop any existing speech
-    this.stop();
-
-    const voice = this.getKannadaVoice();
-    const utterance = new SpeechSynthesisUtterance(text);
-
-    if (voice) {
-      utterance.voice = voice;
-      utterance.lang = voice.lang || 'kn-IN';
-    } else {
-      utterance.lang = 'kn-IN';
+    // Workaround for Chromium engine freeze: unpause synthesis if stuck
+    if (this.synth.paused) {
+      try {
+        this.synth.resume();
+      } catch {}
     }
 
-    utterance.rate = 0.85; // slightly slower for language learners to hear clearly
+    // If an utterance is already speaking, cancel it cleanly
+    if (this.isSpeakingInternal || this.synth.speaking) {
+      try {
+        this.synth.cancel();
+      } catch {}
+      this.isSpeakingInternal = false;
+      this.activeUtterances.clear();
+    }
+
+    const kannadaVoice = this.getKannadaVoice();
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    // Retain strong reference to prevent Chromium garbage collection
+    this.activeUtterances.add(utterance);
+
+    // Speak the actual Kannada text in kn-IN language
+    utterance.lang = 'kn-IN';
+    if (kannadaVoice) {
+      utterance.voice = kannadaVoice;
+      utterance.lang = kannadaVoice.lang || 'kn-IN';
+    }
+
+    // Set rate slightly slower (0.85x) for language learner clarity
+    utterance.rate = 0.85;
     utterance.pitch = 1.0;
 
+    let started = false;
+
     utterance.onstart = () => {
+      started = true;
+      this.isSpeakingInternal = true;
+      this.speechStartTime = Date.now();
       callbacks?.onStart?.();
     };
 
-    utterance.onend = () => {
-      callbacks?.onEnd?.();
+    utterance.onend = (event) => {
+      this.activeUtterances.delete(utterance);
+      this.isSpeakingInternal = false;
+
+      const elapsed = Date.now() - this.speechStartTime;
+
+      // Detect immediate silent finish (e.g. OS lacks Kannada voice and immediately dispatches onend in <150ms)
+      if (started && elapsed < 120 && text.trim().length > 3 && !kannadaVoice) {
+        callbacks?.onEnd?.(false);
+        callbacks?.onError?.('immediate-silent-end', { elapsed, event });
+        return;
+      }
+
+      callbacks?.onEnd?.(true);
     };
 
     utterance.onerror = (e) => {
-      callbacks?.onError?.(e);
+      this.activeUtterances.delete(utterance);
+      this.isSpeakingInternal = false;
+
+      const rawError = (e as SpeechSynthesisErrorEvent).error;
+
+      // Handle normal cancellation when user stops or switches phrase
+      if (rawError === 'canceled' || rawError === 'interrupted') {
+        callbacks?.onError?.(rawError, e);
+        return;
+      }
+
+      let reason: SpeechErrorReason = 'unknown';
+      if (
+        rawError === 'language-unavailable' ||
+        rawError === 'voice-unavailable' ||
+        rawError === 'synthesis-unavailable'
+      ) {
+        reason = 'language-unavailable';
+      } else if (rawError === 'not-allowed') {
+        reason = 'not-allowed';
+      } else if (rawError === 'audio-busy') {
+        reason = 'audio-busy';
+      } else if (rawError === 'synthesis-failed') {
+        reason = 'synthesis-failed';
+      }
+
+      callbacks?.onError?.(reason, e);
     };
 
-    this.synth.speak(utterance);
-    return true;
+    try {
+      // Ensure audio pipeline is resumed before dispatching
+      if (typeof this.synth.resume === 'function') {
+        this.synth.resume();
+      }
+      this.synth.speak(utterance);
+      return true;
+    } catch (err) {
+      this.activeUtterances.delete(utterance);
+      this.isSpeakingInternal = false;
+      callbacks?.onError?.('synthesis-failed', err);
+      return false;
+    }
   }
 
   public stop() {
     if (this.synth) {
-      this.synth.cancel();
+      try {
+        this.synth.cancel();
+      } catch {}
     }
+    this.isSpeakingInternal = false;
+    this.activeUtterances.clear();
   }
 
   public isSpeaking(): boolean {
-    return this.synth ? this.synth.speaking : false;
+    return this.isSpeakingInternal || (this.synth ? this.synth.speaking : false);
   }
 }
 
 export const speechService = new SpeechService();
-

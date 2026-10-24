@@ -8,6 +8,7 @@ import {
   Award,
   TrendingUp,
   Volume2,
+  VolumeX,
   Maximize2,
   RefreshCw,
   ChevronRight
@@ -28,7 +29,9 @@ export const HomePage: React.FC = () => {
     showToast
   } = useApp();
 
-  const { speak, isSpeaking, hasKannadaVoice } = useSpeech();
+  const { speak, stop, isSpeaking } = useSpeech({
+    onErrorNotice: (msg) => showToast(msg, 'warning')
+  });
 
   // Search input state on home page
   const [searchInput, setSearchInput] = useState('');
@@ -204,20 +207,30 @@ export const HomePage: React.FC = () => {
             <div className="flex sm:flex-col gap-2 flex-shrink-0">
               <button
                 onClick={() => {
-                  if (!hasKannadaVoice) {
-                    showToast('Kannada voice not installed on device. Use Show-to-Speak mode below!', 'warning');
-                    return;
+                  if (isSpeaking) {
+                    stop();
+                  } else {
+                    speak(dailyPhrase.kannada);
                   }
-                  speak(dailyPhrase.kannada);
                 }}
+                aria-label={isSpeaking ? 'Stop audio' : 'Listen to pronunciation'}
                 className={`flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all ${
                   isSpeaking
                     ? 'bg-rose-600 text-white animate-pulse'
                     : 'bg-teal-800 hover:bg-teal-900 text-white'
                 }`}
               >
-                <Volume2 className="w-4 h-4" />
-                <span>Listen Pronunciation</span>
+                {isSpeaking ? (
+                  <>
+                    <VolumeX className="w-4 h-4" />
+                    <span>Stop Audio</span>
+                  </>
+                ) : (
+                  <>
+                    <Volume2 className="w-4 h-4" />
+                    <span>Listen Pronunciation</span>
+                  </>
+                )}
               </button>
 
               <button

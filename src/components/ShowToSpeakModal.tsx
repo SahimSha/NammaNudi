@@ -25,8 +25,15 @@ export const ShowToSpeakModal: React.FC = () => {
     phrases
   } = useApp();
 
-  const { speak, stop, isSpeaking, hasKannadaVoice } = useSpeech();
+  const { speak, stop, isSpeaking, hasKannadaVoice } = useSpeech({
+    onErrorNotice: (msg) => showToast(msg, 'warning')
+  });
   const [copied, setCopied] = React.useState(false);
+
+  // Stop speech when active phrase changes
+  useEffect(() => {
+    stop();
+  }, [showToSpeakPhrase?.id, stop]);
 
   const currentIndex = showToSpeakPhrase
     ? phrases.findIndex((p) => p.id === showToSpeakPhrase.id)
@@ -82,10 +89,6 @@ export const ShowToSpeakModal: React.FC = () => {
   };
 
   const handleSpeak = () => {
-    if (!hasKannadaVoice) {
-      showToast('No Kannada voice installed on device. Display this card directly or use phonetics below!', 'warning');
-      return;
-    }
     if (isSpeaking) {
       stop();
     } else {

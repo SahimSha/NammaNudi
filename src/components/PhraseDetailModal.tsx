@@ -30,8 +30,15 @@ export const PhraseDetailModal: React.FC = () => {
     phrases
   } = useApp();
 
-  const { speak, stop, isSpeaking, voiceStatus, hasKannadaVoice } = useSpeech();
+  const { speak, stop, isSpeaking, voiceStatus, hasKannadaVoice } = useSpeech({
+    onErrorNotice: (msg) => showToast(msg, 'warning')
+  });
   const [copied, setCopied] = React.useState(false);
+
+  // Stop speech when active phrase changes
+  useEffect(() => {
+    stop();
+  }, [activeDetailPhrase?.id, stop]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -72,10 +79,6 @@ export const PhraseDetailModal: React.FC = () => {
   };
 
   const handleSpeak = () => {
-    if (!hasKannadaVoice) {
-      showToast('Kannada voice not installed on device. Refer to the phonetic breakdown below!', 'warning');
-      return;
-    }
     if (isSpeaking) {
       stop();
     } else {
