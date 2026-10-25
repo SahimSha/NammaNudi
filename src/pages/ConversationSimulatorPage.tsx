@@ -20,7 +20,7 @@ import { useApp } from '../context/AppContext';
 const STORAGE_KEY_CONV_PROGRESS = 'nammanudi_conversations_v1';
 
 export const ConversationSimulatorPage: React.FC = () => {
-  const { showToast } = useApp();
+  const { showToast, completeDailyMissionTask } = useApp();
   const { speak, stop, isSpeaking } = useSpeech({
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
@@ -94,6 +94,7 @@ export const ConversationSimulatorPage: React.FC = () => {
     } else {
       // Completed scenario!
       setIsCompleted(true);
+      completeDailyMissionTask('daily-convo');
       const updated = Array.from(new Set([...completedScenarioIds, activeScenario.id]));
       setCompletedScenarioIds(updated);
       try {

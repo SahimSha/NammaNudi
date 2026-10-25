@@ -11,6 +11,16 @@ export interface Category {
   badgeText: string;
 }
 
+export interface PhraseVariant {
+  id: string;
+  formality: FormalityLevel;
+  kannada: string;
+  transliteration: string;
+  english: string;
+  usageContext: string;
+  isRecommendedDefault?: boolean;
+}
+
 export interface Phrase {
   id: string;
   categoryId: string;
@@ -25,6 +35,7 @@ export interface Phrase {
   literalMeaning?: string;
   needsDialectReview?: boolean;
   needsSpeakerReview?: boolean;
+  variants?: PhraseVariant[];
 }
 
 export interface QuizQuestion {
@@ -66,4 +77,36 @@ export interface UserProgress {
   lastActiveDate: string;
   categoryStats: Record<string, { attempted: number; correct: number }>;
 }
+
+export type DailyTaskId = 'daily-phrase' | 'daily-convo' | 'daily-quiz';
+
+export interface DailyTask {
+  id: DailyTaskId;
+  title: string;
+  kannadaTitle: string;
+  description: string;
+  actionLabel: string;
+  actionUrl: string;
+  isCompleted: boolean;
+  completedAt?: string;
+}
+
+export interface DailyMissionState {
+  date: string; // YYYY-MM-DD
+  tasks: DailyTask[];
+  streakDays: number;
+  lastCompletedDate?: string;
+}
+
+export type SRSReviewRating = 'again' | 'good' | 'easy';
+
+export interface SRSItem {
+  phraseId: string;
+  box: number; // 1 to 5 (Leitner boxes)
+  nextReviewDate: string; // YYYY-MM-DD
+  lastReviewedDate?: string;
+  intervalDays: number;
+  repetitions: number;
+}
+
 

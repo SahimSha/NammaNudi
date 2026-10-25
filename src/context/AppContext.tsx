@@ -1,8 +1,9 @@
 /* oxlint-disable react/only-export-components */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { Phrase, UserProgress, QuizResult } from '../types';
+import type { Phrase, UserProgress, QuizResult, DailyMissionState, DailyTaskId } from '../types';
 import { PHRASES } from '../data/phrases';
+import { loadDailyMissionState, completeDailyTask, initDailyMissionState, saveDailyMissionState } from '../utils/dailyMissions';
 
 interface ToastInfo {
   id: string;
@@ -27,6 +28,10 @@ interface AppContextType {
   progress: UserProgress;
   recordQuizResult: (result: QuizResult) => void;
   resetAllProgress: () => void;
+
+  // Daily Missions
+  dailyMission: DailyMissionState;
+  completeDailyMissionTask: (taskId: DailyTaskId) => void;
 
   // Modals & Show-to-Speak
   showToSpeakPhrase: Phrase | null;
@@ -95,6 +100,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [activeDetailPhrase, setActiveDetailPhrase] = useState<Phrase | null>(null);
   const [practicePhrase, setPracticePhrase] = useState<Phrase | null>(null);
   const [toast, setToast] = useState<ToastInfo | null>(null);
+  const [dailyMission, setDailyMission] = useState<DailyMissionState>(() => loadDailyMissionState());
 
   // Sync favourites to localStorage
   useEffect(() => {
@@ -199,10 +205,25 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   };
 
+  const completeDailyMissionTask = (taskId: DailyTaskId) => {
+    setDailyMission((prev) => {
+      const { updatedState, isFirstCompletion, isMissionAllDone } = completeDailyTask(prev, taskId);
+      if (isMissionAllDone) {
+        showToast('🎉 All Daily Mission tasks completed! Keep your Kannada streak glowing!', 'success');
+      } else if (isFirstCompletion) {
+        showToast('Daily mission task completed! ✨', 'success');
+      }
+      return updatedState;
+    });
+  };
+
   const resetAllProgress = () => {
     setSavedPhraseIds([]);
     setRecentPhraseIds([]);
     setProgress(defaultProgress);
+    const freshMission = initDailyMissionState();
+    setDailyMission(freshMission);
+    saveDailyMissionState(freshMission);
     try {
       localStorage.setItem(STORAGE_KEY_FAVOURITES, JSON.stringify([]));
       localStorage.setItem(STORAGE_KEY_RECENTS, JSON.stringify([]));
@@ -246,6 +267,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         progress,
         recordQuizResult,
         resetAllProgress,
+        dailyMission,
+        completeDailyMissionTask,
         showToSpeakPhrase,
         setShowToSpeakPhrase,
         activeDetailPhrase,

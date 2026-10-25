@@ -20,6 +20,7 @@ import { PHRASES } from '../data/phrases';
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
 import { CategoryIcon } from '../components/CategoryIcon';
+import { DailyMissionCard } from '../components/DailyMissionCard';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ export const HomePage: React.FC = () => {
     setShowToSpeakPhrase,
     setPracticePhrase,
     progress,
-    showToast
+    showToast,
+    completeDailyMissionTask
   } = useApp();
 
   const { speak, stop, isSpeaking } = useSpeech({
@@ -220,6 +222,7 @@ export const HomePage: React.FC = () => {
                     stop();
                   } else {
                     speak(dailyPhrase.kannada, undefined, dailyPhrase.id);
+                    completeDailyMissionTask('daily-phrase');
                   }
                 }}
                 aria-label={isSpeaking ? 'Stop audio' : 'Listen to pronunciation'}
@@ -245,6 +248,7 @@ export const HomePage: React.FC = () => {
               <button
                 onClick={() => {
                   stop();
+                  completeDailyMissionTask('daily-phrase');
                   setPracticePhrase(dailyPhrase);
                 }}
                 className="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl font-bold text-xs bg-emerald-700 hover:bg-emerald-800 text-white transition-colors shadow-sm"
@@ -263,6 +267,11 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* 2.5 Personalized Daily Kannada Mission */}
+      <section>
+        <DailyMissionCard />
       </section>
 
       {/* 3. Situation-Based Categories Grid */}

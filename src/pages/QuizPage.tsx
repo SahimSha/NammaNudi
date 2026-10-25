@@ -18,7 +18,7 @@ import { useSpeech } from '../hooks/useSpeech';
 import type { QuizQuestion, QuizResult } from '../types';
 
 export const QuizPage: React.FC = () => {
-  const { recordQuizResult, progress, setShowToSpeakPhrase, showToast } = useApp();
+  const { recordQuizResult, progress, setShowToSpeakPhrase, showToast, completeDailyMissionTask } = useApp();
   const { speak, stop, isSpeaking } = useSpeech({
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
@@ -155,6 +155,7 @@ export const QuizPage: React.FC = () => {
     } else {
       // Complete Quiz
       setIsQuizCompleted(true);
+      completeDailyMissionTask('daily-quiz');
       const finalScore = userScore;
       recordQuizResult({
         score: finalScore,
