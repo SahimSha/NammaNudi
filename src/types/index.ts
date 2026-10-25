@@ -24,6 +24,7 @@ export interface Phrase {
   tags: string[];
   literalMeaning?: string;
   needsDialectReview?: boolean;
+  needsSpeakerReview?: boolean;
 }
 
 export interface QuizQuestion {

@@ -78,11 +78,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'td-07',
     categoryId: 'travel-directions',
-    kannada: 'ನೇರವಾಗಿ ಹೋಗಿ, ವೃತ್ತದ (ಸರ್ಕಲ್) ಹತ್ತಿರ ನಿಲ್ಲಿ.',
-    transliteration: 'Neraavaagi hogi, vrutthada hathira nilli.',
+    kannada: 'ನೇರವಾಗಿ ಹೋಗಿ, ಸರ್ಕಲ್ ಹತ್ತಿರ ನಿಲ್ಲಿಸಿ.',
+    transliteration: 'Neraavaagi hogi, circle hathira nillisi.',
     english: 'Go straight and stop near the circle / roundabout.',
-    contextNote: 'Bengaluru has many famous "circles" (e.g. Anil Kumble Circle, South End Circle).',
-    pronunciationGuide: 'Ne-raa-vaa-gi ho-gi, vrut-tha-da ha-thi-ra nil-li.',
+    contextNote: 'Bengaluru has many famous "circles" (roundabouts). "Vruttha" is formal Kannada, but "circle" is universally used.',
+    pronunciationGuide: 'Ne-raa-vaa-gi ho-gi, cir-cle ha-thi-ra nil-li-si.',
     formality: 'polite',
     situation: 'Guiding a cab/auto or giving instructions',
     tags: ['straight', 'circle', 'landmark']
@@ -105,19 +105,21 @@ export const PHRASES: Phrase[] = [
     kannada: 'ಇಲ್ಲಿಂದ ನಡ್ಕೊಂಡು ಹೋಗಬಹುದಾ?',
     transliteration: 'Illinda nadkondu hogabahuda?',
     english: 'Can I walk from here?',
-    contextNote: 'Very handy when an auto driver quotes an unreasonable fare for a short distance.',
+    contextNote: 'Very handy when an auto driver quotes an unreasonable fare. "Nadkondu" is colloquial spoken Kannada for "nadedukondu".',
     pronunciationGuide: 'Il-lin-da nad-kon-du ho-ga-ba-hu-daa?',
     formality: 'casual',
     situation: 'Assessing if walking is feasible',
-    tags: ['walk', 'distance', 'short']
+    tags: ['walk', 'distance', 'short'],
+    needsDialectReview: true,
+    needsSpeakerReview: true
   },
   {
     id: 'td-10',
     categoryId: 'travel-directions',
-    kannada: 'ನಕ್ಷೆಯಲ್ಲಿ (ಮ್ಯಾಪ್‌ನಲ್ಲಿ) ತೋರಿಸಬಹುದಾ?',
+    kannada: 'ನಕ್ಷೆಯಲ್ಲಿ ತೋರಿಸಬಹುದಾ?',
     transliteration: 'Naksheyalli thorisabahuda?',
     english: 'Can you show it on the map?',
-    contextNote: 'Show your Google Maps screen when language barrier is high.',
+    contextNote: '"Nakshe" means map. Show your Google Maps screen when language barrier is high.',
     pronunciationGuide: 'Nak-she-yal-li tho-ri-sa-ba-hu-daa?',
     formality: 'polite',
     situation: 'Visual map clarification with a local',
@@ -212,7 +214,7 @@ export const PHRASES: Phrase[] = [
   {
     id: 'pt-08',
     categoryId: 'public-transport',
-    kannada: 'ಚಿಲ್ಲರೆ ಇಲ್ಲ, ಯುಪಿಐ (ಆನ್‌ಲೈನ್) ಮಾಡಬಹುದಾ?',
+    kannada: 'ಚಿಲ್ಲರೆ ಇಲ್ಲ, ಯುಪಿಐ ಮಾಡಬಹುದಾ?',
     transliteration: 'Chillare illa, UPI maadabahuda?',
     english: 'I don’t have change, can I pay via UPI?',
     contextNote: '"Chillare" means loose change / coins. Crucial for BMTC & auto rides.',
@@ -225,10 +227,10 @@ export const PHRASES: Phrase[] = [
     id: 'pt-09',
     categoryId: 'public-transport',
     kannada: 'ಬಸ್ ಎಷ್ಟು ಹೊತ್ತಿಗೆ ಹೊರಡುತ್ತದೆ?',
-    transliteration: 'Bus eshtu hotthige horadutthe?',
+    transliteration: 'Bus eshtu hotthige horaduttade?',
     english: 'What time does the bus leave?',
     contextNote: 'Helpful at KSRTC long-distance bus stands like Shanthinagar or Majestic.',
-    pronunciationGuide: 'Bus esh-tu hot-thi-ge ho-ra-dut-the?',
+    pronunciationGuide: 'Bus esh-tu hot-thi-ge ho-ra-dut-ta-de?',
     formality: 'polite',
     situation: 'Intercity or long-distance bus terminal',
     tags: ['departure', 'ksrtc', 'schedule', 'time']
@@ -239,11 +241,12 @@ export const PHRASES: Phrase[] = [
     kannada: 'ಇಂದಿರಾನಗರಕ್ಕೆ ಎಷ್ಟು ಆಗುತ್ತೆ ಅಣ್ಣಾ?',
     transliteration: 'Indiranagara-kke eshtu aagutthe anna?',
     english: 'How much will it cost to Indiranagar, brother?',
-    contextNote: 'Direct fare inquiry when meter is not being used.',
+    contextNote: 'Direct fare inquiry when meter is not being used. "Aagutthe" is common spoken Bengaluru Kannada for formal "aaguttade".',
     pronunciationGuide: 'In-di-ra-na-ga-rak-ke esh-tu aa-gut-the an-naa?',
     formality: 'polite',
     situation: 'Auto fare inquiry',
-    tags: ['fare', 'cost', 'auto']
+    tags: ['fare', 'cost', 'auto'],
+    needsDialectReview: true
   },
 
   // 3. SHOPPING & MARKETS (shopping-markets)
@@ -262,7 +265,7 @@ export const PHRASES: Phrase[] = [
   {
     id: 'sm-02',
     categoryId: 'shopping-markets',
-    kannada: 'ಸ್ವಲ್ಪ ರಿಯಾಯಿತಿ (ಕಡಿಮೆ) ಮಾಡಿ ಕೊಡಿ.',
+    kannada: 'ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ ಕೊಡಿ.',
     transliteration: 'Swalpa kadime maadi kodi.',
     english: 'Please give some discount / make it a little cheaper.',
     contextNote: '"Kadime maadi kodi" is polite and very common in street markets.',
@@ -322,10 +325,10 @@ export const PHRASES: Phrase[] = [
   {
     id: 'sm-07',
     categoryId: 'shopping-markets',
-    kannada: 'ಸ್ವಲ್ಪ ದೊಡ್ಡ ಗಾತ್ರ (ಸೈಜ್) ತೋರಿಸಿ.',
+    kannada: 'ಸ್ವಲ್ಪ ದೊಡ್ಡ ಸೈಜ್ ತೋರಿಸಿ.',
     transliteration: 'Swalpa dodda size thorisi.',
     english: 'Please show a slightly bigger size.',
-    contextNote: 'Opposite: "Chikka size" (smaller size).',
+    contextNote: 'Opposite: "Chikka size" (smaller size). "Gaathra" is formal Kannada for size.',
     pronunciationGuide: 'Swal-pa dod-da size tho-ri-si.',
     formality: 'polite',
     situation: 'Fitting clothes or shoes',
@@ -421,10 +424,10 @@ export const PHRASES: Phrase[] = [
     id: 'fd-05',
     categoryId: 'food-dining',
     kannada: 'ಬಿಲ್ ತನ್ನಿ, ಕೈ ತೊಳೆಯುವ ಜಾಗ ಎಲ್ಲಿದೆ?',
-    transliteration: 'Bill tanni, kai tholeyuvva jaaga yellide?',
+    transliteration: 'Bill tanni, kai tholeyuva jaaga yellide?',
     english: 'Bring the bill, and where is the handwash area?',
     contextNote: 'Traditional restaurants have a dedicated washbasin corner.',
-    pronunciationGuide: 'Bill tan-ni, kai tho-le-yuv-va jaa-ga yel-li-de?',
+    pronunciationGuide: 'Bill tan-ni, kai tho-le-yu-va jaa-ga yel-li-de?',
     formality: 'polite',
     situation: 'After finishing your meal',
     tags: ['bill', 'handwash', 'checkout']
@@ -432,7 +435,7 @@ export const PHRASES: Phrase[] = [
   {
     id: 'fd-06',
     categoryId: 'food-dining',
-    kannada: 'ಪಾರ್ಸಲ್ (ತಗೊಂಡು ಹೋಗಲು) ಕಟ್ಟಿ ಕೊಡಿ.',
+    kannada: 'ಪಾರ್ಸಲ್ ಕಟ್ಟಿ ಕೊಡಿ.',
     transliteration: 'Parcel katti kodi.',
     english: 'Please pack it for takeaway / parcel.',
     contextNote: '"Katti kodi" literally means "tie/pack and give".',
@@ -456,7 +459,7 @@ export const PHRASES: Phrase[] = [
   {
     id: 'fd-08',
     categoryId: 'food-dining',
-    kannada: 'ಇದು ಸಸ್ಯಾಹಾರ (ವೆಜ್) ಹೋಟೆಲ್ ಅಲ್ವಾ?',
+    kannada: 'ಇದು ಸಸ್ಯಾಹಾರ ಹೋಟೆಲ್ ಅಲ್ವಾ?',
     transliteration: 'Idu sasyaahaara hotel alva?',
     english: 'This is a vegetarian restaurant, right?',
     contextNote: '"Sasyaahaara" means pure vegetarian; "Mamsaahaara" means non-vegetarian.',
@@ -506,10 +509,10 @@ export const PHRASES: Phrase[] = [
   {
     id: 'hc-02',
     categoryId: 'healthcare',
-    kannada: 'ಹತ್ತಿರದ ಔಷಧಿ ಅಂಗಡಿ (ಮೆಡಿಕಲ್ ಶಾಪ್) ಎಲ್ಲಿದೆ?',
+    kannada: 'ಹತ್ತಿರದ ಔಷಧಿ ಅಂಗಡಿ ಎಲ್ಲಿದೆ?',
     transliteration: 'Hatthirada aushadhi angadi yellide?',
     english: 'Where is the nearest medical shop / pharmacy?',
-    contextNote: '"Aushadhi" means medicine; most locals also understand "medical store".',
+    contextNote: '"Aushadhi angadi" means medicine shop; most locals also understand "medical store".',
     pronunciationGuide: 'Hat-thi-ra-da au-sha-dhi an-ga-di yel-li-de?',
     formality: 'polite',
     situation: 'Looking for a pharmacy to purchase drugs',
@@ -590,23 +593,23 @@ export const PHRASES: Phrase[] = [
   {
     id: 'hc-09',
     categoryId: 'healthcare',
-    kannada: 'ಆಸ್ಪತ್ರೆಗೆ ಆಂಬ್ಯುಲೆನ್ಸ್ ಕರೆಯಿರಿ.',
-    transliteration: 'Aaspathrege ambulance kareyiri.',
-    english: 'Please call an ambulance for the hospital.',
-    contextNote: 'National emergency number for ambulance in Karnataka is 108.',
-    pronunciationGuide: 'Aas-path-re-ge am-bu-lance ka-re-yi-ri.',
+    kannada: 'ದಯವಿಟ್ಟು ಆಂಬ್ಯುಲೆನ್ಸ್ ಕರೆಯಿರಿ.',
+    transliteration: 'Dayavittu ambulance kareyiri.',
+    english: 'Please call an ambulance.',
+    contextNote: 'Emergency helpline number for ambulance in Karnataka is 108 or 112.',
+    pronunciationGuide: 'Da-ya-vit-tu am-bu-lance ka-re-yi-ri.',
     formality: 'polite',
     situation: 'Medical emergency',
-    tags: ['ambulance', '108', 'hospital']
+    tags: ['ambulance', '108', '112', 'emergency']
   },
   {
     id: 'hc-10',
     categoryId: 'healthcare',
-    kannada: 'ದಿನಕ್ಕೆ ಎಷ್ಟು ಸಲ ಈ ಮಾತ್ರೆ ತಿನ್ನಬೇಕು?',
-    transliteration: 'Dinakke eshtu sala ee maathre thinnabeku?',
+    kannada: 'ದಿನಕ್ಕೆ ಎಷ್ಟು ಸಲ ಈ ಮಾತ್ರೆ ತಗೋಬೇಕು?',
+    transliteration: 'Dinakke eshtu sala ee maathre thagobeku?',
     english: 'How many times a day should I take this tablet?',
     contextNote: 'Common answer: "Eradu sala" (two times), "Mooru sala" (three times).',
-    pronunciationGuide: 'Di-nak-ke esh-tu sa-la ee maath-re thin-na-be-ku?',
+    pronunciationGuide: 'Di-nak-ke esh-tu sa-la ee maath-re tha-go-be-ku?',
     formality: 'polite',
     situation: 'Confirming tablet schedule with pharmacist',
     tags: ['schedule', 'dosage', 'frequency']
@@ -628,11 +631,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'em-02',
     categoryId: 'emergencies',
-    kannada: 'ಪೊಲೀಸ್ ಠಾಣೆ (ಸ್ಟೇಷನ್) ಎಲ್ಲಿದೆ?',
-    transliteration: 'Police station yellide?',
+    kannada: 'ಪೊಲೀಸ್ ಠಾಣೆ ಎಲ್ಲಿದೆ?',
+    transliteration: 'Police thaane yellide?',
     english: 'Where is the police station?',
-    contextNote: '"Police thaane" is formal Kannada, but "police station" is understood everywhere.',
-    pronunciationGuide: 'Po-lice staa-tion yel-li-de?',
+    contextNote: '"Police thaane" is formal Kannada; "police station" is also widely understood.',
+    pronunciationGuide: 'Po-lice thaa-ne yel-li-de?',
     formality: 'polite',
     situation: 'Reporting incident or theft',
     tags: ['police', 'station', 'report']
@@ -652,11 +655,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'em-04',
     categoryId: 'emergencies',
-    kannada: 'ಇಲ್ಲಿ ಅಪಘಾತ (ಆಕ್ಸಿಡೆಂಟ್) ಆಗಿದೆ.',
-    transliteration: 'Illi accident aagide.',
+    kannada: 'ಇಲ್ಲಿ ಅಪಘಾತ ಆಗಿದೆ.',
+    transliteration: 'Illi apaghaatha aagide.',
     english: 'An accident has happened here.',
-    contextNote: 'Alerting traffic police or emergency responders.',
-    pronunciationGuide: 'Il-li ac-ci-dent aa-gi-de.',
+    contextNote: '"Apaghaatha" means accident. Locals also readily understand "accident".',
+    pronunciationGuide: 'Il-li a-pa-ghaa-tha aa-gi-de.',
     formality: 'casual',
     situation: 'Roadside accident or collision',
     tags: ['accident', 'crash', 'police']
@@ -738,11 +741,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'ed-01',
     categoryId: 'education-campus',
-    kannada: 'ಲೈಬ್ರರಿ (ಗ್ರಂಥಾಲಯ) ಎಷ್ಟು ಗಂಟೆಗೆ ಮುಚ್ಚುತ್ತಾರೆ?',
-    transliteration: 'Library eshtu gantege mucchutthaare?',
+    kannada: 'ಗ್ರಂಥಾಲಯ ಎಷ್ಟು ಗಂಟೆಗೆ ಮುಚ್ಚುತ್ತಾರೆ?',
+    transliteration: 'Granthaalaya eshtu gantege mucchutthaare?',
     english: 'What time does the library close?',
     contextNote: '"Granthaalaya" is formal Kannada; "library" is widely used by students.',
-    pronunciationGuide: 'Li-bra-ry esh-tu gan-te-ge muc-chut-thaa-re?',
+    pronunciationGuide: 'Gran-thaa-la-ya esh-tu gan-te-ge muc-chut-thaa-re?',
     formality: 'polite',
     situation: 'Checking campus library operational hours',
     tags: ['library', 'study', 'hours', 'campus']
@@ -786,11 +789,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'ed-05',
     categoryId: 'education-campus',
-    kannada: 'ಇವತ್ತಿನ ಅಸೈನ್‌ಮೆಂಟ್ ಸಲ್ಲಿಕೆ ಕೊನೆಯ ದಿನ ಯಾವಾಗ?',
-    transliteration: 'Ivatina assignment sallike koneya dina yaavaaga?',
-    english: 'When is the deadline for this assignment?',
-    contextNote: '"Koneya dina" means final / last day.',
-    pronunciationGuide: 'I-vat-ti-na as-sign-ment sal-li-ke ko-ne-ya di-na yaa-vaa-ga?',
+    kannada: 'ಈ ಅಸೈನ್‌ಮೆಂಟ್ ಸಲ್ಲಿಸಲು ಕೊನೆಯ ದಿನಾಂಕ ಯಾವಾಗ?',
+    transliteration: 'Ee assignment sallisalu koneya dinaanka yaavaaga?',
+    english: 'When is the deadline / last date to submit this assignment?',
+    contextNote: '"Koneya dinaanka" means final deadline / last date.',
+    pronunciationGuide: 'Ee as-sign-ment sal-li-sa-lu ko-ne-ya di-naan-ka yaa-vaa-ga?',
     formality: 'polite',
     situation: 'Clarifying academic deadline with peers',
     tags: ['assignment', 'deadline', 'submission']
@@ -834,11 +837,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'ed-09',
     categoryId: 'education-campus',
-    kannada: 'ನನಗೆ ಐಡಿ ಕಾರ್ಡ್ ಕಳೆದುಹೋಗಿದೆ, ಹೊಸದು ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ?',
-    transliteration: 'Nanage ID card kaleduhogide, hosadu yelli sigutthe?',
+    kannada: 'ನನ್ನ ಐಡಿ ಕಾರ್ಡ್ ಕಳೆದುಹೋಗಿದೆ, ಹೊಸದು ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ?',
+    transliteration: 'Nanna ID card kaleduhogide, hosadu yelli sigutthe?',
     english: 'I lost my student ID card, where do I get a new one?',
     contextNote: 'Inquire at administrative block or registrar office.',
-    pronunciationGuide: 'Na-na-ge I-D card ka-le-du-ho-gi-de, ho-sa-du yel-li si-gut-the?',
+    pronunciationGuide: 'Nan-na I-D card ka-le-du-ho-gi-de, ho-sa-du yel-li si-gut-the?',
     formality: 'polite',
     situation: 'Admin desk query',
     tags: ['id card', 'admin', 'student']
@@ -887,20 +890,22 @@ export const PHRASES: Phrase[] = [
     kannada: 'ಊಟಕ್ಕೆ ಹೋಗೋಣ್ವಾ?',
     transliteration: 'Ootakke hogonvaa?',
     english: 'Shall we go for lunch?',
-    contextNote: 'Friendly invitation to office colleagues for cafeteria lunch.',
+    contextNote: 'Friendly invitation to office colleagues for cafeteria lunch. The suffix "-ಣ್ವಾ" (-nvaa) is colloquial Bengaluru spoken Kannada.',
     pronunciationGuide: 'Oo-tak-ke ho-gon-vaa?',
     formality: 'casual',
     situation: 'Lunch break coordination with coworkers',
-    tags: ['lunch', 'oota', 'break', 'team']
+    tags: ['lunch', 'oota', 'break', 'team'],
+    needsDialectReview: true,
+    needsSpeakerReview: true
   },
   {
     id: 'wp-04',
     categoryId: 'workplace',
-    kannada: 'ನಾನು ಒಂದು ದಿನ ರಜೆ (ಲೀವ್) ತೆಗೆದುಕೊಳ್ಳಬಹುದಾ?',
-    transliteration: 'Naanu ondu dina leave thagollabahuda?',
+    kannada: 'ನಾನು ಒಂದು ದಿನ ರಜೆ ತೆಗೆದುಕೊಳ್ಳಬಹುದಾ?',
+    transliteration: 'Naanu ondu dina raje thegedukollabahuda?',
     english: 'Can I take one day of leave?',
-    contextNote: 'Polite request to manager or team lead.',
-    pronunciationGuide: 'Naa-nu on-du di-na leave tha-gol-la-ba-hu-daa?',
+    contextNote: 'Polite request to manager or team lead. "Raje" means leave / holiday.',
+    pronunciationGuide: 'Naa-nu on-du di-na ra-je the-ge-du-kol-la-ba-hu-daa?',
     formality: 'formal',
     situation: 'Requesting casual leave approval',
     tags: ['leave', 'holiday', 'manager', 'approval']
@@ -920,11 +925,11 @@ export const PHRASES: Phrase[] = [
   {
     id: 'wp-06',
     categoryId: 'workplace',
-    kannada: 'ಧನ್ಯವಾದಗಳು, ನಿಮ್ಮ ಸಹಾಯಕ್ಕೆ ತುಂಬಾ ಥ್ಯಾಂಕ್ಸ್.',
-    transliteration: 'Dhanyavaadagalu, nimma sahaayakke thumba thanks.',
-    english: 'Thank you, thank you very much for your help.',
+    kannada: 'ನಿಮ್ಮ ಸಹಾಯಕ್ಕೆ ತುಂಬಾ ಧನ್ಯವಾದಗಳು.',
+    transliteration: 'Nimma sahaayakke thumba dhanyavaadagalu.',
+    english: 'Thank you very much for your help.',
     contextNote: '"Dhanyavaadagalu" is the formal Kannada expression for Thank You.',
-    pronunciationGuide: 'Dhan-ya-vaa-da-ga-lu, nim-ma sa-haa-yak-ke thum-ba thanks.',
+    pronunciationGuide: 'Nim-ma sa-haa-yak-ke thum-ba dhan-ya-vaa-da-ga-lu.',
     formality: 'formal',
     situation: 'Expressing gratitude to peers or support team',
     tags: ['thank you', 'gratitude', 'polite']
@@ -959,11 +964,13 @@ export const PHRASES: Phrase[] = [
     kannada: 'ಟೀ ಬ್ರೇಕ್ ತಗೊಳ್ಳೋಣ್ವಾ?',
     transliteration: 'Tea break thagollonvaa?',
     english: 'Shall we take a quick tea / coffee break?',
-    contextNote: 'Very casual, common team bonding prompt around 4 PM.',
+    contextNote: 'Very casual, common team bonding prompt around 4 PM. Colloquial Bengaluru office usage.',
     pronunciationGuide: 'Tea break tha-gol-lon-vaa?',
     formality: 'casual',
     situation: 'Afternoon refreshments with teammates',
-    tags: ['tea', 'break', 'chai', 'coffee']
+    tags: ['tea', 'break', 'chai', 'coffee'],
+    needsDialectReview: true,
+    needsSpeakerReview: true
   },
   {
     id: 'wp-10',
@@ -1038,7 +1045,8 @@ export const PHRASES: Phrase[] = [
     formality: 'casual',
     situation: 'Asking neighbors about morning waste collection',
     tags: ['garbage', 'bbmp', 'waste', 'morning'],
-    needsDialectReview: true
+    needsDialectReview: true,
+    needsSpeakerReview: true
   },
   {
     id: 'ad-06',
@@ -1124,7 +1132,9 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Kan-na-da swal-pa swal-pa ba-rut-the.',
     formality: 'casual',
     situation: 'Conversing with shopkeepers, drivers, conductors',
-    tags: ['beginner', 'conversation', 'swalpa']
+    tags: ['beginner', 'conversation', 'swalpa'],
+    needsDialectReview: true,
+    needsSpeakerReview: true
   },
   {
     id: 'bs-03',

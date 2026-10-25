@@ -258,6 +258,16 @@ export const PhraseDetailModal: React.FC = () => {
             </div>
           )}
 
+          {/* Speaker review notice if flagged */}
+          {activeDetailPhrase.needsSpeakerReview && (
+            <div className="p-3 rounded-xl bg-orange-50/80 border border-orange-200 text-[11px] text-orange-950 flex items-start space-x-2">
+              <Info className="w-3.5 h-3.5 text-orange-700 flex-shrink-0 mt-0.5" />
+              <span>
+                <strong>Needs Kannada speaker review:</strong> This phrase involves colloquial idioms or localized spoken nuances. Ongoing peer review by native Kannada speakers from across Karnataka is invited.
+              </span>
+            </div>
+          )}
+
           {/* Tags */}
           {activeDetailPhrase.tags && activeDetailPhrase.tags.length > 0 && (
             <div className="flex items-center flex-wrap gap-1.5 pt-1">
