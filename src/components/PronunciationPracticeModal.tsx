@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   X,
   Volume2,
@@ -12,10 +12,15 @@ import {
   HelpCircle,
   AlertCircle,
   ShieldCheck,
+  ShieldAlert,
   CheckCircle2,
+  XCircle,
   ArrowRight,
   Sparkles,
-  Info
+  Info,
+  ChevronDown,
+  ChevronUp,
+  RefreshCw
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
@@ -24,11 +29,7 @@ import { CATEGORIES } from '../data/categories';
 import { hasPrerecordedAudio } from '../data/audioRegistry';
 
 export const PronunciationPracticeModal: React.FC = () => {
-  const {
-    practicePhrase,
-    setPracticePhrase,
-    showToast
-  } = useApp();
+  const { practicePhrase, setPracticePhrase, showToast } = useApp();
 
   const {
     speak,
@@ -50,6 +51,8 @@ export const PronunciationPracticeModal: React.FC = () => {
     playbackProgress,
     errorMessage: recorderError,
     isSupported: isRecordingSupported,
+    diagnostics,
+    refreshDiagnostics,
     startRecording,
     stopRecording,
     playRecording,
@@ -64,6 +67,8 @@ export const PronunciationPracticeModal: React.FC = () => {
       showToast(err, 'warning');
     }
   });
+
+  const [showDiagnostics, setShowDiagnostics] = useState<boolean>(false);
 
   // Clean up all audio and recording when active phrase changes or modal closes
   const handleClose = useCallback(() => {
@@ -98,7 +103,6 @@ export const PronunciationPracticeModal: React.FC = () => {
 
   // Reference audio play/stop
   const handleToggleReferenceAudio = () => {
-    // If user recording playback is active, pause it
     if (isUserPlaying) {
       pauseRecording();
     }
@@ -112,11 +116,9 @@ export const PronunciationPracticeModal: React.FC = () => {
 
   // Start recording voice
   const handleStartRecording = async () => {
-    // If reference speech is playing, stop it first
     if (isReferenceSpeaking) {
       stopReferenceSpeech();
     }
-    // If previous recording is playing, pause it
     if (isUserPlaying) {
       pauseRecording();
     }
@@ -126,7 +128,6 @@ export const PronunciationPracticeModal: React.FC = () => {
 
   // Toggle user recording playback
   const handleToggleUserPlayback = () => {
-    // If reference speech is playing, stop it first
     if (isReferenceSpeaking) {
       stopReferenceSpeech();
     }
@@ -303,23 +304,86 @@ export const PronunciationPracticeModal: React.FC = () => {
             )}
           </div>
 
-          {/* Browser recording not supported notice */}
-          {!isRecordingSupported && (
-            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-2 mb-3">
-              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold">Audio recording is not supported in this browser environment.</p>
-                <p className="text-rose-700 mt-1">Please open NammaNudi in modern Chrome, Edge, Safari, or Firefox to record your pronunciation.</p>
+          {/* UNSUPPORTED CAPABILITY 1: Insecure HTTP Context on Phone/LAN */}
+          {!isRecordingSupported && diagnostics.issue === 'insecure-context' && (
+            <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 text-xs mb-3 space-y-2">
+              <div className="flex items-start gap-2">
+                <ShieldAlert className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-extrabold text-amber-900 text-sm">
+                    Microphone Inactive: Insecure HTTP Connection
+                  </p>
+                  <p className="text-amber-800 mt-1 leading-relaxed">
+                    Your browser is accessing NammaNudi over an insecure local network connection{' '}
+                    <code className="bg-amber-100/80 px-1.5 py-0.5 rounded text-[11px] font-mono">
+                      {diagnostics.protocol}//{diagnostics.hostname}
+                    </code>
+                    . For user security, modern mobile browsers (Android Chrome, Safari, Edge) strictly require a{' '}
+                    <strong>Secure Context (HTTPS or localhost)</strong> to enable microphone capture.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/80 p-3 rounded-xl border border-amber-200/80 text-[11px] text-stone-700 space-y-1.5 mt-2">
+                <p className="font-bold text-amber-950">How to test recording on your phone:</p>
+                <p>
+                  • <strong>Option A (HTTPS):</strong> Access the app via an HTTPS URL (e.g. your deployed Vercel URL or an HTTPS tunnel).
+                </p>
+                <p>
+                  • <strong>Option B (Chrome USB Port Forwarding):</strong> Connect your phone via USB, open{' '}
+                  <code className="bg-stone-100 px-1 py-0.5 rounded">chrome://inspect</code> on your PC, forward port 5173, and browse to{' '}
+                  <code className="bg-stone-100 px-1 py-0.5 rounded">http://localhost:5173</code> (localhost is always a secure context).
+                </p>
+                <p>
+                  • <strong>Option C (Android Chrome Flag):</strong> In Chrome on your phone, open{' '}
+                  <code className="bg-stone-100 px-1 py-0.5 rounded">chrome://flags/#unsafely-treat-insecure-origin-as-secure</code>, add this exact URL, enable it, and restart Chrome.
+                </p>
               </div>
             </div>
           )}
 
-          {/* Error message / Permission denied banner */}
+          {/* UNSUPPORTED CAPABILITY 2: Missing getUserMedia (e.g. In-App WebViews) */}
+          {!isRecordingSupported && diagnostics.issue === 'missing-getusermedia' && (
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-2 mb-3">
+              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-rose-900">Microphone Capture Unavailable</p>
+                <p className="text-rose-700 mt-1 leading-relaxed">
+                  {diagnostics.reasonMessage || 'The media capture API is not available in this browser window.'}
+                </p>
+                {diagnostics.remedyMessage && (
+                  <p className="text-[11px] font-semibold text-rose-900 mt-1.5 bg-white/70 p-2 rounded-lg border border-rose-200">
+                    💡 {diagnostics.remedyMessage}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* UNSUPPORTED CAPABILITY 3: Missing MediaRecorder API */}
+          {!isRecordingSupported && diagnostics.issue === 'missing-mediarecorder' && (
+            <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-2 mb-3">
+              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-rose-900">Audio Recording (MediaRecorder) Not Supported</p>
+                <p className="text-rose-700 mt-1 leading-relaxed">
+                  {diagnostics.reasonMessage || 'Your browser version does not support window.MediaRecorder.'}
+                </p>
+                {diagnostics.remedyMessage && (
+                  <p className="text-[11px] font-semibold text-rose-900 mt-1.5 bg-white/70 p-2 rounded-lg border border-rose-200">
+                    💡 {diagnostics.remedyMessage}
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Generic runtime recording error (permission rejection, hardware error) */}
           {recorderError && (
             <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs flex items-start gap-2 mb-3">
               <AlertCircle className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold">Microphone Note</p>
+                <p className="font-bold">Microphone Status</p>
                 <p className="mt-0.5">{recorderError}</p>
                 <p className="text-[11px] text-amber-800 mt-1">
                   💡 If prompted by your browser, tap <strong>Allow</strong> on the microphone permission popup.
@@ -477,20 +541,148 @@ export const PronunciationPracticeModal: React.FC = () => {
                 <ul className="space-y-1.5 text-xs leading-relaxed text-stone-700 pl-1">
                   <li className="flex items-start gap-1.5">
                     <span className="text-amber-800 font-bold">•</span>
-                    <span><strong>Vowel lengths:</strong> Did you hold long syllables (e.g. <em>aa</em>, <em>ee</em>, <em>oo</em>) as indicated in the phonetic guide?</span>
+                    <span>
+                      <strong>Vowel lengths:</strong> Did you hold long syllables (e.g. <em>aa</em>, <em>ee</em>, <em>oo</em>) as indicated in the phonetic guide?
+                    </span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-amber-800 font-bold">•</span>
-                    <span><strong>Rhythm & cadence:</strong> Did you pause naturally without rushing the ending?</span>
+                    <span>
+                      <strong>Rhythm & cadence:</strong> Did you pause naturally without rushing the ending?
+                    </span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <span className="text-amber-800 font-bold">•</span>
-                    <span><strong>Politeness:</strong> Ensure polite suffixes like <em>-ri</em> (ಬನ್ನಿ / banni, ಕೊಡಿ / kodi) sound natural and gentle.</span>
+                    <span>
+                      <strong>Politeness:</strong> Ensure polite suffixes like <em>-ri</em> (ಬನ್ನಿ / banni, ಕೊಡಿ / kodi) sound natural and gentle.
+                    </span>
                   </li>
                 </ul>
               </div>
             </div>
           )}
+
+          {/* Expandable Technical Diagnostics Toggle */}
+          <div className="mt-4 pt-3 border-t border-stone-100">
+            <button
+              onClick={() => setShowDiagnostics((prev) => !prev)}
+              className="flex items-center justify-between w-full text-[11px] font-semibold text-stone-500 hover:text-stone-800 transition-colors py-1"
+            >
+              <span className="flex items-center gap-1.5">
+                <RefreshCw className="w-3 h-3 text-stone-400" />
+                <span>Device Audio Capabilities & Diagnostics</span>
+              </span>
+              {showDiagnostics ? (
+                <ChevronUp className="w-3.5 h-3.5 text-stone-400" />
+              ) : (
+                <ChevronDown className="w-3.5 h-3.5 text-stone-400" />
+              )}
+            </button>
+
+            {showDiagnostics && (
+              <div className="mt-2.5 p-3 rounded-xl bg-stone-50 border border-stone-200/80 text-[11px] space-y-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-stone-100">
+                    <span className="text-stone-500">Secure Context:</span>
+                    <span className="font-semibold flex items-center gap-1">
+                      {diagnostics.isSecureContext ? (
+                        <>
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          <span className="text-emerald-700">Yes</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="w-3 h-3 text-amber-600" />
+                          <span className="text-amber-700">No (HTTP)</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-stone-100">
+                    <span className="text-stone-500">MediaDevices:</span>
+                    <span className="font-semibold flex items-center gap-1">
+                      {diagnostics.hasMediaDevices ? (
+                        <>
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          <span className="text-emerald-700">Available</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="w-3 h-3 text-stone-400" />
+                          <span className="text-stone-500">Missing</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-stone-100">
+                    <span className="text-stone-500">getUserMedia:</span>
+                    <span className="font-semibold flex items-center gap-1">
+                      {diagnostics.hasGetUserMedia ? (
+                        <>
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          <span className="text-emerald-700">Available</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="w-3 h-3 text-stone-400" />
+                          <span className="text-stone-500">Missing</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-stone-100">
+                    <span className="text-stone-500">MediaRecorder:</span>
+                    <span className="font-semibold flex items-center gap-1">
+                      {diagnostics.hasMediaRecorder ? (
+                        <>
+                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                          <span className="text-emerald-700">Available</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="w-3 h-3 text-stone-400" />
+                          <span className="text-stone-500">Missing</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-white p-2.5 rounded-lg border border-stone-100 space-y-1">
+                  <div className="flex items-center justify-between text-stone-500">
+                    <span>Host / Protocol:</span>
+                    <span className="font-mono text-stone-700">
+                      {diagnostics.protocol}//{diagnostics.hostname || 'localhost'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-stone-500">
+                    <span>Audio Codecs:</span>
+                    <span className="font-mono text-stone-700 text-[10px]">
+                      {diagnostics.supportedMimeTypes.length > 0
+                        ? diagnostics.supportedMimeTypes.slice(0, 2).join(', ')
+                        : 'Native container fallback'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={() => {
+                      refreshDiagnostics();
+                      showToast('Audio capabilities refreshed', 'info');
+                    }}
+                    className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-stone-200/70 hover:bg-stone-300/80 text-stone-700 font-bold text-[10px] transition-colors"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    <span>Re-check Capabilities</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Privacy & Hardware Safety Guarantee */}

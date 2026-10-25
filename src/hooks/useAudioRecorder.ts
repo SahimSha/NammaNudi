@@ -2,6 +2,27 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 
 export type RecordingStatus = 'idle' | 'recording' | 'recorded' | 'playing';
 
+export type CapabilityIssue =
+  | 'insecure-context'
+  | 'missing-getusermedia'
+  | 'missing-mediarecorder'
+  | 'no-supported-mimetype'
+  | null;
+
+export interface AudioCapabilityDiagnostics {
+  isSecureContext: boolean;
+  hasMediaDevices: boolean;
+  hasGetUserMedia: boolean;
+  hasMediaRecorder: boolean;
+  hasMimeTypeCheck: boolean;
+  supportedMimeTypes: string[];
+  protocol: string;
+  hostname: string;
+  issue: CapabilityIssue;
+  reasonMessage: string | null;
+  remedyMessage: string | null;
+}
+
 export interface UseAudioRecorderOptions {
   maxDurationSeconds?: number;
   onMaxDurationReached?: () => void;
@@ -20,11 +41,216 @@ export interface UseAudioRecorderReturn {
   audioUrl: string | null;
   errorMessage: string | null;
   isSupported: boolean;
+  diagnostics: AudioCapabilityDiagnostics;
+  refreshDiagnostics: () => AudioCapabilityDiagnostics;
   startRecording: () => Promise<boolean>;
   stopRecording: () => void;
   playRecording: () => void;
   pauseRecording: () => void;
   resetRecording: () => void;
+}
+
+/**
+ * Inspects all browser audio recording capabilities independently.
+ * Distinguishes insecure origins (HTTP over LAN), missing getUserMedia,
+ * unsupported MediaRecorder, and MIME support.
+ */
+export function detectAudioCapabilities(): AudioCapabilityDiagnostics {
+  if (typeof window === 'undefined') {
+    return {
+      isSecureContext: false,
+      hasMediaDevices: false,
+      hasGetUserMedia: false,
+      hasMediaRecorder: false,
+      hasMimeTypeCheck: false,
+      supportedMimeTypes: [],
+      protocol: '',
+      hostname: '',
+      issue: 'missing-getusermedia',
+      reasonMessage: 'SSR or non-browser environment detected.',
+      remedyMessage: null
+    };
+  }
+
+  const protocol = window.location?.protocol || '';
+  const hostname = window.location?.hostname || '';
+
+  // W3C Secure Context check: https: or localhost/127.0.0.1
+  const isSecure =
+    typeof window.isSecureContext === 'boolean'
+      ? window.isSecureContext
+      : protocol === 'https:' ||
+        hostname === 'localhost' ||
+        hostname === '127.0.0.1' ||
+        hostname === '[::1]';
+
+  const hasMediaDevices = typeof navigator !== 'undefined' && !!navigator.mediaDevices;
+  const hasStandardGetUserMedia = !!(hasMediaDevices && navigator.mediaDevices.getUserMedia);
+  const hasLegacyGetUserMedia =
+    typeof navigator !== 'undefined' &&
+    !!(
+      (navigator as unknown as { getUserMedia?: unknown }).getUserMedia ||
+      (navigator as unknown as { webkitGetUserMedia?: unknown }).webkitGetUserMedia ||
+      (navigator as unknown as { mozGetUserMedia?: unknown }).mozGetUserMedia
+    );
+  const hasGetUserMedia = hasStandardGetUserMedia || hasLegacyGetUserMedia;
+
+  const hasMediaRecorder = typeof window !== 'undefined' && typeof window.MediaRecorder !== 'undefined';
+  const hasMimeTypeCheck = hasMediaRecorder && typeof MediaRecorder.isTypeSupported === 'function';
+
+  const candidateTypes = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/mp4',
+    'audio/aac',
+    'audio/ogg;codecs=opus',
+    'audio/wav'
+  ];
+
+  const supportedMimeTypes: string[] = [];
+  if (hasMimeTypeCheck) {
+    for (const type of candidateTypes) {
+      try {
+        if (MediaRecorder.isTypeSupported(type)) {
+          supportedMimeTypes.push(type);
+        }
+      } catch {
+        // Ignore candidate probe errors on browsers that throw on specific codecs
+      }
+    }
+  }
+
+  let issue: CapabilityIssue = null;
+  let reasonMessage: string | null = null;
+  let remedyMessage: string | null = null;
+
+  // Evaluate the root cause in order of prerequisite
+  if (!isSecure && !hasGetUserMedia) {
+    issue = 'insecure-context';
+    reasonMessage = `Insecure Origin (${protocol}//${hostname}): Modern mobile browsers strictly disable microphone access over insecure HTTP connections.`;
+    remedyMessage =
+      'Mobile browsers require HTTPS or localhost for microphone capture. Use HTTPS (e.g. Vercel deployment or HTTPS tunnel) or Chrome USB Port Forwarding.';
+  } else if (!hasGetUserMedia) {
+    issue = 'missing-getusermedia';
+    reasonMessage = 'Microphone API (getUserMedia) is not exposed by this browser or in-app webview.';
+    remedyMessage =
+      'If using an in-app browser (e.g. WhatsApp, Instagram, LinkedIn), tap menu and choose "Open in Chrome" or "Open in Safari".';
+  } else if (!hasMediaRecorder) {
+    issue = 'missing-mediarecorder';
+    reasonMessage = 'Audio recording API (window.MediaRecorder) is not supported in this browser version.';
+    remedyMessage =
+      'Please update your browser or open NammaNudi in modern Google Chrome, Safari 14.3+, Microsoft Edge, or Mozilla Firefox.';
+  }
+
+  return {
+    isSecureContext: isSecure,
+    hasMediaDevices,
+    hasGetUserMedia,
+    hasMediaRecorder,
+    hasMimeTypeCheck,
+    supportedMimeTypes,
+    protocol,
+    hostname,
+    issue,
+    reasonMessage,
+    remedyMessage
+  };
+}
+
+/**
+ * Requests an audio MediaStream using standard navigator.mediaDevices.getUserMedia,
+ * with graceful fallback to legacy vendor-prefixed getUserMedia implementations.
+ */
+async function requestAudioStream(): Promise<MediaStream> {
+  // Standard modern API
+  if (
+    typeof navigator !== 'undefined' &&
+    navigator.mediaDevices &&
+    typeof navigator.mediaDevices.getUserMedia === 'function'
+  ) {
+    return navigator.mediaDevices.getUserMedia({
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        autoGainControl: true
+      }
+    });
+  }
+
+  // Legacy vendor-prefixed fallbacks for older Android/iOS WebViews
+  const nav = navigator as unknown as {
+    getUserMedia?: (
+      constraints: MediaStreamConstraints,
+      success: (stream: MediaStream) => void,
+      error: (error: unknown) => void
+    ) => void;
+    webkitGetUserMedia?: (
+      constraints: MediaStreamConstraints,
+      success: (stream: MediaStream) => void,
+      error: (error: unknown) => void
+    ) => void;
+    mozGetUserMedia?: (
+      constraints: MediaStreamConstraints,
+      success: (stream: MediaStream) => void,
+      error: (error: unknown) => void
+    ) => void;
+  };
+
+  const legacyGetUserMedia = nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia;
+  if (typeof legacyGetUserMedia === 'function') {
+    return new Promise<MediaStream>((resolve, reject) => {
+      legacyGetUserMedia.call(
+        navigator,
+        { audio: true },
+        (stream) => resolve(stream),
+        (err) => reject(err)
+      );
+    });
+  }
+
+  throw new DOMException('getUserMedia is not supported on this browser or origin', 'NotSupportedError');
+}
+
+/**
+ * Safely constructs a MediaRecorder, selecting the best supported MIME type
+ * or falling back to default options if specific MIME types are rejected.
+ */
+function createSafeMediaRecorder(stream: MediaStream): { recorder: MediaRecorder; mimeType?: string } {
+  const candidateTypes = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/mp4',
+    'audio/aac',
+    'audio/ogg;codecs=opus',
+    'audio/wav'
+  ];
+
+  let selectedMime: string | undefined = undefined;
+  if (typeof MediaRecorder.isTypeSupported === 'function') {
+    for (const type of candidateTypes) {
+      try {
+        if (MediaRecorder.isTypeSupported(type)) {
+          selectedMime = type;
+          break;
+        }
+      } catch {
+        // continue
+      }
+    }
+  }
+
+  if (selectedMime) {
+    try {
+      const recorder = new MediaRecorder(stream, { mimeType: selectedMime });
+      return { recorder, mimeType: selectedMime };
+    } catch (err) {
+      console.warn(`MediaRecorder init with '${selectedMime}' failed, attempting default:`, err);
+    }
+  }
+
+  // Native container fallback (e.g. MP4 on iOS or WebM on Android)
+  const defaultRecorder = new MediaRecorder(stream);
+  return { recorder: defaultRecorder, mimeType: defaultRecorder.mimeType || undefined };
 }
 
 /**
@@ -41,6 +267,9 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [diagnostics, setDiagnostics] = useState<AudioCapabilityDiagnostics>(() =>
+    detectAudioCapabilities()
+  );
 
   // References to browser APIs and hardware resources
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -61,11 +290,16 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
     audioUrlRef.current = audioUrl;
   }, [audioUrl]);
 
-  // Check if browser supports recording
+  // Function to refresh diagnostics
+  const refreshDiagnostics = useCallback(() => {
+    const updated = detectAudioCapabilities();
+    setDiagnostics(updated);
+    return updated;
+  }, []);
+
+  // isSupported is true when required APIs are available and no blocking issue exists
   const isSupported =
-    typeof window !== 'undefined' &&
-    !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) &&
-    typeof window.MediaRecorder !== 'undefined';
+    diagnostics.hasGetUserMedia && diagnostics.hasMediaRecorder && diagnostics.issue === null;
 
   // Helper to release microphone hardware tracks immediately
   const releaseStreamTracks = useCallback(() => {
@@ -118,30 +352,23 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
     }
   }, []);
 
-  // Determine the best supported audio MIME type
-  const getSupportedMimeType = (): string | undefined => {
-    if (typeof MediaRecorder === 'undefined' || !MediaRecorder.isTypeSupported) {
-      return undefined;
-    }
-    const candidateTypes = [
-      'audio/webm;codecs=opus',
-      'audio/webm',
-      'audio/mp4',
-      'audio/aac',
-      'audio/ogg;codecs=opus'
-    ];
-    for (const type of candidateTypes) {
-      if (MediaRecorder.isTypeSupported(type)) {
-        return type;
-      }
-    }
-    return undefined;
-  };
-
   // Start recording
   const startRecording = useCallback(async (): Promise<boolean> => {
-    if (!isSupported) {
-      const msg = 'Audio recording is not supported in this browser. Please use Chrome, Edge, Safari, or Firefox.';
+    const currentDiag = detectAudioCapabilities();
+    setDiagnostics(currentDiag);
+
+    if (currentDiag.issue === 'insecure-context') {
+      const msg =
+        'Microphone access blocked: Page is served over insecure HTTP. Mobile browsers strictly require HTTPS or localhost.';
+      setErrorMessage(msg);
+      optionsRef.current.onError?.(msg);
+      return false;
+    }
+
+    if (!currentDiag.hasGetUserMedia || !currentDiag.hasMediaRecorder) {
+      const msg =
+        currentDiag.reasonMessage ||
+        'Audio recording is not supported in this browser. Please use Chrome, Edge, Safari, or Firefox.';
       setErrorMessage(msg);
       optionsRef.current.onError?.(msg);
       return false;
@@ -161,19 +388,10 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
 
     try {
       // Explicitly request microphone access only upon user interaction
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          echoCancellation: true,
-          noiseSuppression: true,
-          autoGainControl: true
-        }
-      });
-
+      const stream = await requestAudioStream();
       mediaStreamRef.current = stream;
 
-      const mimeType = getSupportedMimeType();
-      const recorderOptions: MediaRecorderOptions = mimeType ? { mimeType } : {};
-      const recorder = new MediaRecorder(stream, recorderOptions);
+      const { recorder, mimeType } = createSafeMediaRecorder(stream);
       mediaRecorderRef.current = recorder;
 
       recorder.ondataavailable = (event: BlobEvent) => {
@@ -243,11 +461,16 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
       if (err instanceof DOMException || (err as { name?: string }).name) {
         const errorName = (err as { name: string }).name;
         if (errorName === 'NotAllowedError' || errorName === 'PermissionDeniedError') {
-          userMsg = 'Microphone permission was denied. Please allow microphone access in your browser address bar to practise pronunciation.';
+          userMsg =
+            'Microphone permission was denied. Please allow microphone access in your browser address bar to practise pronunciation.';
         } else if (errorName === 'NotFoundError' || errorName === 'DevicesNotFoundError') {
           userMsg = 'No microphone was detected on this device. Please connect a microphone or headset.';
         } else if (errorName === 'NotReadableError' || errorName === 'TrackStartError') {
-          userMsg = 'Your microphone is currently in use by another application. Please free it and try again.';
+          userMsg =
+            'Your microphone is currently in use by another application. Please free it and try again.';
+        } else if (errorName === 'SecurityError') {
+          userMsg =
+            'Microphone access blocked due to security restrictions (Insecure HTTP context). Microphone capture requires HTTPS or localhost.';
         }
       }
 
@@ -256,7 +479,6 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
       return false;
     }
   }, [
-    isSupported,
     cleanupAudioPlayer,
     clearRecordingTimer,
     releaseStreamTracks,
@@ -375,6 +597,8 @@ export function useAudioRecorder(options: UseAudioRecorderOptions = {}): UseAudi
     audioUrl,
     errorMessage,
     isSupported,
+    diagnostics,
+    refreshDiagnostics,
     startRecording,
     stopRecording,
     playRecording,
