@@ -9,6 +9,6 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    allowedHosts: ['hip-areas-clap.loca.lt'],
+    allowedHosts: ['.loca.lt'],
   },
 })
