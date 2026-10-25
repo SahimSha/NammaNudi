@@ -9,6 +9,7 @@ import {
   TrendingUp,
   Volume2,
   VolumeX,
+  Mic,
   Maximize2,
   RefreshCw,
   ChevronRight
@@ -25,6 +26,7 @@ export const HomePage: React.FC = () => {
     savedPhraseIds,
     getPhraseById,
     setShowToSpeakPhrase,
+    setPracticePhrase,
     progress,
     showToast
   } = useApp();
@@ -240,6 +242,17 @@ export const HomePage: React.FC = () => {
               </button>
 
               <button
+                onClick={() => {
+                  stop();
+                  setPracticePhrase(dailyPhrase);
+                }}
+                className="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl font-bold text-xs bg-emerald-700 hover:bg-emerald-800 text-white transition-colors shadow-sm"
+              >
+                <Mic className="w-4 h-4 text-amber-300" />
+                <span>Practise Voice</span>
+              </button>
+
+              <button
                 onClick={() => setShowToSpeakPhrase(dailyPhrase)}
                 className="flex items-center justify-center space-x-1.5 px-4 py-2.5 rounded-xl font-bold text-xs bg-amber-400 hover:bg-amber-500 text-teal-950 transition-colors shadow-sm"
               >
@@ -357,7 +370,16 @@ export const HomePage: React.FC = () => {
                 <div
                   key={phrase.id}
                   onClick={() => setShowToSpeakPhrase(phrase)}
-                  className="p-3.5 rounded-xl bg-stone-50 hover:bg-teal-50/50 border border-stone-200/60 cursor-pointer transition-colors flex items-center justify-between"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setShowToSpeakPhrase(phrase);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`View ${phrase.kannada} in Show-to-Speak mode`}
+                  className="p-3.5 rounded-xl bg-stone-50 hover:bg-teal-50/50 border border-stone-200/60 cursor-pointer transition-colors flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-teal-700"
                 >
                   <div className="min-w-0 pr-3">
                     <p className="font-kannada text-base font-bold text-teal-950 truncate">

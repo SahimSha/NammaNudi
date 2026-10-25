@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Wifi,
   Volume2,
+  Mic,
   Heart,
   BookOpen
 } from 'lucide-react';
@@ -100,6 +101,29 @@ export const AboutPage: React.FC = () => {
           </p>
           <p>
             • <em>Tip for Android users:</em> Ensure Google Text-to-Speech has the Kannada language pack downloaded under Settings → Accessibility → Text-to-speech output.
+          </p>
+        </div>
+      </div>
+
+      {/* Pronunciation Practice & In-Browser Voice Recording */}
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
+        <h2 className="text-lg font-bold text-stone-900 flex items-center space-x-2">
+          <Mic className="w-5 h-5 text-teal-800" />
+          <span>Pronunciation Practice & In-Browser Voice Recording</span>
+        </h2>
+
+        <div className="space-y-2 text-xs sm:text-sm text-stone-600 leading-relaxed">
+          <p>
+            • <strong>Pedagogical Cycle:</strong> NammaNudi empowers learners to practice speaking aloud via a structured cycle: <em>Listen Reference → Understand Phonetics → Repeat Aloud → Record Voice → Replay & Compare</em>.
+          </p>
+          <p>
+            • <strong>100% In-Memory Privacy:</strong> Your voice recording is held exclusively in temporary browser RAM (as an in-memory Blob) for immediate self-comparison. Audio is <strong>never uploaded to any server</strong>, stored permanently, or tracked.
+          </p>
+          <p>
+            • <strong>Immediate Hardware Release:</strong> The browser's media stream audio tracks are stopped immediately when you stop recording, cancel, or close the modal, turning off your microphone hardware indicator right away.
+          </p>
+          <p>
+            • <strong>Honest Self-Assessment:</strong> Rather than pretending to use unreliable AI grading, NammaNudi provides clear, authentic linguistic criteria (vowel lengths, natural pauses, respectful suffixes like <em>-ri</em> and <em>-banni</em>) alongside a side-by-side comparison player.
           </p>
         </div>
       </div>

@@ -103,6 +103,14 @@ Every phrase includes Kannada Unicode script, English translation, Roman transli
 - **100% on-device:** Persisted in browser `localStorage`. No accounts, tracking, or cloud sync needed.
 - Complete user control with a "Reset Progress" option.
 
+### 7. Pronunciation Practice / Repeat-After-Me Mode
+- **Six-Step Pedagogical Flow:** *Listen → Understand → Repeat → Record → Replay → Practise Again*.
+- **In-Memory Audio Capture:** Powered by the HTML5 `MediaRecorder` API with dynamic MIME type negotiation (`audio/webm;codecs=opus`, `audio/mp4`, `audio/aac`).
+- **100% In-Browser Privacy:** Recorded voice is kept strictly in temporary device RAM as an in-memory Blob. Audio is **never uploaded** to any server or cloud.
+- **Immediate Hardware Release:** MediaStream tracks are explicitly stopped immediately when recording finishes, cleanly turning off device microphone indicator lights.
+- **Side-by-Side Self-Assessment:** Allows immediate alternating playback between the authentic reference pronunciation and the learner's recorded voice with honest linguistic checkpoints (vowel length, rhythm, polite endings).
+- **Device Capability Diagnostics:** Built-in capability inspector clearly reports Secure Context, `getUserMedia`, `MediaRecorder`, and audio codecs on mobile and desktop.
+
 ---
 
 ## 🛠️ Technology Stack
