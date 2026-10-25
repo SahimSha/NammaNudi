@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, Bookmark, Award, HelpCircle, Wifi, WifiOff, BookOpen } from 'lucide-react';
+import { Search, Bookmark, Award, HelpCircle, Wifi, WifiOff, BookOpen, MessageSquare } from 'lucide-react';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 import { useApp } from '../context/AppContext';
 
@@ -11,6 +11,7 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { path: '/phrasebook', label: 'Phrasebook', icon: BookOpen },
+    { path: '/conversations', label: 'Conversations', icon: MessageSquare },
     { path: '/quiz', label: 'Practice Quiz', icon: Award },
     { path: '/saved', label: 'Saved', icon: Bookmark, badge: savedPhraseIds.length },
     { path: '/progress', label: 'Progress', icon: Award },

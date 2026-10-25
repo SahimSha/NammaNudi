@@ -13,6 +13,7 @@ import { SearchPage } from './pages/SearchPage';
 import { QuizPage } from './pages/QuizPage';
 import { SavedPage } from './pages/SavedPage';
 import { ProgressPage } from './pages/ProgressPage';
+import { ConversationSimulatorPage } from './pages/ConversationSimulatorPage';
 import { AboutPage } from './pages/AboutPage';
 
 export function App() {
@@ -31,6 +32,7 @@ export function App() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/quiz" element={<QuizPage />} />
               <Route path="/saved" element={<SavedPage />} />
+              <Route path="/conversations" element={<ConversationSimulatorPage />} />
               <Route path="/progress" element={<ProgressPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />

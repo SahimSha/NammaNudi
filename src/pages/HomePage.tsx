@@ -11,6 +11,7 @@ import {
   VolumeX,
   Mic,
   Maximize2,
+  MessageSquare,
   RefreshCw,
   ChevronRight
 } from 'lucide-react';
@@ -341,6 +342,30 @@ export const HomePage: React.FC = () => {
           className="flex-shrink-0 px-6 py-3.5 bg-teal-950 hover:bg-teal-900 text-amber-200 rounded-2xl font-bold text-sm shadow-lg flex items-center space-x-2 transition-transform hover:scale-105"
         >
           <span>Start Practice Quiz</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </section>
+
+      {/* Real-Life Conversation Simulator Banner */}
+      <section className="bg-gradient-to-r from-teal-900 via-teal-950 to-stone-900 rounded-3xl p-6 sm:p-8 text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-6 border border-teal-800/50">
+        <div className="space-y-2 max-w-xl">
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 font-bold text-xs uppercase tracking-wider border border-amber-300/30">
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Interactive Dialogue Simulator</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
+            Practise Real-Life Karnataka Dialogues
+          </h2>
+          <p className="text-sm font-medium text-teal-100/80 leading-relaxed">
+            Order food at Darshini hotels, hail an auto by meter, navigate BMTC buses, and negotiate at KR Market in step-by-step roleplay with cultural feedback.
+          </p>
+        </div>
+
+        <Link
+          to="/conversations"
+          className="flex-shrink-0 px-6 py-3.5 bg-amber-400 hover:bg-amber-500 text-teal-950 rounded-2xl font-bold text-sm shadow-lg flex items-center space-x-2 transition-transform hover:scale-105"
+        >
+          <span>Start Conversation</span>
           <ArrowRight className="w-4 h-4" />
         </Link>
       </section>
