@@ -33,6 +33,8 @@ interface AppContextType {
   setShowToSpeakPhrase: (phrase: Phrase | null) => void;
   activeDetailPhrase: Phrase | null;
   setActiveDetailPhrase: (phrase: Phrase | null) => void;
+  practicePhrase: Phrase | null;
+  setPracticePhrase: (phrase: Phrase | null) => void;
   openNextPhrase: () => void;
   openPrevPhrase: () => void;
 
@@ -91,6 +93,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
 
   const [showToSpeakPhrase, setShowToSpeakPhrase] = useState<Phrase | null>(null);
   const [activeDetailPhrase, setActiveDetailPhrase] = useState<Phrase | null>(null);
+  const [practicePhrase, setPracticePhrase] = useState<Phrase | null>(null);
   const [toast, setToast] = useState<ToastInfo | null>(null);
 
   // Sync favourites to localStorage
@@ -247,6 +250,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setShowToSpeakPhrase,
         activeDetailPhrase,
         setActiveDetailPhrase,
+        practicePhrase,
+        setPracticePhrase,
         openNextPhrase,
         openPrevPhrase,
         toast,

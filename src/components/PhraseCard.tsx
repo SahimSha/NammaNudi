@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, Star, Maximize2, Copy, Check } from 'lucide-react';
+import { Volume2, VolumeX, Mic, Star, Maximize2, Copy, Check } from 'lucide-react';
 import type { Phrase } from '../types';
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
@@ -21,6 +21,7 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
     toggleSavePhrase,
     setShowToSpeakPhrase,
     setActiveDetailPhrase,
+    setPracticePhrase,
     addRecentPhrase,
     showToast
   } = useApp();
@@ -72,6 +73,12 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
     e.stopPropagation();
     addRecentPhrase(phrase.id);
     setShowToSpeakPhrase(phrase);
+  };
+
+  const handlePractice = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addRecentPhrase(phrase.id);
+    setPracticePhrase(phrase);
   };
 
   const handleCopy = async (e: React.MouseEvent) => {
@@ -204,6 +211,17 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
             ) : (
               <Copy className="w-4 h-4" />
             )}
+          </button>
+
+          {/* Practise Button */}
+          <button
+            onClick={handlePractice}
+            title="Practise pronunciation"
+            aria-label="Practise pronunciation"
+            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-teal-800 bg-teal-50/80 hover:bg-teal-100 border border-teal-200/70 transition-colors"
+          >
+            <Mic className="w-3.5 h-3.5 text-teal-700" />
+            <span className="hidden sm:inline">Practise</span>
           </button>
         </div>
 

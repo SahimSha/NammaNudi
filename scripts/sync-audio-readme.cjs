@@ -62,3 +62,4 @@ ${catalogMd}`;
 
 fs.writeFileSync(readmeFilePath, updatedReadme, 'utf8');
 console.log('Successfully updated public/audio/README.md with exact phrase IDs and canonical text!');
+

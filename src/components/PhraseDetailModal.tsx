@@ -3,6 +3,7 @@ import {
   X,
   Volume2,
   VolumeX,
+  Mic,
   Star,
   Copy,
   Check,
@@ -25,6 +26,7 @@ export const PhraseDetailModal: React.FC = () => {
     isPhraseSaved,
     toggleSavePhrase,
     setShowToSpeakPhrase,
+    setPracticePhrase,
     showToast,
     openNextPhrase,
     openPrevPhrase,
@@ -91,6 +93,13 @@ export const PhraseDetailModal: React.FC = () => {
     const phrase = activeDetailPhrase;
     setActiveDetailPhrase(null);
     setShowToSpeakPhrase(phrase);
+  };
+
+  const handleOpenPractice = () => {
+    stop();
+    const phrase = activeDetailPhrase;
+    setActiveDetailPhrase(null);
+    setPracticePhrase(phrase);
   };
 
   return (
@@ -284,15 +293,24 @@ export const PhraseDetailModal: React.FC = () => {
           )}
         </div>
 
-        {/* Primary CTA: Launch Show-to-Speak */}
+        {/* Primary Action Buttons */}
         <div className="mt-6 pt-4 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <button
-            onClick={handleOpenShowToSpeak}
-            className="w-full sm:w-auto flex-1 flex items-center justify-center space-x-2 px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 text-teal-950 font-bold text-sm shadow-md transition-all active:scale-98"
-          >
-            <Maximize2 className="w-4 h-4 text-teal-950" />
-            <span>Open in Full-Screen "Show-to-Speak"</span>
-          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 w-full sm:w-auto flex-1">
+            <button
+              onClick={handleOpenPractice}
+              className="flex items-center justify-center space-x-2 px-4 py-3 rounded-2xl bg-teal-800 hover:bg-teal-900 text-white font-bold text-sm shadow-md transition-all active:scale-98"
+            >
+              <Mic className="w-4 h-4 text-amber-300" />
+              <span>Practise Pronunciation</span>
+            </button>
+            <button
+              onClick={handleOpenShowToSpeak}
+              className="flex items-center justify-center space-x-2 px-4 py-3 rounded-2xl bg-amber-400 hover:bg-amber-500 text-teal-950 font-bold text-sm shadow-md transition-all active:scale-98"
+            >
+              <Maximize2 className="w-4 h-4 text-teal-950" />
+              <span>Show-to-Speak Mode</span>
+            </button>
+          </div>
 
           {/* Prev / Next navigation buttons */}
           <div className="flex items-center space-x-2 self-end sm:self-auto">

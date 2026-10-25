@@ -5,6 +5,7 @@ import { MobileNav } from './components/MobileNav';
 import { Toast } from './components/Toast';
 import { PhraseDetailModal } from './components/PhraseDetailModal';
 import { ShowToSpeakModal } from './components/ShowToSpeakModal';
+import { PronunciationPracticeModal } from './components/PronunciationPracticeModal';
 
 import { HomePage } from './pages/HomePage';
 import { PhrasebookPage } from './pages/PhrasebookPage';
@@ -61,6 +62,7 @@ export function App() {
           {/* Modals & Popovers */}
           <PhraseDetailModal />
           <ShowToSpeakModal />
+          <PronunciationPracticeModal />
           <Toast />
         </div>
       </BrowserRouter>
