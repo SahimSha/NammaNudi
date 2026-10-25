@@ -9,6 +9,6 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    allowedHosts: ['.loca.lt'],
+    allowedHosts: ['.loca.lt', '.trycloudflare.com'],
   },
 })
