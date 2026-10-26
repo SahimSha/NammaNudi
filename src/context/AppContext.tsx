@@ -1,9 +1,18 @@
 /* oxlint-disable react/only-export-components */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { Phrase, UserProgress, QuizResult, DailyMissionState, DailyTaskId } from '../types';
+import type { Phrase, UserProgress, QuizResult, DailyMissionState, DailyTaskId, SRSItem, SRSReviewRating } from '../types';
 import { PHRASES } from '../data/phrases';
 import { loadDailyMissionState, completeDailyTask, initDailyMissionState, saveDailyMissionState } from '../utils/dailyMissions';
+import {
+  loadSRSItems,
+  saveSRSItems,
+  enrollPhrase,
+  removePhraseFromSRS,
+  processSRSReview,
+  getDuePhraseIds,
+  getSRSStatistics
+} from '../utils/srs';
 
 interface ToastInfo {
   id: string;
@@ -32,6 +41,14 @@ interface AppContextType {
   // Daily Missions
   dailyMission: DailyMissionState;
   completeDailyMissionTask: (taskId: DailyTaskId) => void;
+
+  // Spaced Repetition (SRS)
+  srsItems: Record<string, SRSItem>;
+  toggleEnrollSRS: (phraseId: string) => void;
+  isPhraseInSRS: (phraseId: string) => boolean;
+  submitSRSReview: (phraseId: string, rating: SRSReviewRating) => void;
+  duePhraseIds: string[];
+  srsStats: { total: number; due: number; mastered: number; reviewing: number; learning: number };
 
   // Modals & Show-to-Speak
   showToSpeakPhrase: Phrase | null;
@@ -101,6 +118,19 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [practicePhrase, setPracticePhrase] = useState<Phrase | null>(null);
   const [toast, setToast] = useState<ToastInfo | null>(null);
   const [dailyMission, setDailyMission] = useState<DailyMissionState>(() => loadDailyMissionState());
+  const [srsItems, setSrsItems] = useState<Record<string, SRSItem>>(() => {
+    const loaded = loadSRSItems();
+    if (Object.keys(loaded).length === 0) {
+      // Seed with starter phrases so learner immediately experiences spaced repetition
+      let initial: Record<string, SRSItem> = {};
+      const starters = ['td-01', 'pt-05', 'fd-01', 'sm-01'];
+      for (const id of starters) {
+        initial = enrollPhrase(initial, id);
+      }
+      return initial;
+    }
+    return loaded;
+  });
 
   // Sync favourites to localStorage
   useEffect(() => {
@@ -217,6 +247,49 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     });
   };
 
+  const toggleEnrollSRS = (phraseId: string) => {
+    setSrsItems((prev) => {
+      if (prev[phraseId]) {
+        const updated = removePhraseFromSRS(prev, phraseId);
+        showToast('Removed phrase from SRS review queue', 'info');
+        return updated;
+      } else {
+        const updated = enrollPhrase(prev, phraseId);
+        showToast('Added to SRS spaced review queue! 🧠', 'success');
+        return updated;
+      }
+    });
+  };
+
+  const isPhraseInSRS = (phraseId: string) => Boolean(srsItems[phraseId]);
+
+  const submitSRSReview = (phraseId: string, rating: SRSReviewRating) => {
+    setSrsItems((prev) => {
+      const item = prev[phraseId] || {
+        phraseId,
+        box: 1,
+        nextReviewDate: new Date().toISOString().split('T')[0],
+        intervalDays: 1,
+        repetitions: 0
+      };
+      const updatedItem = processSRSReview(item, rating);
+      const nextMap = { ...prev, [phraseId]: updatedItem };
+      saveSRSItems(nextMap);
+      return nextMap;
+    });
+
+    if (rating === 'again') {
+      showToast('Scheduled for tomorrow — practice makes perfect!', 'info');
+    } else if (rating === 'good') {
+      showToast('Great recall! Moving up the memory ladder.', 'success');
+    } else if (rating === 'easy') {
+      showToast('Mastered! Next review interval extended.', 'success');
+    }
+  };
+
+  const duePhraseIds = React.useMemo(() => getDuePhraseIds(srsItems), [srsItems]);
+  const srsStats = React.useMemo(() => getSRSStatistics(srsItems), [srsItems]);
+
   const resetAllProgress = () => {
     setSavedPhraseIds([]);
     setRecentPhraseIds([]);
@@ -224,6 +297,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     const freshMission = initDailyMissionState();
     setDailyMission(freshMission);
     saveDailyMissionState(freshMission);
+    setSrsItems({});
+    saveSRSItems({});
     try {
       localStorage.setItem(STORAGE_KEY_FAVOURITES, JSON.stringify([]));
       localStorage.setItem(STORAGE_KEY_RECENTS, JSON.stringify([]));
@@ -269,6 +344,12 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         resetAllProgress,
         dailyMission,
         completeDailyMissionTask,
+        srsItems,
+        toggleEnrollSRS,
+        isPhraseInSRS,
+        submitSRSReview,
+        duePhraseIds,
+        srsStats,
         showToSpeakPhrase,
         setShowToSpeakPhrase,
         activeDetailPhrase,

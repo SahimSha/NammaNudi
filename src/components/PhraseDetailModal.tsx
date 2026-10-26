@@ -13,7 +13,8 @@ import {
   Info,
   HelpCircle,
   Tag,
-  Sparkles
+  Sparkles,
+  Brain
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
@@ -31,7 +32,9 @@ export const PhraseDetailModal: React.FC = () => {
     showToast,
     openNextPhrase,
     openPrevPhrase,
-    phrases
+    phrases,
+    isPhraseInSRS,
+    toggleEnrollSRS
   } = useApp();
 
   const { speak, stop, isSpeaking, voiceStatus, hasKannadaVoice } = useSpeech({
@@ -64,6 +67,7 @@ export const PhraseDetailModal: React.FC = () => {
   if (!activeDetailPhrase) return null;
 
   const isSaved = isPhraseSaved(activeDetailPhrase.id);
+  const isInSRS = isPhraseInSRS(activeDetailPhrase.id);
   const category = CATEGORIES.find((c) => c.id === activeDetailPhrase.categoryId);
 
   const currentIndex = phrases.findIndex((p) => p.id === activeDetailPhrase.id);
@@ -151,6 +155,20 @@ export const PhraseDetailModal: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-1.5">
+            {/* SRS Spaced Review Queue */}
+            <button
+              onClick={() => toggleEnrollSRS(activeDetailPhrase.id)}
+              aria-label={isInSRS ? 'Remove from Spaced Review' : 'Add to Spaced Review'}
+              title={isInSRS ? 'In Spaced Review Queue (Click to remove)' : 'Add to Spaced Review Queue'}
+              className={`p-2 rounded-xl transition-colors ${
+                isInSRS
+                  ? 'text-teal-700 bg-teal-50 border border-teal-200'
+                  : 'text-stone-400 hover:text-teal-700 hover:bg-stone-100'
+              }`}
+            >
+              <Brain className="w-5 h-5" />
+            </button>
+
             {/* Star favourite */}
             <button
               onClick={() => toggleSavePhrase(activeDetailPhrase.id)}
