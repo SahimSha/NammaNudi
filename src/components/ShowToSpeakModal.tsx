@@ -280,7 +280,7 @@ export const ShowToSpeakModal: React.FC = () => {
 
         {/* Big Central Audio Trigger */}
         <button
-          onClick={handleSpeak}
+          onClick={() => handleSpeak()}
           className={`flex-1 max-w-xs flex items-center justify-center space-x-2 py-4 px-6 rounded-2xl font-extrabold text-base shadow-lg transition-transform active:scale-95 ${
             isSpeaking
               ? 'bg-rose-600 text-white animate-pulse'

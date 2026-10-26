@@ -230,7 +230,7 @@ export const PhraseDetailModal: React.FC = () => {
           {/* Audio Action in Hero */}
           <div className="mt-4 flex flex-col items-center">
             <button
-              onClick={handleSpeak}
+              onClick={() => handleSpeak()}
               className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all ${
                 isSpeaking
                   ? 'bg-rose-600 text-white animate-pulse'
