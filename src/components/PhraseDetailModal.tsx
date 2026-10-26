@@ -12,7 +12,8 @@ import {
   ChevronRight,
   Info,
   HelpCircle,
-  Tag
+  Tag,
+  Sparkles
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useSpeech } from '../hooks/useSpeech';
@@ -37,6 +38,7 @@ export const PhraseDetailModal: React.FC = () => {
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
   const [copied, setCopied] = React.useState(false);
+  const [selectedVariantId, setSelectedVariantId] = React.useState<string | null>(null);
 
   // Stop speech when active phrase changes
   useEffect(() => {
@@ -68,10 +70,29 @@ export const PhraseDetailModal: React.FC = () => {
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < phrases.length - 1;
 
+  const defaultVariantId =
+    activeDetailPhrase.variants?.find((v) => v.isRecommendedDefault)?.id ||
+    activeDetailPhrase.variants?.[0]?.id ||
+    null;
+  const effectiveVariantId =
+    selectedVariantId && activeDetailPhrase.variants?.some((v) => v.id === selectedVariantId)
+      ? selectedVariantId
+      : defaultVariantId;
+
+  const activeVariant = activeDetailPhrase.variants?.find((v) => v.id === effectiveVariantId);
+  const displayKannada = activeVariant ? activeVariant.kannada : activeDetailPhrase.kannada;
+  const displayTransliteration = activeVariant
+    ? activeVariant.transliteration
+    : activeDetailPhrase.transliteration;
+  const displayEnglish = activeVariant ? activeVariant.english : activeDetailPhrase.english;
+  const displayFormality = activeVariant ? activeVariant.formality : activeDetailPhrase.formality;
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(
-        `${activeDetailPhrase.kannada}\n${activeDetailPhrase.transliteration}\n"${activeDetailPhrase.english}"\n\nUsage context: ${activeDetailPhrase.contextNote}`
+        `${displayKannada}\n${displayTransliteration}\n"${displayEnglish}"\n\nUsage context: ${
+          activeVariant ? activeVariant.usageContext : activeDetailPhrase.contextNote
+        }`
       );
       setCopied(true);
       showToast('Copied full phrase details!', 'success');
@@ -81,11 +102,11 @@ export const PhraseDetailModal: React.FC = () => {
     }
   };
 
-  const handleSpeak = () => {
+  const handleSpeak = (textToSpeak?: string) => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(activeDetailPhrase.kannada, undefined, activeDetailPhrase.id);
+      speak(textToSpeak || displayKannada, undefined, activeDetailPhrase.id);
     }
   };
 
@@ -125,7 +146,7 @@ export const PhraseDetailModal: React.FC = () => {
               </span>
             )}
             <span className="text-xs font-semibold uppercase tracking-wider text-stone-500 bg-stone-100 px-2.5 py-1 rounded-md">
-              {activeDetailPhrase.formality}
+              {displayFormality}
             </span>
           </div>
 
@@ -173,13 +194,13 @@ export const PhraseDetailModal: React.FC = () => {
         {/* Kannada Script Hero Box */}
         <div className="mt-5 p-5 sm:p-6 bg-[#FAF8F5] rounded-2xl border border-stone-200/80 text-center">
           <h2 className="font-kannada text-3xl sm:text-4xl font-black text-teal-950 mb-2 leading-relaxed">
-            {activeDetailPhrase.kannada}
+            {displayKannada}
           </h2>
           <p className="text-lg sm:text-xl font-bold text-teal-800 italic mb-2">
-            {activeDetailPhrase.transliteration}
+            {displayTransliteration}
           </p>
           <p className="text-base sm:text-lg font-semibold text-stone-800">
-            "{activeDetailPhrase.english}"
+            "{displayEnglish}"
           </p>
 
           {activeDetailPhrase.literalMeaning && (
@@ -256,6 +277,93 @@ export const PhraseDetailModal: React.FC = () => {
               {activeDetailPhrase.contextNote}
             </p>
           </div>
+
+          {/* Context-Aware Tone & Formality Variants */}
+          {activeDetailPhrase.variants && activeDetailPhrase.variants.length > 0 && (
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50/90 to-teal-50/50 border border-amber-200/80">
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <div className="flex items-center space-x-1.5 text-xs font-bold text-teal-950 uppercase tracking-wider">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                  <span>Context-Aware Variants (ಸಾಂದರ್ಭಿಕ ರೂಪಗಳು)</span>
+                </div>
+                <span className="text-[10px] font-semibold text-stone-500 bg-white/80 px-2 py-0.5 rounded-md border border-stone-200">
+                  Select tone
+                </span>
+              </div>
+              <p className="text-xs text-stone-600 mb-3 leading-relaxed">
+                Kannada interpersonal relationships express respect through verb endings. Tap a register below to switch speech and view social usage:
+              </p>
+
+              <div className="space-y-2.5">
+                {activeDetailPhrase.variants.map((v) => {
+                  const isSelected = effectiveVariantId === v.id;
+                  return (
+                    <div
+                      key={v.id}
+                      onClick={() => setSelectedVariantId(v.id)}
+                      className={`p-3 rounded-xl border transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-white border-amber-400 shadow-xs ring-2 ring-amber-300/40'
+                          : 'bg-white/70 hover:bg-white border-stone-200 hover:border-amber-300'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-2 mb-1">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
+                              v.formality === 'polite'
+                                ? 'bg-teal-100 text-teal-800'
+                                : v.formality === 'formal'
+                                ? 'bg-indigo-100 text-indigo-800'
+                                : 'bg-amber-100 text-amber-800'
+                            }`}
+                          >
+                            {v.formality}
+                          </span>
+                          {v.isRecommendedDefault && (
+                            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+                              Recommended ⭐
+                            </span>
+                          )}
+                          {isSelected && (
+                            <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                              Active in view ✓
+                            </span>
+                          )}
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSpeak(v.kannada);
+                          }}
+                          aria-label={`Listen to ${v.formality} variant`}
+                          className="p-1.5 rounded-lg text-teal-800 hover:text-teal-950 bg-teal-50 hover:bg-teal-100 transition-colors"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+
+                      <p className="font-kannada font-bold text-base text-stone-900 leading-snug">
+                        {v.kannada}
+                      </p>
+                      <p className="text-xs font-semibold text-teal-700 italic">
+                        {v.transliteration}
+                      </p>
+                      <p className="text-xs text-stone-600 mt-1">
+                        "{v.english}"
+                      </p>
+                      <p className="text-[11px] text-stone-500 mt-1.5 pt-1.5 border-t border-stone-100 flex items-start gap-1">
+                        <span>💡</span>
+                        <span>{v.usageContext}</span>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Dialect notice if flagged */}
           {activeDetailPhrase.needsDialectReview && (

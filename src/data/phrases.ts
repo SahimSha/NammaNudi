@@ -13,7 +13,34 @@ export const PHRASES: Phrase[] = [
     formality: 'polite',
     situation: 'Asking a pedestrian or shopkeeper for directions',
     tags: ['directions', 'route', 'destination', 'navigation'],
-    literalMeaning: 'To here how going?'
+    literalMeaning: 'To here how going?',
+    variants: [
+      {
+        id: 'td-01-polite',
+        formality: 'polite',
+        kannada: 'ಇಲ್ಲಿಗೆ ಹೇಗೆ ಹೋಗುವುದು ಸರ್?',
+        transliteration: 'Illige hege hoguvudu sir?',
+        english: 'How do I reach here, sir?',
+        usageContext: 'Default polite approach with strangers, traffic police, or shopkeepers in Bengaluru.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'td-01-casual',
+        formality: 'casual',
+        kannada: 'ಇಲ್ಲಿಗೆ ಹೇಗೆ ಹೋಗೋದು?',
+        transliteration: 'Illige hege hogodu?',
+        english: 'How to go here? (spoken casual)',
+        usageContext: 'Everyday spoken contraction among peers, colleagues, or familiar shopkeepers.'
+      },
+      {
+        id: 'td-01-formal',
+        formality: 'formal',
+        kannada: 'ದಯವಿಟ್ಟು ಈ ಸ್ಥಳಕ್ಕೆ ಹೋಗುವ ದಾರಿ ತಿಳಿಸಿ.',
+        transliteration: 'Dayavittu ee sthalakke hoguva daari thilisi.',
+        english: 'Please inform me of the route to this place.',
+        usageContext: 'Formal, highly respectful request suitable when addressing senior citizens or in writing.'
+      }
+    ]
   },
   {
     id: 'td-02',
@@ -73,7 +100,26 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Naa-nu daa-ri thap-pid-dee-ne, da-ya-vit-tu sa-haa-ya maa-di.',
     formality: 'polite',
     situation: 'When completely lost in an unfamiliar locality',
-    tags: ['help', 'lost', 'emergency', 'assistance']
+    tags: ['help', 'lost', 'emergency', 'assistance'],
+    variants: [
+      {
+        id: 'td-06-polite',
+        formality: 'polite',
+        kannada: 'ನಾನು ದಾರಿ ತಪ್ಪಿದ್ದೇನೆ, ದಯವಿಟ್ಟು ಸಹಾಯ ಮಾಡಿ.',
+        transliteration: 'Naanu daari thappiddeene, dayavittu sahaaya maadi.',
+        english: 'I have lost my way, please help me.',
+        usageContext: 'Standard courteous plea that encourages any passerby to help.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'td-06-spoken',
+        formality: 'casual',
+        kannada: 'ದಾರಿ ಗೊತ್ತಾಗ್ತಿಲ್ಲ ಅಣ್ಣಾ, ಸ್ವಲ್ಪ ಹೆಲ್ಪ್ ಮಾಡ್ತೀರಾ?',
+        transliteration: 'Daari gotthaagthilla anna, swalpa help maadtheera?',
+        english: 'Not getting the route brother, could you help a bit?',
+        usageContext: 'Everyday Bengaluru street phrasing with auto drivers or local vendors.'
+      }
+    ]
   },
   {
     id: 'td-07',
@@ -137,7 +183,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Ma-jes-tic-ge on-du tic-ket ko-di.',
     formality: 'polite',
     situation: 'Buying ticket from a BMTC bus conductor',
-    tags: ['bmtc', 'ticket', 'bus', 'conductor']
+    tags: ['bmtc', 'ticket', 'bus', 'conductor'],
+    variants: [
+      {
+        id: 'pt-01-polite',
+        formality: 'polite',
+        kannada: 'ಮೆಜೆಸ್ಟಿಕ್‌ಗೆ ಒಂದು ಟಿಕೆಟ್ ಕೊಡಿ.',
+        transliteration: 'Majestic-ge ondu ticket kodi.',
+        english: 'Please give one ticket to Majestic.',
+        usageContext: 'Standard courteous request with BMTC conductor.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'pt-01-spoken',
+        formality: 'casual',
+        kannada: 'ಮೆಜೆಸ್ಟಿಕ್ ಒಂದು ಟಿಕೆಟ್ ಅಣ್ಣಾ.',
+        transliteration: 'Majestic ondu ticket anna.',
+        english: 'One ticket to Majestic brother.',
+        usageContext: 'Natural colloquial address using "anna" (brother), common on crowded buses.'
+      },
+      {
+        id: 'pt-01-formal',
+        formality: 'formal',
+        kannada: 'ದಯವಿಟ್ಟು ಮೆಜೆಸ್ಟಿಕ್‌ಗೆ ಒಂದು ಟಿಕೆಟ್ ಕೊಡಿ ಸರ್.',
+        transliteration: 'Dayavittu Majestic-ge ondu ticket kodi sir.',
+        english: 'Please give one ticket to Majestic, sir.',
+        usageContext: 'Extra-polite formal request with conductor.'
+      }
+    ]
   },
   {
     id: 'pt-02',
@@ -185,7 +258,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Au-to mee-ter haa-ki ba-rut-thee-raa?',
     formality: 'polite',
     situation: 'Hailing an auto rickshaw on the street',
-    tags: ['auto', 'meter', 'fare', 'rickshaw']
+    tags: ['auto', 'meter', 'fare', 'rickshaw'],
+    variants: [
+      {
+        id: 'pt-05-polite',
+        formality: 'polite',
+        kannada: 'ಮೀಟರ್ ಹಾಕಿ ಬರುತ್ತೀರಾ ಸರ್?',
+        transliteration: 'Meter haaki baruttheera sir?',
+        english: 'Will you come by meter, sir?',
+        usageContext: 'Courteous question to auto driver when hailing on roadside.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'pt-05-colloquial',
+        formality: 'casual',
+        kannada: 'ಮೀಟರ್ ಹಾಕಪ್ಪಾ, ಹೋಗೋಣ.',
+        transliteration: 'Meter haakappa, hogona.',
+        english: 'Please put the meter brother, let us go.',
+        usageContext: 'Warm Bengaluru colloquial request with "haakappa" (friendly request).'
+      },
+      {
+        id: 'pt-05-direct',
+        formality: 'polite',
+        kannada: 'ಮೀಟರ್ ಹಾಕಿ.',
+        transliteration: 'Meter haaki.',
+        english: 'Please turn on the meter.',
+        usageContext: 'Direct, clear polite command upon sitting inside the auto.'
+      }
+    ]
   },
   {
     id: 'pt-06',
@@ -197,7 +297,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Il-li i-li-yut-the-ne, nil-li-si an-naa.',
     formality: 'polite',
     situation: 'Signaling bus conductor or auto driver to halt',
-    tags: ['get down', 'stop', 'anna', 'alight']
+    tags: ['get down', 'stop', 'anna', 'alight'],
+    variants: [
+      {
+        id: 'pt-06-polite',
+        formality: 'polite',
+        kannada: 'ಇಲ್ಲಿ ಇಳಿಯುತ್ತೇನೆ, ನಿಲ್ಲಿಸಿ ಅಣ್ಣಾ.',
+        transliteration: 'Illi iliyutthene, nillisi anna.',
+        english: 'I will get down here, please stop brother.',
+        usageContext: 'Standard respectful signal to auto driver or bus conductor.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'pt-06-urgent',
+        formality: 'casual',
+        kannada: 'ಸ್ವಲ್ಪ ಸೈಡಲ್ಲಿ ನಿಲ್ಲಿಸಿ!',
+        transliteration: 'Swalpa side-alli nillisi!',
+        english: 'Please pull over to the side!',
+        usageContext: 'Quick instruction when approaching your gate or corner.'
+      },
+      {
+        id: 'pt-06-formal',
+        formality: 'formal',
+        kannada: 'ಮುಂದಿನ ನಿಲ್ದಾಣದಲ್ಲಿ ದಯವಿಟ್ಟು ನಿಲ್ಲಿಸಿ.',
+        transliteration: 'Mundina nildaana-dalli dayavittu nillisi.',
+        english: 'Please halt at the next stop.',
+        usageContext: 'Formal bus stop drop request.'
+      }
+    ]
   },
   {
     id: 'pt-07',
@@ -260,7 +387,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'I-du esh-tu roo-paa-yi?',
     formality: 'polite',
     situation: 'Asking price in any shop or roadside stall',
-    tags: ['price', 'cost', 'shopping', 'money']
+    tags: ['price', 'cost', 'shopping', 'money'],
+    variants: [
+      {
+        id: 'sm-01-polite',
+        formality: 'polite',
+        kannada: 'ಇದರ ಬೆಲೆ ಎಷ್ಟು ಸರ್?',
+        transliteration: 'Idara bele eshtu sir?',
+        english: 'What is the price of this, sir?',
+        usageContext: 'Courteous phrasing at retail counters and formal shops.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'sm-01-spoken',
+        formality: 'casual',
+        kannada: 'ಇದು ಎಷ್ಟು ಅಣ್ಣಾ?',
+        transliteration: 'Idu eshtu anna?',
+        english: 'How much is this, brother?',
+        usageContext: 'Everyday market street phrasing at KR Market, fruit stalls, or flower vendors.'
+      },
+      {
+        id: 'sm-01-deal',
+        formality: 'casual',
+        kannada: 'ಇದು ಎಷ್ಟಕ್ಕೆ ಕೊಡ್ತೀರಾ?',
+        transliteration: 'Idu eshtakke kodtheera?',
+        english: 'For how much will you give this?',
+        usageContext: 'Opening question when preparing to negotiate in local bazaars.'
+      }
+    ]
   },
   {
     id: 'sm-02',
@@ -272,7 +426,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Swal-pa ka-di-me maa-di ko-di.',
     formality: 'polite',
     situation: 'Bargaining at KR Market, Commercial Street or local bazaar',
-    tags: ['bargain', 'discount', 'cheaper']
+    tags: ['bargain', 'discount', 'cheaper'],
+    variants: [
+      {
+        id: 'sm-02-polite',
+        formality: 'polite',
+        kannada: 'ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ ಕೊಡಿ ಅಣ್ಣಾ.',
+        transliteration: 'Swalpa kadime maadi kodi anna.',
+        english: 'Please reduce a little bit, brother.',
+        usageContext: 'Standard friendly bargaining in street markets.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'sm-02-idiom',
+        formality: 'casual',
+        kannada: 'ಸ್ವಲ್ಪ ನೋಡಿ ಮಾಡಿ ಕೊಡಿ.',
+        transliteration: 'Swalpa nodi maadi kodi.',
+        english: 'Please look into it and adjust the price nicely.',
+        usageContext: 'Authentic local colloquial idiom widely appreciated by Bengaluru merchants.'
+      },
+      {
+        id: 'sm-02-formal',
+        formality: 'formal',
+        kannada: 'ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ರಿಯಾಯಿತಿ ನೀಡಿ.',
+        transliteration: 'Dayavittu swalpa riyaayiti needi.',
+        english: 'Please provide some discount.',
+        usageContext: 'Formal retail negotiation at established stores.'
+      }
+    ]
   },
   {
     id: 'sm-03',
@@ -382,7 +563,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'On-du ma-sa-le do-se mat-thu bi-si fil-ter cof-fee ko-di.',
     formality: 'polite',
     situation: 'Ordering breakfast at Darshini / Sagar / Udupi hotel',
-    tags: ['dosa', 'coffee', 'darshini', 'breakfast']
+    tags: ['dosa', 'coffee', 'darshini', 'breakfast'],
+    variants: [
+      {
+        id: 'fd-01-polite',
+        formality: 'polite',
+        kannada: 'ಒಂದು ಮಸಾಲೆ ದೋಸೆ ಮತ್ತು ಕಾಫಿ ಕೊಡಿ.',
+        transliteration: 'Ondu masala dose matthu coffee kodi.',
+        english: 'Please give one masala dosa and coffee.',
+        usageContext: 'Standard courteous request at Darshini counters.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'fd-01-formal',
+        formality: 'formal',
+        kannada: 'ದಯವಿಟ್ಟು ಒಂದು ಮಸಾಲೆ ದೋಸೆ ಮತ್ತು ಫಿಲ್ಟರ್ ಕಾಫಿ ಕೊಡಿ ಸರ್.',
+        transliteration: 'Dayavittu ondu masala dose matthu filter coffee kodi sir.',
+        english: 'Please give one masala dosa and filter coffee, sir.',
+        usageContext: 'Extra-polite formal request to service staff or restaurant captain.'
+      },
+      {
+        id: 'fd-01-casual',
+        formality: 'casual',
+        kannada: 'ನನಗೊಂದು ದೋಸೆ ಕೊಡು.',
+        transliteration: 'Nanagondu dose kodu.',
+        english: 'Give me one dosa (informal).',
+        usageContext: 'Use only among intimate family or peers; strictly avoid with restaurant staff.'
+      }
+    ]
   },
   {
     id: 'fd-02',
@@ -394,7 +602,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Swal-pa khaa-ra ka-di-me maa-di.',
     formality: 'polite',
     situation: 'Giving special cooking preference to waiter',
-    tags: ['spicy', 'food', 'preference', 'mild']
+    tags: ['spicy', 'food', 'preference', 'mild'],
+    variants: [
+      {
+        id: 'fd-02-polite',
+        formality: 'polite',
+        kannada: 'ಸ್ವಲ್ಪ ಖಾರ ಕಡಿಮೆ ಮಾಡಿ.',
+        transliteration: 'Swalpa khaara kadime maadi.',
+        english: 'Please make it less spicy.',
+        usageContext: 'Polite instruction to kitchen or counter staff.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'fd-02-bengaluru',
+        formality: 'casual',
+        kannada: 'ಖಾರ ಕಮ್ಮಿ ಇರಲಿ ಅಣ್ಣಾ.',
+        transliteration: 'Khaara kammi irali anna.',
+        english: 'Let the spice be mild brother.',
+        usageContext: 'Everyday Bengaluru spoken phrasing at local food joints.'
+      },
+      {
+        id: 'fd-02-mild',
+        formality: 'polite',
+        kannada: 'ಖಾರ ಜಾಸ್ತಿ ಹಾಕಬೇಡಿ, ಮೀಡಿಯಂ ಮಾಡಿ.',
+        transliteration: 'Khaara jaasti haakabedi, medium maadi.',
+        english: 'Do not add too much spice, please make it medium.',
+        usageContext: 'Clear specification when ordering for children or spice-sensitive guests.'
+      }
+    ]
   },
   {
     id: 'fd-03',
@@ -516,7 +751,34 @@ export const PHRASES: Phrase[] = [
     pronunciationGuide: 'Hat-thi-ra-da au-sha-dhi an-ga-di yel-li-de?',
     formality: 'polite',
     situation: 'Looking for a pharmacy to purchase drugs',
-    tags: ['pharmacy', 'chemist', 'medicine']
+    tags: ['pharmacy', 'chemist', 'medicine'],
+    variants: [
+      {
+        id: 'hc-02-polite',
+        formality: 'polite',
+        kannada: 'ಹತ್ತಿರದ ಔಷಧಿ ಅಂಗಡಿ ಎಲ್ಲಿದೆ?',
+        transliteration: 'Hatthirada aushadhi angadi yellide?',
+        english: 'Where is the nearest medical shop / pharmacy?',
+        usageContext: 'Standard courteous inquiry for pharmacy.',
+        isRecommendedDefault: true
+      },
+      {
+        id: 'hc-02-spoken',
+        formality: 'casual',
+        kannada: 'ಇಲ್ಲಿ ಹತ್ತಿರ ಮೆಡಿಕಲ್ ಶಾಪ್ ಎಲ್ಲಿದೆ ಅಣ್ಣಾ?',
+        transliteration: 'Illi hathira medical shop yellide anna?',
+        english: 'Where is the medical shop near here, brother?',
+        usageContext: 'Most natural everyday spoken asking style on Bengaluru streets.'
+      },
+      {
+        id: 'hc-02-formal',
+        formality: 'formal',
+        kannada: 'ದಯವಿಟ್ಟು ಸಮೀಪದ ಔಷಧಾಲಯ ಎಲ್ಲಿದೆ ಎಂದು ತಿಳಿಸಿ.',
+        transliteration: 'Dayavittu sameepada aushadhaalaya yellide yendu thilisi.',
+        english: 'Please inform me where the nearest pharmacy is located.',
+        usageContext: 'Formal, literary Kannada query.'
+      }
+    ]
   },
   {
     id: 'hc-03',

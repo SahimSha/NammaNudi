@@ -30,6 +30,7 @@ export const ShowToSpeakModal: React.FC = () => {
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
   const [copied, setCopied] = React.useState(false);
+  const [selectedVariantId, setSelectedVariantId] = React.useState<string | null>(null);
 
   // Stop speech when active phrase changes
   useEffect(() => {
@@ -76,10 +77,27 @@ export const ShowToSpeakModal: React.FC = () => {
   const isSaved = isPhraseSaved(showToSpeakPhrase.id);
   const category = CATEGORIES.find((c) => c.id === showToSpeakPhrase.categoryId);
 
+  const defaultVariantId =
+    showToSpeakPhrase.variants?.find((v) => v.isRecommendedDefault)?.id ||
+    showToSpeakPhrase.variants?.[0]?.id ||
+    null;
+  const effectiveVariantId =
+    selectedVariantId && showToSpeakPhrase.variants?.some((v) => v.id === selectedVariantId)
+      ? selectedVariantId
+      : defaultVariantId;
+
+  const activeVariant = showToSpeakPhrase.variants?.find((v) => v.id === effectiveVariantId);
+  const displayKannada = activeVariant ? activeVariant.kannada : showToSpeakPhrase.kannada;
+  const displayTransliteration = activeVariant
+    ? activeVariant.transliteration
+    : showToSpeakPhrase.transliteration;
+  const displayEnglish = activeVariant ? activeVariant.english : showToSpeakPhrase.english;
+  const displayContextNote = activeVariant ? activeVariant.usageContext : showToSpeakPhrase.contextNote;
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(
-        `${showToSpeakPhrase.kannada}\n(${showToSpeakPhrase.transliteration})\n"${showToSpeakPhrase.english}"`
+        `${displayKannada}\n(${displayTransliteration})\n"${displayEnglish}"`
       );
       setCopied(true);
       showToast('Copied to clipboard!', 'success');
@@ -89,11 +107,11 @@ export const ShowToSpeakModal: React.FC = () => {
     }
   };
 
-  const handleSpeak = () => {
+  const handleSpeak = (textToSpeak?: string) => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(showToSpeakPhrase.kannada, undefined, showToSpeakPhrase.id);
+      speak(textToSpeak || displayKannada, undefined, showToSpeakPhrase.id);
     }
   };
 
@@ -158,32 +176,57 @@ export const ShowToSpeakModal: React.FC = () => {
       <div className="max-w-2xl w-full mx-auto my-auto py-6">
         <div className="bg-[#FAF8F5] rounded-3xl p-6 sm:p-10 shadow-2xl border-4 border-amber-300 flex flex-col justify-center text-center relative overflow-hidden">
           {/* Subtle top indicator for user instruction */}
-          <div className="mb-4 inline-flex items-center justify-center space-x-1.5 self-center bg-teal-900/10 text-teal-950 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+          <div className="mb-3 inline-flex items-center justify-center space-x-1.5 self-center bg-teal-900/10 text-teal-950 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
             <span>👇 Turn screen to the person</span>
           </div>
+
+          {/* Tone & Formality Variant Quick Switcher if available */}
+          {showToSpeakPhrase.variants && showToSpeakPhrase.variants.length > 0 && (
+            <div className="mb-3 flex items-center justify-center gap-1.5 flex-wrap">
+              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider mr-1">
+                Tone:
+              </span>
+              {showToSpeakPhrase.variants.map((v) => {
+                const isSelected = effectiveVariantId === v.id;
+                return (
+                  <button
+                    key={v.id}
+                    onClick={() => setSelectedVariantId(v.id)}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                      isSelected
+                        ? 'bg-amber-400 text-teal-950 shadow-xs ring-2 ring-amber-300'
+                        : 'bg-stone-200/80 text-stone-700 hover:bg-stone-300'
+                    }`}
+                  >
+                    {v.formality.toUpperCase()}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           {/* Kannada Text (Gigantic & Bold) */}
           <div className="my-3 sm:my-6">
             <h1 className="font-kannada text-4xl sm:text-5xl md:text-6xl font-black text-stone-900 leading-tight tracking-normal selection:bg-amber-300">
-              {showToSpeakPhrase.kannada}
+              {displayKannada}
             </h1>
           </div>
 
           {/* Roman Transliteration */}
           <div className="mb-3">
             <p className="text-xl sm:text-2xl font-bold text-teal-800 italic">
-              {showToSpeakPhrase.transliteration}
+              {displayTransliteration}
             </p>
           </div>
 
           {/* English Meaning */}
           <div className="pt-4 border-t border-stone-200">
             <p className="text-base sm:text-xl font-semibold text-stone-700">
-              "{showToSpeakPhrase.english}"
+              "{displayEnglish}"
             </p>
-            {showToSpeakPhrase.contextNote && (
+            {displayContextNote && (
               <p className="text-xs sm:text-sm text-stone-500 mt-2">
-                Context: {showToSpeakPhrase.contextNote}
+                Context: {displayContextNote}
               </p>
             )}
           </div>
