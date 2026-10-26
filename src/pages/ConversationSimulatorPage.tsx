@@ -360,7 +360,27 @@ export const ConversationSimulatorPage: React.FC = () => {
                   <span className="text-stone-700">{selectedChoice.feedback}</span>
                 </div>
 
-                <div className="flex justify-end pt-1">
+                <div className="flex items-center justify-between gap-2 pt-1 border-t border-stone-100 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isSpeaking) {
+                        stop();
+                      } else {
+                        speak(selectedChoice.kannada);
+                      }
+                    }}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+                      isSpeaking
+                        ? 'bg-rose-600 text-white animate-pulse'
+                        : 'text-teal-800 bg-teal-50 hover:bg-teal-100 border border-teal-200'
+                    }`}
+                    title={isSpeaking ? 'Stop speaking' : 'Listen to this reply'}
+                  >
+                    {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
+                    <span>{isSpeaking ? 'Stop Audio' : 'Listen to reply'}</span>
+                  </button>
+
                   <button
                     onClick={handleNextStep}
                     className="flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-teal-800 hover:bg-teal-900 text-white font-bold text-xs shadow-md transition-all active:scale-98"

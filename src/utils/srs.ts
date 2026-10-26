@@ -28,14 +28,14 @@ export function addDaysToDateString(dateStr: string, days: number): string {
   return `${year}-${month}-${day}`;
 }
 
-export function loadSRSItems(): Record<string, SRSItem> {
-  if (typeof localStorage === 'undefined') return {};
+export function loadSRSItems(): Record<string, SRSItem> | null {
+  if (typeof localStorage === 'undefined') return null;
   try {
     const raw = localStorage.getItem(STORAGE_KEY_SRS);
-    return raw ? JSON.parse(raw) : {};
+    return raw !== null ? JSON.parse(raw) : null;
   } catch (e) {
     console.warn('Failed to load SRS items from localStorage', e);
-    return {};
+    return null;
   }
 }
 
@@ -127,12 +127,25 @@ export function getSRSStatistics(items: Record<string, SRSItem>, today: string =
   const mastered = all.filter((i) => i.box === 5).length;
   const reviewing = all.filter((i) => i.box >= 2 && i.box < 5).length;
   const learning = all.filter((i) => i.box === 1).length;
+  const boxCounts: Record<number, number> = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0
+  };
+  for (const item of all) {
+    if (boxCounts[item.box] !== undefined) {
+      boxCounts[item.box] += 1;
+    }
+  }
 
   return {
     total,
     due,
     mastered,
     reviewing,
-    learning
+    learning,
+    boxCounts
   };
 }

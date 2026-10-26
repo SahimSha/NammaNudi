@@ -100,6 +100,11 @@ assert.strictEqual(stats.due, 1);
 assert.strictEqual(stats.learning, 1);
 assert.strictEqual(stats.reviewing, 1);
 assert.strictEqual(stats.mastered, 1);
+assert.strictEqual(stats.boxCounts[1], 1);
+assert.strictEqual(stats.boxCounts[2], 1);
+assert.strictEqual(stats.boxCounts[3], 0);
+assert.strictEqual(stats.boxCounts[4], 0);
+assert.strictEqual(stats.boxCounts[5], 1);
 console.log('✓ Statistics aggregation verified');
 
 console.log('\n✓ PASS: All Spaced Repetition (SRS) Leitner rules, schedules, and queues verified!');

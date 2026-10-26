@@ -86,14 +86,15 @@ export function loadDailyMissionState(): DailyMissionState {
 
     if (state.date === yesterday) {
       if (prevAllDone) {
-        newStreak = Math.max(1, newStreak + 1);
-      }
-      // If yesterday wasn't finished, streak resets to 0
-      else {
+        // Yesterday was fully completed; maintain the active streak into today
+        newStreak = state.streakDays || 1;
+      } else {
+        // Yesterday wasn't finished; streak resets to 0
         newStreak = 0;
       }
     } else if (state.lastCompletedDate === yesterday) {
       // Kept intact
+      newStreak = state.streakDays || 0;
     } else {
       // Missed more than 1 day
       newStreak = 0;
@@ -138,7 +139,7 @@ export function completeDailyTask(
       return {
         ...task,
         isCompleted: true,
-        completedAt: new Date().toISOString()
+        completedAt: task.completedAt || new Date().toISOString()
       };
     }
     return task;

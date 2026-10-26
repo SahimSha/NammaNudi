@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Award,
@@ -34,17 +34,18 @@ export const ProgressPage: React.FC = () => {
     totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
 
   // Completed scenario IDs from localStorage
-  const completedScenarioIds: string[] = useMemo(() => {
+  const [completedScenarioIds, setCompletedScenarioIds] = useState<string[]>(() => {
     try {
       const raw = localStorage.getItem('nammanudi_conversations_v1');
       return raw ? JSON.parse(raw) : [];
     } catch {
       return [];
     }
-  }, []);
+  });
 
   const handleReset = () => {
     resetAllProgress();
+    setCompletedScenarioIds([]);
     try {
       localStorage.setItem('nammanudi_conversations_v1', JSON.stringify([]));
     } catch {}

@@ -111,7 +111,9 @@ export const ShowToSpeakModal: React.FC = () => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(textToSpeak || displayKannada, undefined, showToSpeakPhrase.id);
+      const text = textToSpeak || displayKannada;
+      const phraseId = text === showToSpeakPhrase.kannada ? showToSpeakPhrase.id : undefined;
+      speak(text, undefined, phraseId);
     }
   };
 

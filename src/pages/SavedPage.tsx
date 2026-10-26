@@ -192,11 +192,11 @@ export const SavedPage: React.FC = () => {
 
             <div className="grid grid-cols-5 gap-2 text-center">
               {[
-                { box: 1, label: 'Box 1', interval: '1 day', count: srsStats.learning, color: 'bg-rose-50 border-rose-200 text-rose-800' },
-                { box: 2, label: 'Box 2', interval: '3 days', count: Object.values(srsItems).filter((i) => i.box === 2).length, color: 'bg-amber-50 border-amber-200 text-amber-800' },
-                { box: 3, label: 'Box 3', interval: '7 days', count: Object.values(srsItems).filter((i) => i.box === 3).length, color: 'bg-blue-50 border-blue-200 text-blue-800' },
-                { box: 4, label: 'Box 4', interval: '14 days', count: Object.values(srsItems).filter((i) => i.box === 4).length, color: 'bg-teal-50 border-teal-200 text-teal-800' },
-                { box: 5, label: 'Box 5', interval: '30 days', count: srsStats.mastered, color: 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' }
+                { box: 1, label: 'Box 1', interval: '1 day', count: srsStats.boxCounts[1] || 0, color: 'bg-rose-50 border-rose-200 text-rose-800' },
+                { box: 2, label: 'Box 2', interval: '3 days', count: srsStats.boxCounts[2] || 0, color: 'bg-amber-50 border-amber-200 text-amber-800' },
+                { box: 3, label: 'Box 3', interval: '7 days', count: srsStats.boxCounts[3] || 0, color: 'bg-blue-50 border-blue-200 text-blue-800' },
+                { box: 4, label: 'Box 4', interval: '14 days', count: srsStats.boxCounts[4] || 0, color: 'bg-teal-50 border-teal-200 text-teal-800' },
+                { box: 5, label: 'Box 5', interval: '30 days', count: srsStats.boxCounts[5] || 0, color: 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' }
               ].map((b) => (
                 <div key={b.box} className={`p-2.5 rounded-xl border ${b.color} flex flex-col justify-between`}>
                   <span className="text-[10px] font-bold uppercase">{b.label}</span>

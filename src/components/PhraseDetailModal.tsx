@@ -110,7 +110,9 @@ export const PhraseDetailModal: React.FC = () => {
     if (isSpeaking) {
       stop();
     } else {
-      speak(textToSpeak || displayKannada, undefined, activeDetailPhrase.id);
+      const text = textToSpeak || displayKannada;
+      const phraseId = text === activeDetailPhrase.kannada ? activeDetailPhrase.id : undefined;
+      speak(text, undefined, phraseId);
     }
   };
 

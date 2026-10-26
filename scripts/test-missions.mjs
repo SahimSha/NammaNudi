@@ -59,6 +59,18 @@ assert.strictEqual(res3.updatedState.streakDays, 1, 'Streak should increment to 
 assert.strictEqual(res3.updatedState.lastCompletedDate, today);
 console.log('✓ Task completion and completion milestone verified');
 
+// Repeat completion on already completed task should be safe idempotent
+const prevTimestamp = res3.updatedState.tasks.find(t => t.id === 'daily-phrase').completedAt;
+const reRes = completeDailyTask(res3.updatedState, 'daily-phrase');
+assert.strictEqual(reRes.isFirstCompletion, false, 'Re-completing must not flag first completion');
+assert.strictEqual(reRes.updatedState.streakDays, 1, 'Re-completing must not increment streak again');
+assert.strictEqual(
+  reRes.updatedState.tasks.find(t => t.id === 'daily-phrase').completedAt,
+  prevTimestamp,
+  'Original completion timestamp must be preserved'
+);
+console.log('✓ Idempotent task completion and timestamp preservation verified');
+
 // 4. Persistence across refresh simulation (same date retains completed state)
 const refreshedState = res3.updatedState;
 assert.strictEqual(refreshedState.date, today);

@@ -48,7 +48,14 @@ interface AppContextType {
   isPhraseInSRS: (phraseId: string) => boolean;
   submitSRSReview: (phraseId: string, rating: SRSReviewRating) => void;
   duePhraseIds: string[];
-  srsStats: { total: number; due: number; mastered: number; reviewing: number; learning: number };
+  srsStats: {
+    total: number;
+    due: number;
+    mastered: number;
+    reviewing: number;
+    learning: number;
+    boxCounts: Record<number, number>;
+  };
 
   // Modals & Show-to-Speak
   showToSpeakPhrase: Phrase | null;
@@ -120,8 +127,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   const [dailyMission, setDailyMission] = useState<DailyMissionState>(() => loadDailyMissionState());
   const [srsItems, setSrsItems] = useState<Record<string, SRSItem>>(() => {
     const loaded = loadSRSItems();
-    if (Object.keys(loaded).length === 0) {
-      // Seed with starter phrases so learner immediately experiences spaced repetition
+    if (loaded === null) {
+      // First visit: Seed with starter phrases so learner immediately experiences spaced repetition
       let initial: Record<string, SRSItem> = {};
       const starters = ['td-01', 'pt-05', 'fd-01', 'sm-01'];
       for (const id of starters) {
