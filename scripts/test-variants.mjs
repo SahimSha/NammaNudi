@@ -43,3 +43,4 @@ console.log('\n========================================');
 console.log(`Total phrases with variants: ${phrasesWithVariants.length}`);
 console.log(`Total variants defined: ${totalVariants}`);
 console.log('✓ PASS: All context-aware phrase variants, scripts, and social registers verified!');
+
