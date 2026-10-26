@@ -249,7 +249,7 @@ export const QuizPage: React.FC = () => {
             </div>
 
             {/* Question Card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/90 shadow-sm space-y-4 text-center relative">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-stone-200/90 shadow-sm space-y-4 text-center relative">
               <span className="inline-block text-[11px] font-bold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
                 {currentQuestion.categoryName}
               </span>
@@ -257,20 +257,20 @@ export const QuizPage: React.FC = () => {
               {/* Question Prompt */}
               {currentQuestion.type === 'kn-to-en' ? (
                 <div>
-                  <h2 className="font-kannada text-3xl sm:text-4xl font-extrabold text-stone-900 leading-snug my-2">
+                  <h2 className="font-kannada text-2xl sm:text-3xl md:text-4xl font-extrabold text-stone-900 leading-snug my-2 break-words">
                     {currentQuestion.prompt}
                   </h2>
-                  <p className="text-base font-bold text-teal-700 italic">
+                  <p className="text-sm sm:text-base font-bold text-teal-700 italic break-words">
                     {currentQuestion.promptSubtext}
                   </p>
                 </div>
               ) : (
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-stone-900 leading-snug my-2">
+                  <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-stone-900 leading-snug my-2 break-words">
                     {currentQuestion.prompt}
                   </h2>
                   {currentQuestion.promptSubtext && (
-                    <p className="text-xs font-semibold text-stone-500 mt-1">
+                    <p className="text-xs font-semibold text-stone-500 mt-1 break-words">
                       {currentQuestion.promptSubtext}
                     </p>
                   )}
@@ -288,7 +288,7 @@ export const QuizPage: React.FC = () => {
                         speak(questionPhrase.kannada, undefined, questionPhrase.id);
                       }
                     }}
-                    className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
+                    className={`inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors min-h-[36px] ${
                       isSpeaking
                         ? 'bg-rose-100 text-rose-800 animate-pulse'
                         : 'bg-stone-100 hover:bg-stone-200 text-stone-700'
@@ -307,7 +307,7 @@ export const QuizPage: React.FC = () => {
                     )}
                   </button>
                   {questionPhrase.pronunciationGuide && (
-                    <span className="text-[11px] font-mono text-stone-500">
+                    <span className="text-[11px] font-mono text-stone-500 break-words">
                       Phonetic: {questionPhrase.pronunciationGuide}
                     </span>
                   )}
@@ -337,21 +337,21 @@ export const QuizPage: React.FC = () => {
                     key={option.id}
                     onClick={() => handleSelectOption(option.id)}
                     disabled={isAnswered}
-                    className={`w-full text-left p-4 rounded-2xl border-2 transition-all shadow-xs flex items-center justify-between group ${stateStyle}`}
+                    className={`w-full text-left p-3.5 sm:p-4 rounded-2xl border-2 transition-all shadow-xs flex items-center justify-between group min-h-[50px] ${stateStyle}`}
                   >
-                    <div className="flex-1 pr-2">
-                      <p className={`text-sm sm:text-base font-semibold ${option.subtext ? 'font-kannada text-lg' : ''}`}>
+                    <div className="flex-1 pr-2 min-w-0">
+                      <p className={`text-sm sm:text-base font-semibold break-words ${option.subtext ? 'font-kannada text-base sm:text-lg' : ''}`}>
                         {option.text}
                       </p>
                       {option.subtext && (
-                        <p className="text-xs font-semibold text-teal-700 italic mt-0.5">
+                        <p className="text-xs font-semibold text-teal-700 italic mt-0.5 break-words">
                           {option.subtext}
                         </p>
                       )}
                     </div>
 
                     {isAnswered && (
-                      <div>
+                      <div className="shrink-0">
                         {option.isCorrect ? (
                           <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                         ) : isSelected ? (
@@ -366,7 +366,7 @@ export const QuizPage: React.FC = () => {
 
             {/* Explanation & Next Button (Shows immediately on answer) */}
             {isAnswered && (
-              <div className="bg-amber-50 rounded-2xl p-5 border border-amber-200 space-y-4 animate-in fade-in duration-200">
+              <div className="bg-amber-50 rounded-2xl p-4 sm:p-5 border border-amber-200 space-y-4 animate-in fade-in duration-200">
                 <div className="flex items-start space-x-2 text-amber-950">
                   <HelpCircle className="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5" />
                   <div>
@@ -379,11 +379,11 @@ export const QuizPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-amber-200/60">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 pt-2 border-t border-amber-200/60">
                   {questionPhrase && (
                     <button
                       onClick={() => setShowToSpeakPhrase(questionPhrase)}
-                      className="text-xs font-bold text-teal-900 hover:underline"
+                      className="text-xs font-bold text-teal-900 hover:underline min-h-[32px] text-left sm:text-center"
                     >
                       Open in Show-to-Speak mode →
                     </button>
@@ -391,7 +391,7 @@ export const QuizPage: React.FC = () => {
 
                   <button
                     onClick={handleNextQuestion}
-                    className="ml-auto px-5 py-2.5 bg-teal-800 hover:bg-teal-900 text-white rounded-xl text-xs font-bold shadow-md flex items-center space-x-1 transition-transform active:scale-95"
+                    className="sm:ml-auto px-5 py-2.5 bg-teal-800 hover:bg-teal-900 text-white rounded-xl text-xs font-bold shadow-md flex items-center justify-center space-x-1 transition-transform active:scale-95 min-h-[44px]"
                   >
                     <span>
                       {currentQuestionIndex < questions.length - 1

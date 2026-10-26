@@ -119,33 +119,33 @@ export const PhrasebookPage: React.FC = () => {
 
       {/* Selected Category Banner (if specific category chosen) */}
       {selectedCategory && (
-        <div className="bg-white rounded-2xl p-5 border border-stone-200/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-start space-x-3.5">
+        <div className="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex items-start space-x-3.5 min-w-0">
             <div
-              className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+              className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
               style={{
                 backgroundColor: `${selectedCategory.accentColor}18`,
                 color: selectedCategory.accentColor
               }}
             >
-              <CategoryIcon iconName={selectedCategory.iconName} className="w-6 h-6" />
+              <CategoryIcon iconName={selectedCategory.iconName} className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-bold text-stone-900">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center space-x-2 flex-wrap">
+                <h2 className="text-base sm:text-lg font-bold text-stone-900 truncate">
                   {selectedCategory.name}
                 </h2>
-                <span className="font-kannada text-sm font-bold text-teal-800">
+                <span className="font-kannada text-xs sm:text-sm font-bold text-teal-800">
                   ({selectedCategory.kannadaName})
                 </span>
               </div>
-              <p className="text-xs text-stone-500 mt-0.5">
+              <p className="text-xs text-stone-500 mt-0.5 line-clamp-2">
                 {selectedCategory.description}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2 self-start sm:self-auto">
+          <div className="flex items-center space-x-2 self-start sm:self-auto shrink-0">
             <span className="text-xs font-semibold text-stone-400">
               {filteredPhrases.length} phrases shown
             </span>
@@ -156,18 +156,18 @@ export const PhrasebookPage: React.FC = () => {
       {/* Search & Formality Controls */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-stone-200 shadow-sm">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Filter phrases in current view..."
-            className="w-full pl-10 pr-4 py-2 bg-stone-50 text-stone-900 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-teal-700 transition-all border border-stone-200"
+            className="w-full pl-10 pr-4 py-2 bg-stone-50 text-stone-900 rounded-xl text-xs font-medium focus:outline-none focus:ring-2 focus:ring-teal-700 transition-all border border-stone-200 min-h-[40px]"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-700"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-700 min-h-[32px] px-1"
             >
               Clear
             </button>
@@ -175,14 +175,14 @@ export const PhrasebookPage: React.FC = () => {
         </div>
 
         {/* Formality Filter */}
-        <div className="flex items-center space-x-1.5 overflow-x-auto">
-          <Filter className="w-3.5 h-3.5 text-stone-400 ml-1 flex-shrink-0" />
-          <span className="text-xs text-stone-400 font-semibold mr-1">Tone:</span>
+        <div className="flex items-center space-x-1.5 overflow-x-auto py-0.5">
+          <Filter className="w-3.5 h-3.5 text-stone-400 ml-1 shrink-0" />
+          <span className="text-xs text-stone-400 font-semibold mr-1 shrink-0">Tone:</span>
           {['all', 'polite', 'casual', 'formal'].map((level) => (
             <button
               key={level}
               onClick={() => setSelectedFormality(level)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-colors ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-colors min-h-[36px] shrink-0 ${
                 selectedFormality === level
                   ? 'bg-amber-400 text-teal-950 shadow-sm'
                   : 'bg-stone-100 text-stone-600 hover:bg-stone-200'

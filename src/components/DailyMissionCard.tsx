@@ -25,33 +25,33 @@ export const DailyMissionCard: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-amber-200 dark:border-amber-900/40 shadow-sm relative overflow-hidden transition-all">
+    <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-5 border border-amber-200 dark:border-amber-900/40 shadow-sm relative overflow-hidden transition-all">
       {/* Background Accent glow */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-amber-100/50 dark:bg-amber-950/20 rounded-full blur-2xl pointer-events-none -mr-10 -mt-10" />
 
       {/* Header */}
-      <div className="flex items-center justify-between gap-3 mb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 mb-3">
         <div className="flex items-center gap-2.5">
-          <div className="p-2 bg-amber-100 dark:bg-amber-950/60 rounded-xl text-amber-600 dark:text-amber-400">
+          <div className="p-2 bg-amber-100 dark:bg-amber-950/60 rounded-xl text-amber-600 dark:text-amber-400 shrink-0">
             <Sparkles className="w-5 h-5" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <h3 className="font-bold text-slate-800 dark:text-slate-100 text-base sm:text-lg">
                 Daily Kannada Mission
               </h3>
-              <span className="text-xs font-kannada font-medium px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/40">
+              <span className="text-[10px] sm:text-xs font-kannada font-medium px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/40">
                 ದಿನದ ಗುರಿ
               </span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate">
               3 daily habits for spoken Kannada fluency • {dailyMission.date}
             </p>
           </div>
         </div>
 
         {/* Streak counter */}
-        <div className="flex items-center gap-1.5 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 px-3 py-1.5 rounded-xl border border-orange-200/70 dark:border-orange-800/40 shadow-2xs">
+        <div className="flex items-center gap-1.5 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/40 dark:to-amber-950/30 px-3 py-1.5 rounded-xl border border-orange-200/70 dark:border-orange-800/40 shadow-2xs self-start sm:self-auto shrink-0">
           <Flame className="w-4 h-4 text-orange-500 fill-orange-500 animate-pulse" />
           <span className="font-bold text-xs sm:text-sm text-orange-700 dark:text-orange-300">
             {dailyMission.streakDays} {dailyMission.streakDays === 1 ? 'Day' : 'Days'}
@@ -86,7 +86,7 @@ export const DailyMissionCard: React.FC = () => {
         {dailyMission.tasks.map((task) => (
           <div
             key={task.id}
-            className={`flex items-start justify-between gap-3 p-3 rounded-xl border transition-all ${
+            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-3 rounded-xl border transition-all ${
               task.isCompleted
                 ? 'bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200/60 dark:border-emerald-800/40'
                 : 'bg-slate-50/70 dark:bg-slate-900/30 border-slate-200/60 dark:border-slate-800/60 hover:border-amber-300 dark:hover:border-amber-800/70'
@@ -97,12 +97,13 @@ export const DailyMissionCard: React.FC = () => {
                 type="button"
                 onClick={() => completeDailyTaskToggle(task.id, task.isCompleted)}
                 title={task.isCompleted ? 'Mark uncompleted' : 'Mark completed'}
-                className="mt-0.5 focus:outline-hidden"
+                aria-label={task.isCompleted ? 'Mark uncompleted' : 'Mark completed'}
+                className="mt-0.5 focus:outline-hidden min-w-[24px] min-h-[24px] flex items-center justify-center shrink-0"
               >
                 {task.isCompleted ? (
-                  <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 ) : (
-                  <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600 shrink-0 hover:text-amber-500 transition-colors" />
+                  <Circle className="w-5 h-5 text-slate-300 dark:text-slate-600 hover:text-amber-500 transition-colors" />
                 )}
               </button>
               <div className="min-w-0 flex-1">
@@ -127,7 +128,7 @@ export const DailyMissionCard: React.FC = () => {
               </div>
             </div>
 
-            <div className="shrink-0 flex items-center">
+            <div className="shrink-0 flex items-center self-end sm:self-center">
               {task.isCompleted ? (
                 <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-100/60 dark:bg-emerald-950/60 px-2.5 py-1 rounded-lg">
                   Done ✓
@@ -135,7 +136,7 @@ export const DailyMissionCard: React.FC = () => {
               ) : (
                 <Link
                   to={task.actionUrl}
-                  className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-2xs"
+                  className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white transition-colors shadow-2xs min-h-[34px]"
                 >
                   <span>{task.actionLabel}</span>
                   <ArrowRight className="w-3 h-3" />

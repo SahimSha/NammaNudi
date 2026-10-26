@@ -30,8 +30,8 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* Problem Statement Box */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
-        <h2 className="text-lg font-bold text-teal-950 flex items-center space-x-2">
+      <div className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+        <h2 className="text-base sm:text-lg font-bold text-teal-950 flex items-center space-x-2">
           <span>🎯 Problem Statement 3: Kannada in Everyday Life</span>
         </h2>
         <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
@@ -43,10 +43,10 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* Offline Status & Architecture */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-bold text-stone-900 flex items-center space-x-2">
-            <Wifi className="w-5 h-5 text-teal-800" />
+      <div className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <h2 className="text-base sm:text-lg font-bold text-stone-900 flex items-center space-x-2">
+            <Wifi className="w-5 h-5 text-teal-800 shrink-0" />
             <span>Offline-First Capability</span>
           </h2>
           <span
@@ -74,13 +74,13 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* Speech Synthesis / Voice Guidance */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
-        <h2 className="text-lg font-bold text-stone-900 flex items-center space-x-2">
-          <Volume2 className="w-5 h-5 text-amber-600" />
+      <div className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+        <h2 className="text-base sm:text-lg font-bold text-stone-900 flex items-center space-x-2">
+          <Volume2 className="w-5 h-5 text-amber-600 shrink-0" />
           <span>Speech Synthesis & Voice Detection</span>
         </h2>
 
-        <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 space-y-2">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-[#FAF8F5] border border-stone-200 space-y-2">
           <div className="flex items-center space-x-2 text-xs font-bold text-stone-800">
             <span>Status on your current device:</span>
           </div>
@@ -106,9 +106,9 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* Pronunciation Practice & In-Browser Voice Recording */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-sm space-y-4">
-        <h2 className="text-lg font-bold text-stone-900 flex items-center space-x-2">
-          <Mic className="w-5 h-5 text-teal-800" />
+      <div className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-stone-200 shadow-sm space-y-4">
+        <h2 className="text-base sm:text-lg font-bold text-stone-900 flex items-center space-x-2">
+          <Mic className="w-5 h-5 text-teal-800 shrink-0" />
           <span>Pronunciation Practice & In-Browser Voice Recording</span>
         </h2>
 
@@ -129,9 +129,9 @@ export const AboutPage: React.FC = () => {
       </div>
 
       {/* Karnataka Courtesy & Cultural Tips */}
-      <div className="bg-gradient-to-br from-amber-50 to-amber-100/60 rounded-3xl p-6 sm:p-8 border border-amber-200 shadow-sm space-y-3">
+      <div className="bg-gradient-to-br from-amber-50 to-amber-100/60 rounded-3xl p-4 sm:p-6 md:p-8 border border-amber-200 shadow-sm space-y-3">
         <h2 className="text-base font-bold text-amber-950 flex items-center space-x-2">
-          <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+          <Heart className="w-4 h-4 text-rose-500 fill-rose-500 shrink-0" />
           <span>Everyday Etiquette Tips in Karnataka</span>
         </h2>
         <ul className="space-y-2 text-xs sm:text-sm text-amber-950/90 list-disc list-inside leading-relaxed">

@@ -149,7 +149,7 @@ export const PronunciationPracticeModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 bg-stone-950/75 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           handleClose();
@@ -159,18 +159,18 @@ export const PronunciationPracticeModal: React.FC = () => {
       aria-modal="true"
       aria-labelledby="practice-title"
     >
-      <div className="bg-white w-full max-w-2xl rounded-3xl p-5 sm:p-7 shadow-2xl border border-stone-200 relative my-6 max-h-[92vh] overflow-y-auto">
+      <div className="bg-white w-full max-w-2xl rounded-3xl p-4 sm:p-6 md:p-7 shadow-2xl border border-stone-200 relative my-auto max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2.5rem)] flex flex-col">
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between pb-4 border-b border-stone-100">
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-stone-100 shrink-0">
           <div className="flex items-center space-x-2">
-            <span className="p-2 rounded-xl bg-teal-50 text-teal-800">
+            <span className="p-2 rounded-xl bg-teal-50 text-teal-800 shrink-0">
               <Mic className="w-5 h-5 text-teal-800" />
             </span>
-            <div>
-              <h2 id="practice-title" className="text-lg font-extrabold text-stone-900 leading-tight">
+            <div className="min-w-0">
+              <h2 id="practice-title" className="text-base sm:text-lg font-extrabold text-stone-900 leading-tight truncate">
                 Pronunciation Practice
               </h2>
-              <div className="flex items-center gap-2 mt-0.5">
+              <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 flex-wrap">
                 {category && (
                   <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${category.badgeBg}`}>
                     {category.name}
@@ -189,97 +189,99 @@ export const PronunciationPracticeModal: React.FC = () => {
           <button
             onClick={handleClose}
             aria-label="Close pronunciation practice"
-            className="p-2 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+            className="p-2 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* 4-Step Learning Cycle Indicator */}
-        <div className="mt-4 p-3 bg-stone-50 rounded-2xl border border-stone-200/70">
-          <div className="flex items-center justify-between text-xs font-semibold text-stone-600 gap-1 overflow-x-auto">
-            <div className={`flex items-center space-x-1.5 px-2 py-1 rounded-lg ${isReferenceSpeaking ? 'bg-teal-100 text-teal-900 font-bold' : ''}`}>
-              <span className="w-4 h-4 rounded-full bg-teal-800 text-white text-[10px] flex items-center justify-center font-bold">1</span>
-              <span>Listen</span>
-            </div>
-            <ArrowRight className="w-3.5 h-3.5 text-stone-300 flex-shrink-0" />
-            <div className="flex items-center space-x-1.5 px-2 py-1 rounded-lg">
-              <span className="w-4 h-4 rounded-full bg-stone-300 text-stone-700 text-[10px] flex items-center justify-center font-bold">2</span>
-              <span>Repeat</span>
-            </div>
-            <ArrowRight className="w-3.5 h-3.5 text-stone-300 flex-shrink-0" />
-            <div className={`flex items-center space-x-1.5 px-2 py-1 rounded-lg ${isRecording ? 'bg-rose-100 text-rose-900 font-bold animate-pulse' : ''}`}>
-              <span className="w-4 h-4 rounded-full bg-rose-600 text-white text-[10px] flex items-center justify-center font-bold">3</span>
-              <span>Record</span>
-            </div>
-            <ArrowRight className="w-3.5 h-3.5 text-stone-300 flex-shrink-0" />
-            <div className={`flex items-center space-x-1.5 px-2 py-1 rounded-lg ${hasRecording ? 'bg-emerald-100 text-emerald-900 font-bold' : ''}`}>
-              <span className="w-4 h-4 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">4</span>
-              <span>Compare</span>
+        {/* Scrollable Content Body */}
+        <div className="overflow-y-auto flex-1 pr-1 space-y-4 my-2">
+          {/* 4-Step Learning Cycle Indicator */}
+          <div className="p-2.5 sm:p-3 bg-stone-50 rounded-2xl border border-stone-200/70">
+            <div className="flex items-center justify-between text-[11px] sm:text-xs font-semibold text-stone-600 gap-1 overflow-x-auto py-0.5">
+              <div className={`flex items-center space-x-1.5 px-2 py-1 rounded-lg shrink-0 ${isReferenceSpeaking ? 'bg-teal-100 text-teal-900 font-bold' : ''}`}>
+                <span className="w-4 h-4 rounded-full bg-teal-800 text-white text-[10px] flex items-center justify-center font-bold">1</span>
+                <span>Listen</span>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-300 shrink-0" />
+              <div className="flex items-center space-x-1.5 px-2 py-1 rounded-lg shrink-0">
+                <span className="w-4 h-4 rounded-full bg-stone-300 text-stone-700 text-[10px] flex items-center justify-center font-bold">2</span>
+                <span>Repeat</span>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-300 shrink-0" />
+              <div className={`flex items-center space-x-1.5 px-2 py-1 rounded-lg shrink-0 ${isRecording ? 'bg-rose-100 text-rose-900 font-bold animate-pulse' : ''}`}>
+                <span className="w-4 h-4 rounded-full bg-rose-600 text-white text-[10px] flex items-center justify-center font-bold">3</span>
+                <span>Record</span>
+              </div>
+              <ArrowRight className="w-3.5 h-3.5 text-stone-300 shrink-0" />
+              <div className={`flex items-center space-x-1.5 px-2 py-1 rounded-lg shrink-0 ${hasRecording ? 'bg-emerald-100 text-emerald-900 font-bold' : ''}`}>
+                <span className="w-4 h-4 rounded-full bg-emerald-600 text-white text-[10px] flex items-center justify-center font-bold">4</span>
+                <span>Compare</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Kannada Phrase Presentation Card */}
-        <div className="mt-4 p-5 bg-[#FAF8F5] rounded-2xl border border-stone-200/90 text-center">
-          <h3 className="font-kannada text-3xl sm:text-4xl font-black text-teal-950 mb-2 leading-relaxed">
-            {practicePhrase.kannada}
-          </h3>
-          <p className="text-lg sm:text-xl font-bold text-teal-800 italic mb-1.5">
-            {practicePhrase.transliteration}
-          </p>
-          <p className="text-sm sm:text-base font-semibold text-stone-800">
-            "{practicePhrase.english}"
-          </p>
-
-          {/* Phonetic Breakdown Pill */}
-          <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/80 rounded-xl text-xs font-mono text-amber-950">
-            <HelpCircle className="w-3.5 h-3.5 text-amber-700 flex-shrink-0" />
-            <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800">Phonetic Guide:</span>
-            <span className="font-bold">{practicePhrase.pronunciationGuide}</span>
-          </div>
-
-          {/* Reference Audio Play Button */}
-          <div className="mt-4 flex flex-col items-center">
-            <button
-              onClick={handleToggleReferenceAudio}
-              className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all active:scale-98 ${
-                isReferenceSpeaking
-                  ? 'bg-rose-600 text-white animate-pulse'
-                  : 'bg-teal-800 hover:bg-teal-900 text-white'
-              }`}
-            >
-              {isReferenceSpeaking ? (
-                <>
-                  <VolumeX className="w-4 h-4" />
-                  <span>Stop Reference Audio</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-4 h-4" />
-                  <span>Listen to Reference Pronunciation</span>
-                </>
-              )}
-            </button>
-
-            {/* Audio source indicator */}
-            <p className="text-[11px] text-stone-500 mt-2">
-              {hasKannadaVoice ? (
-                <span className="text-emerald-700 font-medium">
-                  ✓ Native Kannada TTS ready ({voiceStatus.voiceName})
-                </span>
-              ) : hasPrerecordedAudio(practicePhrase.id) ? (
-                <span className="text-emerald-700 font-medium">
-                  ✓ Genuine offline voice recording
-                </span>
-              ) : (
-                <span className="text-stone-500">
-                  ℹ️ Device lacks Kannada speech voice; follow the phonetic syllables.
-                </span>
-              )}
+          {/* Kannada Phrase Presentation Card */}
+          <div className="p-4 sm:p-5 bg-[#FAF8F5] rounded-2xl border border-stone-200/90 text-center">
+            <h3 className="font-kannada text-2xl sm:text-3xl md:text-4xl font-black text-teal-950 mb-2 leading-relaxed break-words">
+              {practicePhrase.kannada}
+            </h3>
+            <p className="text-base sm:text-lg md:text-xl font-bold text-teal-800 italic mb-1.5 break-words">
+              {practicePhrase.transliteration}
             </p>
+            <p className="text-sm sm:text-base font-semibold text-stone-800 break-words">
+              "{practicePhrase.english}"
+            </p>
+
+            {/* Phonetic Breakdown Pill */}
+            <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200/80 rounded-xl text-xs font-mono text-amber-950 max-w-full">
+              <HelpCircle className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+              <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800">Phonetic:</span>
+              <span className="font-bold break-words">{practicePhrase.pronunciationGuide}</span>
+            </div>
+
+            {/* Reference Audio Play Button */}
+            <div className="mt-4 flex flex-col items-center">
+              <button
+                onClick={handleToggleReferenceAudio}
+                className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all active:scale-98 min-h-[44px] ${
+                  isReferenceSpeaking
+                    ? 'bg-rose-600 text-white animate-pulse'
+                    : 'bg-teal-800 hover:bg-teal-900 text-white'
+                }`}
+              >
+                {isReferenceSpeaking ? (
+                  <>
+                    <VolumeX className="w-4 h-4" />
+                    <span>Stop Reference Audio</span>
+                  </>
+                ) : (
+                  <>
+                    <Volume2 className="w-4 h-4" />
+                    <span>Listen to Reference Pronunciation</span>
+                  </>
+                )}
+              </button>
+
+              {/* Audio source indicator */}
+              <p className="text-[11px] text-stone-500 mt-2 text-center">
+                {hasKannadaVoice ? (
+                  <span className="text-emerald-700 font-medium">
+                    ✓ Native Kannada TTS ready ({voiceStatus.voiceName})
+                  </span>
+                ) : hasPrerecordedAudio(practicePhrase.id) ? (
+                  <span className="text-emerald-700 font-medium">
+                    ✓ Genuine offline voice recording
+                  </span>
+                ) : (
+                  <span className="text-stone-500">
+                    ℹ️ Device lacks Kannada speech voice; follow the phonetic syllables.
+                  </span>
+                )}
+              </p>
+            </div>
           </div>
-        </div>
 
         {/* Recording & Repeat Section */}
         <div className="mt-5 p-5 rounded-2xl border border-stone-200 bg-white">
@@ -581,7 +583,7 @@ export const PronunciationPracticeModal: React.FC = () => {
 
             {showDiagnostics && (
               <div className="mt-2.5 p-3 rounded-xl bg-stone-50 border border-stone-200/80 text-[11px] space-y-2">
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div className="flex items-center justify-between bg-white px-2.5 py-1.5 rounded-lg border border-stone-100">
                     <span className="text-stone-500">Secure Context:</span>
                     <span className="font-semibold flex items-center gap-1">
@@ -652,15 +654,15 @@ export const PronunciationPracticeModal: React.FC = () => {
                 </div>
 
                 <div className="bg-white p-2.5 rounded-lg border border-stone-100 space-y-1">
-                  <div className="flex items-center justify-between text-stone-500">
+                  <div className="flex items-center justify-between text-stone-500 flex-wrap gap-1">
                     <span>Host / Protocol:</span>
-                    <span className="font-mono text-stone-700">
+                    <span className="font-mono text-stone-700 break-all">
                       {diagnostics.protocol}//{diagnostics.hostname || 'localhost'}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between text-stone-500">
+                  <div className="flex items-center justify-between text-stone-500 flex-wrap gap-1">
                     <span>Audio Codecs:</span>
-                    <span className="font-mono text-stone-700 text-[10px]">
+                    <span className="font-mono text-stone-700 text-[10px] break-all">
                       {diagnostics.supportedMimeTypes.length > 0
                         ? diagnostics.supportedMimeTypes.slice(0, 2).join(', ')
                         : 'Native container fallback'}
@@ -674,7 +676,7 @@ export const PronunciationPracticeModal: React.FC = () => {
                       refreshDiagnostics();
                       showToast('Audio capabilities refreshed', 'info');
                     }}
-                    className="flex items-center space-x-1 px-2.5 py-1 rounded-lg bg-stone-200/70 hover:bg-stone-300/80 text-stone-700 font-bold text-[10px] transition-colors"
+                    className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-stone-200/70 hover:bg-stone-300/80 text-stone-700 font-bold text-[10px] transition-colors min-h-[32px]"
                   >
                     <RefreshCw className="w-3 h-3" />
                     <span>Re-check Capabilities</span>
@@ -692,17 +694,18 @@ export const PronunciationPracticeModal: React.FC = () => {
             <strong>100% In-Browser Privacy:</strong> Your voice is recorded strictly in your browser's temporary memory for self-assessment. It is never uploaded to any server, tracked, or stored permanently. Your microphone hardware is immediately released when recording finishes.
           </p>
         </div>
+      </div>
 
-        {/* Modal Bottom Close Button */}
-        <div className="mt-5 pt-3 border-t border-stone-100 flex justify-end">
-          <button
-            onClick={handleClose}
-            className="px-5 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition-colors"
-          >
-            Done Practising
-          </button>
-        </div>
+      {/* Modal Bottom Close Button */}
+      <div className="pt-3 border-t border-stone-100 flex justify-end shrink-0">
+        <button
+          onClick={handleClose}
+          className="px-5 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition-colors min-h-[44px] flex items-center justify-center"
+        >
+          Done Practising
+        </button>
       </div>
     </div>
-  );
+  </div>
+);
 };

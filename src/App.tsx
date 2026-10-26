@@ -20,12 +20,12 @@ export function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <div className="min-h-screen bg-[#FAF8F5] text-stone-900 flex flex-col selection:bg-teal-700 selection:text-white">
+        <div className="min-h-screen bg-[#FAF8F5] text-stone-900 flex flex-col selection:bg-teal-700 selection:text-white overflow-x-hidden">
           {/* Header Navigation */}
           <Header />
 
           {/* Main Content Area */}
-          <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 pt-6 pb-20 md:pb-12">
+          <main className="flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 pt-4 sm:pt-6 pb-24 md:pb-12">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/phrasebook" element={<PhrasebookPage />} />

@@ -138,88 +138,88 @@ export const ProgressPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
           {/* Quiz Accuracy */}
-          <div className="bg-white p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
+          <div className="bg-white p-3.5 sm:p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span className="text-[10px] sm:text-xs font-bold text-stone-500 uppercase tracking-wider truncate">
                 Quiz Accuracy
               </span>
-              <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
-                <CheckCircle2 className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2 rounded-xl bg-emerald-50 text-emerald-700 shrink-0">
+                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
             <div>
-              <span className="text-3xl sm:text-4xl font-black text-stone-900">
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900">
                 {accuracyPct}%
               </span>
             </div>
-            <p className="text-[11px] text-stone-500 mt-1">
-              {correctCount} correct of {totalQuestions} answered
+            <p className="text-[10px] sm:text-[11px] text-stone-500 mt-1 truncate">
+              {correctCount} of {totalQuestions} correct
             </p>
           </div>
 
           {/* Mastered in SRS */}
-          <div className="bg-white p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
-                Mastered (SRS Box 5)
+          <div className="bg-white p-3.5 sm:p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span className="text-[10px] sm:text-xs font-bold text-stone-500 uppercase tracking-wider truncate">
+                Mastered (Box 5)
               </span>
-              <div className="p-2 rounded-xl bg-teal-50 text-teal-700">
-                <Brain className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2 rounded-xl bg-teal-50 text-teal-700 shrink-0">
+                <Brain className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
             <div>
-              <span className="text-3xl sm:text-4xl font-black text-stone-900">
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900">
                 {srsStats.mastered}
               </span>
               <span className="text-xs font-semibold text-stone-400 ml-1">phrases</span>
             </div>
-            <p className="text-[11px] text-stone-500 mt-1">
+            <p className="text-[10px] sm:text-[11px] text-stone-500 mt-1 truncate">
               {srsStats.reviewing} in progressive review
             </p>
           </div>
 
           {/* Scenarios Mastered */}
-          <div className="bg-white p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
+          <div className="bg-white p-3.5 sm:p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span className="text-[10px] sm:text-xs font-bold text-stone-500 uppercase tracking-wider truncate">
                 Scenarios Solved
               </span>
-              <div className="p-2 rounded-xl bg-indigo-50 text-indigo-700">
-                <MessageSquare className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2 rounded-xl bg-indigo-50 text-indigo-700 shrink-0">
+                <MessageSquare className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
             <div>
-              <span className="text-3xl sm:text-4xl font-black text-stone-900">
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900">
                 {completedScenarioIds.length}
               </span>
               <span className="text-xs font-semibold text-stone-400 ml-1">
                 / {CONVERSATION_SCENARIOS.length}
               </span>
             </div>
-            <p className="text-[11px] text-stone-500 mt-1">
-              Real-life Karnataka roleplays
+            <p className="text-[10px] sm:text-[11px] text-stone-500 mt-1 truncate">
+              Karnataka roleplays
             </p>
           </div>
 
           {/* Active Learning Streak */}
-          <div className="bg-white p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
+          <div className="bg-white p-3.5 sm:p-5 rounded-3xl border border-stone-200/90 shadow-sm flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+              <span className="text-[10px] sm:text-xs font-bold text-stone-500 uppercase tracking-wider truncate">
                 Daily Streak
               </span>
-              <div className="p-2 rounded-xl bg-amber-50 text-amber-600">
-                <Flame className="w-4 h-4 fill-amber-500" />
+              <div className="p-1.5 sm:p-2 rounded-xl bg-amber-50 text-amber-600 shrink-0">
+                <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-500" />
               </div>
             </div>
             <div>
-              <span className="text-3xl sm:text-4xl font-black text-stone-900">
+              <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900">
                 {dailyMission.streakDays}
               </span>
               <span className="text-xs font-semibold text-stone-400 ml-1">days</span>
             </div>
-            <p className="text-[11px] text-stone-500 mt-1">
+            <p className="text-[10px] sm:text-[11px] text-stone-500 mt-1 truncate">
               {dailyMission.tasks.filter((t) => t.isCompleted).length}/3 tasks done today
             </p>
           </div>
@@ -243,54 +243,54 @@ export const ProgressPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+            <span className="text-[10px] sm:text-[11px] font-bold text-stone-400 uppercase tracking-wider block truncate">
               Phrases Explored
             </span>
-            <span className="text-xl sm:text-2xl font-black text-stone-800 mt-1 block">
+            <span className="text-lg sm:text-2xl font-black text-stone-800 mt-1 block">
               {recentPhraseIds.length}
             </span>
-            <span className="text-[10px] text-stone-400">recent history cache</span>
+            <span className="text-[10px] text-stone-400 truncate block">recent history</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+            <span className="text-[10px] sm:text-[11px] font-bold text-stone-400 uppercase tracking-wider block truncate">
               Starred Phrases
             </span>
-            <span className="text-xl sm:text-2xl font-black text-stone-800 mt-1 block">
+            <span className="text-lg sm:text-2xl font-black text-stone-800 mt-1 block">
               {savedPhraseIds.length}
             </span>
-            <span className="text-[10px] text-stone-400">ready in Show-to-Speak</span>
+            <span className="text-[10px] text-stone-400 truncate block">ready in Show-to-Speak</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+            <span className="text-[10px] sm:text-[11px] font-bold text-stone-400 uppercase tracking-wider block truncate">
               Quiz Sessions
             </span>
-            <span className="text-xl sm:text-2xl font-black text-stone-800 mt-1 block">
+            <span className="text-lg sm:text-2xl font-black text-stone-800 mt-1 block">
               {progress.totalQuizzesTaken}
             </span>
-            <span className="text-[10px] text-stone-400">completed quizzes</span>
+            <span className="text-[10px] text-stone-400 truncate block">completed quizzes</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
-            <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block">
+          <div className="p-3 sm:p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs">
+            <span className="text-[10px] sm:text-[11px] font-bold text-stone-400 uppercase tracking-wider block truncate">
               SRS Enrolled
             </span>
-            <span className="text-xl sm:text-2xl font-black text-stone-800 mt-1 block">
+            <span className="text-lg sm:text-2xl font-black text-stone-800 mt-1 block">
               {srsStats.total}
             </span>
-            <span className="text-[10px] text-stone-400">in Leitner memory schedule</span>
+            <span className="text-[10px] text-stone-400 truncate block">in Leitner schedule</span>
           </div>
         </div>
       </section>
 
       {/* 3. Real-Life Conversation Scenarios Progress */}
-      <section className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/90 shadow-sm space-y-4">
-        <div className="flex items-center justify-between">
+      <section className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 border border-stone-200/90 shadow-sm space-y-4">
+        <div className="flex items-center justify-between gap-2">
           <div>
-            <h2 className="text-lg font-bold text-stone-900">
+            <h2 className="text-base sm:text-lg font-bold text-stone-900">
               Bengaluru Conversation Scenarios
             </h2>
             <p className="text-xs text-stone-500">
@@ -299,20 +299,20 @@ export const ProgressPage: React.FC = () => {
           </div>
           <Link
             to="/conversations"
-            className="text-xs font-bold text-teal-800 hover:text-teal-950 flex items-center space-x-1"
+            className="text-xs font-bold text-teal-800 hover:text-teal-950 flex items-center space-x-1 shrink-0"
           >
             <span>Open Simulator</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
           {CONVERSATION_SCENARIOS.map((scenario) => {
             const isDone = completedScenarioIds.includes(scenario.id);
             return (
               <div
                 key={scenario.id}
-                className={`p-3.5 rounded-2xl border flex items-center justify-between gap-3 ${
+                className={`p-3 sm:p-3.5 rounded-2xl border flex items-center justify-between gap-3 ${
                   isDone
                     ? 'bg-emerald-50/50 border-emerald-200'
                     : 'bg-stone-50/70 border-stone-200'

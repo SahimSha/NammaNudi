@@ -95,21 +95,21 @@ export const SearchPage: React.FC = () => {
       </div>
 
       {/* Search Input Box */}
-      <div className="bg-white p-2.5 rounded-3xl border-2 border-teal-800 shadow-md flex items-center relative">
-        <Search className="w-5 h-5 text-teal-800 ml-3 mr-2 pointer-events-none" />
+      <div className="bg-white p-2 rounded-2xl sm:rounded-3xl border-2 border-teal-800 shadow-md flex items-center relative min-h-[48px]">
+        <Search className="w-5 h-5 text-teal-800 ml-2.5 sm:ml-3 mr-2 pointer-events-none shrink-0" />
         <input
           type="text"
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
-          placeholder="Type in Kannada or English, e.g. 'auto', 'ಬಸ್', 'water', 'doctor'..."
+          placeholder="Search in Kannada or English, e.g. 'auto', 'ಬಸ್', 'dosa'..."
           autoFocus
-          className="w-full py-2 bg-transparent text-stone-900 font-medium text-sm sm:text-base focus:outline-none"
+          className="w-full py-2 bg-transparent text-stone-900 font-medium text-xs sm:text-sm md:text-base focus:outline-none"
         />
         {query && (
           <button
             onClick={clearQuery}
             aria-label="Clear search"
-            className="p-1.5 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-700 transition-colors mr-2"
+            className="p-1.5 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-700 transition-colors mr-1 min-w-[36px] min-h-[36px] flex items-center justify-center shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
@@ -122,12 +122,12 @@ export const SearchPage: React.FC = () => {
           <Sparkles className="w-3.5 h-3.5 text-amber-500" />
           <span>Popular Everyday Queries</span>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {suggestedQueries.map((term) => (
             <button
               key={term}
               onClick={() => handleQueryChange(term)}
-              className="px-3 py-1.5 rounded-xl bg-white hover:bg-teal-50 border border-stone-200 text-stone-700 hover:text-teal-900 hover:border-teal-300 text-xs font-semibold transition-all shadow-xs"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-white hover:bg-teal-50 border border-stone-200 text-stone-700 hover:text-teal-900 hover:border-teal-300 text-xs font-semibold transition-all shadow-xs min-h-[34px]"
             >
               {term}
             </button>
@@ -139,7 +139,7 @@ export const SearchPage: React.FC = () => {
       <div className="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none pt-2">
         <button
           onClick={() => setActiveCategoryFilter('all')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+          className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 min-h-[34px] ${
             activeCategoryFilter === 'all'
               ? 'bg-teal-900 text-white shadow-xs'
               : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-100'
@@ -151,7 +151,7 @@ export const SearchPage: React.FC = () => {
           <button
             key={c.id}
             onClick={() => setActiveCategoryFilter(c.id)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 min-h-[34px] ${
               activeCategoryFilter === c.id
                 ? 'bg-teal-900 text-white shadow-xs'
                 : 'bg-white text-stone-600 border border-stone-200 hover:bg-stone-100'

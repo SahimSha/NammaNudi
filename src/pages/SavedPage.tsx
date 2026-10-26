@@ -190,7 +190,7 @@ export const SavedPage: React.FC = () => {
               Phrases graduate from Box 1 (everyday) through Box 5 (monthly) as your memory strengthens. If you stumble, the phrase returns to Box 1 for reinforcement.
             </p>
 
-            <div className="grid grid-cols-5 gap-2 text-center">
+            <div className="grid grid-cols-5 gap-1 sm:gap-2 text-center">
               {[
                 { box: 1, label: 'Box 1', interval: '1 day', count: srsStats.boxCounts[1] || 0, color: 'bg-rose-50 border-rose-200 text-rose-800' },
                 { box: 2, label: 'Box 2', interval: '3 days', count: srsStats.boxCounts[2] || 0, color: 'bg-amber-50 border-amber-200 text-amber-800' },
@@ -198,10 +198,10 @@ export const SavedPage: React.FC = () => {
                 { box: 4, label: 'Box 4', interval: '14 days', count: srsStats.boxCounts[4] || 0, color: 'bg-teal-50 border-teal-200 text-teal-800' },
                 { box: 5, label: 'Box 5', interval: '30 days', count: srsStats.boxCounts[5] || 0, color: 'bg-emerald-50 border-emerald-200 text-emerald-800 font-bold' }
               ].map((b) => (
-                <div key={b.box} className={`p-2.5 rounded-xl border ${b.color} flex flex-col justify-between`}>
-                  <span className="text-[10px] font-bold uppercase">{b.label}</span>
-                  <span className="text-base sm:text-lg font-black my-0.5">{b.count}</span>
-                  <span className="text-[9px] text-stone-500">{b.interval}</span>
+                <div key={b.box} className={`p-1.5 sm:p-2.5 rounded-xl border ${b.color} flex flex-col justify-between min-h-[58px] sm:min-h-auto`}>
+                  <span className="text-[8px] xs:text-[9px] sm:text-[10px] font-bold uppercase truncate">{b.label}</span>
+                  <span className="text-sm sm:text-lg font-black my-0.5">{b.count}</span>
+                  <span className="text-[8px] xs:text-[9px] text-stone-500 truncate">{b.interval}</span>
                 </div>
               ))}
             </div>
@@ -209,8 +209,8 @@ export const SavedPage: React.FC = () => {
 
           {/* Active Review Flashcard */}
           {currentDuePhrase && currentSRSItem ? (
-            <div className="bg-[#FAF8F5] rounded-3xl p-6 sm:p-8 border-2 border-amber-300 shadow-md relative overflow-hidden transition-all text-center">
-              <div className="flex items-center justify-between text-xs text-stone-500 mb-4">
+            <div className="bg-[#FAF8F5] rounded-3xl p-4 sm:p-8 border-2 border-amber-300 shadow-md relative overflow-hidden transition-all text-center">
+              <div className="flex items-center justify-between text-xs text-stone-500 mb-4 gap-2 flex-wrap">
                 <span className="font-semibold px-2.5 py-1 rounded-md bg-stone-100 text-stone-700">
                   {duePhrases.length} {duePhrases.length === 1 ? 'phrase' : 'phrases'} due today
                 </span>
@@ -220,11 +220,11 @@ export const SavedPage: React.FC = () => {
               </div>
 
               {/* Prompt: English + Situation */}
-              <div className="my-6 space-y-2">
+              <div className="my-4 sm:my-6 space-y-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-md inline-block">
                   {currentDuePhrase.situation}
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 leading-tight">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-stone-900 leading-tight break-words">
                   "{currentDuePhrase.english}"
                 </h2>
                 {currentDuePhrase.contextNote && (
@@ -239,7 +239,7 @@ export const SavedPage: React.FC = () => {
                 <div className="pt-4 border-t border-stone-200/80">
                   <button
                     onClick={() => setIsAnswerRevealed(true)}
-                    className="inline-flex items-center space-x-2 px-6 py-3.5 bg-teal-800 hover:bg-teal-900 text-white rounded-2xl font-bold text-sm shadow-md transition-all active:scale-98"
+                    className="inline-flex items-center space-x-2 px-6 py-3.5 bg-teal-800 hover:bg-teal-900 text-white rounded-2xl font-bold text-xs sm:text-sm shadow-md transition-all active:scale-98 min-h-[44px]"
                   >
                     <Eye className="w-4 h-4" />
                     <span>Show Kannada Answer (ಉತ್ತರ ನೋಡಿ)</span>
@@ -251,14 +251,14 @@ export const SavedPage: React.FC = () => {
               ) : (
                 <div className="pt-4 border-t border-stone-200 space-y-4 animate-in fade-in duration-200">
                   <div>
-                    <h3 className="font-kannada text-3xl sm:text-4xl font-black text-teal-950 mb-1.5 leading-snug">
+                    <h3 className="font-kannada text-2xl sm:text-3xl md:text-4xl font-black text-teal-950 mb-1.5 leading-snug break-words">
                       {currentDuePhrase.kannada}
                     </h3>
-                    <p className="text-base sm:text-lg font-bold text-teal-800 italic">
+                    <p className="text-sm sm:text-base md:text-lg font-bold text-teal-800 italic break-words">
                       {currentDuePhrase.transliteration}
                     </p>
                     {currentDuePhrase.pronunciationGuide && (
-                      <p className="text-xs font-mono text-stone-600 mt-1">
+                      <p className="text-xs font-mono text-stone-600 mt-1 break-words">
                         Phonetic: {currentDuePhrase.pronunciationGuide}
                       </p>
                     )}
@@ -274,7 +274,7 @@ export const SavedPage: React.FC = () => {
                           speak(currentDuePhrase.kannada, undefined, currentDuePhrase.id);
                         }
                       }}
-                      className={`inline-flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs shadow-xs transition-all ${
+                      className={`inline-flex items-center space-x-2 px-4 py-2 rounded-xl font-bold text-xs shadow-xs transition-all min-h-[40px] ${
                         isSpeaking
                           ? 'bg-rose-600 text-white animate-pulse'
                           : 'bg-stone-100 hover:bg-stone-200 text-stone-800'
@@ -300,34 +300,34 @@ export const SavedPage: React.FC = () => {
                       How easily did you recall this Kannada phrase?
                     </p>
 
-                    <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+                    <div className="grid grid-cols-3 gap-1.5 sm:gap-2 max-w-md mx-auto">
                       <button
                         onClick={() => handleSRSGrade('again')}
-                        className="p-3 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 font-bold text-xs transition-all flex flex-col items-center gap-1"
+                        className="p-2 sm:p-3 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-800 font-bold text-xs transition-all flex flex-col items-center gap-1 min-h-[64px] justify-center"
                       >
                         <RotateCcw className="w-4 h-4 text-rose-600" />
                         <span>Again</span>
-                        <span className="text-[10px] font-normal text-rose-600/80">1 day (Box 1)</span>
+                        <span className="text-[9px] sm:text-[10px] font-normal text-rose-600/80">1 day (Box 1)</span>
                       </button>
 
                       <button
                         onClick={() => handleSRSGrade('good')}
-                        className="p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs transition-all flex flex-col items-center gap-1"
+                        className="p-2 sm:p-3 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs transition-all flex flex-col items-center gap-1 min-h-[64px] justify-center"
                       >
                         <CheckCircle2 className="w-4 h-4 text-amber-600" />
                         <span>Good</span>
-                        <span className="text-[10px] font-normal text-amber-700/80">
+                        <span className="text-[9px] sm:text-[10px] font-normal text-amber-700/80">
                           +1 Box ({Math.min(5, currentSRSItem.box + 1)})
                         </span>
                       </button>
 
                       <button
                         onClick={() => handleSRSGrade('easy')}
-                        className="p-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold text-xs transition-all flex flex-col items-center gap-1"
+                        className="p-2 sm:p-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-900 font-bold text-xs transition-all flex flex-col items-center gap-1 min-h-[64px] justify-center"
                       >
                         <Sparkles className="w-4 h-4 text-emerald-600" />
                         <span>Easy</span>
-                        <span className="text-[10px] font-normal text-emerald-700/80">
+                        <span className="text-[9px] sm:text-[10px] font-normal text-emerald-700/80">
                           +2 Boxes ({Math.min(5, currentSRSItem.box + 2)})
                         </span>
                       </button>

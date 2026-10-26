@@ -106,7 +106,7 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
       }}
       tabIndex={0}
       role="button"
-      className="group text-left bg-white rounded-2xl p-5 border border-stone-200/90 shadow-sm hover:shadow-md hover:border-teal-300 transition-all cursor-pointer relative flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-teal-600"
+      className="group text-left bg-white rounded-2xl p-4 sm:p-5 border border-stone-200/90 shadow-sm hover:shadow-md hover:border-teal-300 transition-all cursor-pointer relative flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-teal-600"
     >
       {/* Top Bar: Category badge & Actions */}
       <div className="flex items-center justify-between gap-2 mb-3">
@@ -128,7 +128,7 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
             onClick={handleToggleSave}
             title={isSaved ? 'Remove from saved' : 'Save phrase'}
             aria-label={isSaved ? 'Remove from saved' : 'Save phrase'}
-            className={`p-1.5 rounded-lg transition-colors ${
+            className={`p-1.5 rounded-lg transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center ${
               isSaved
                 ? 'text-amber-500 hover:text-amber-600 bg-amber-50'
                 : 'text-stone-300 hover:text-amber-500 hover:bg-stone-100'
@@ -142,18 +142,18 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
       {/* Main Content */}
       <div className="mb-4">
         {/* Kannada Script */}
-        <h3 className="font-kannada text-2xl font-bold text-teal-950 mb-1 leading-snug tracking-wide group-hover:text-teal-800 transition-colors">
+        <h3 className="font-kannada text-xl sm:text-2xl font-bold text-teal-950 mb-1 leading-snug tracking-wide group-hover:text-teal-800 transition-colors break-words">
           {phrase.kannada}
         </h3>
 
         {/* Transliteration */}
-        <p className="text-sm font-semibold text-teal-700 mb-1 italic tracking-tight">
+        <p className="text-sm font-semibold text-teal-700 mb-1 italic tracking-tight break-words">
           {phrase.transliteration}
         </p>
 
         {/* Phonetic Pronunciation Guide */}
         {phrase.pronunciationGuide && (
-          <div className="text-[11px] font-mono text-stone-700 bg-amber-50/90 border border-amber-200/80 px-2 py-0.5 rounded-md inline-flex items-center gap-1 mb-1.5">
+          <div className="text-[11px] font-mono text-stone-700 bg-amber-50/90 border border-amber-200/80 px-2 py-0.5 rounded-md inline-flex items-center gap-1 mb-1.5 break-words">
             <span className="font-bold text-[10px] uppercase tracking-wider text-amber-800">Phonetic:</span>
             <span>{phrase.pronunciationGuide}</span>
           </div>
@@ -173,14 +173,14 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
       </div>
 
       {/* Bottom Action Bar */}
-      <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-stone-500">
-        <div className="flex items-center space-x-2">
+      <div className="pt-3 border-t border-stone-100 flex flex-wrap items-center justify-between gap-2 text-stone-500">
+        <div className="flex items-center space-x-1.5 sm:space-x-2 flex-wrap gap-y-1">
           {/* Audio Pronunciation Button */}
           <button
             onClick={handleSpeak}
             title="Listen to pronunciation"
             aria-label="Listen to pronunciation"
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+            className={`flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold transition-all min-h-[36px] ${
               thisSpeaking && isSpeaking
                 ? 'bg-teal-600 text-white animate-pulse'
                 : 'bg-teal-50 text-teal-800 hover:bg-teal-100 border border-teal-200/60'
@@ -204,7 +204,7 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
             onClick={handleCopy}
             title="Copy phrase"
             aria-label="Copy phrase"
-            className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+            className="p-2 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
           >
             {copied ? (
               <Check className="w-4 h-4 text-emerald-600" />
@@ -218,10 +218,10 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
             onClick={handlePractice}
             title="Practise pronunciation"
             aria-label="Practise pronunciation"
-            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-teal-800 bg-teal-50/80 hover:bg-teal-100 border border-teal-200/70 transition-colors"
+            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-teal-800 bg-teal-50/80 hover:bg-teal-100 border border-teal-200/70 transition-colors min-h-[36px]"
           >
             <Mic className="w-3.5 h-3.5 text-teal-700" />
-            <span className="hidden sm:inline">Practise</span>
+            <span>Practise</span>
           </button>
         </div>
 
@@ -229,7 +229,7 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
         <button
           onClick={handleShowToSpeak}
           title="Open large full-screen view to show to person"
-          className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200 transition-colors"
+          className="flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200 transition-colors min-h-[36px] ml-auto sm:ml-0"
         >
           <Maximize2 className="w-3.5 h-3.5 text-amber-700" />
           <span>Show to Speak</span>

@@ -118,13 +118,13 @@ export const ShowToSpeakModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-md flex flex-col justify-between p-4 sm:p-6 animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 bg-stone-950/85 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200">
       {/* Top Banner & Control Bar */}
-      <div className="max-w-2xl w-full mx-auto flex items-center justify-between text-white pb-3 border-b border-white/10">
+      <div className="max-w-2xl w-full mx-auto flex items-center justify-between text-white pb-3 border-b border-white/10 shrink-0">
         <div className="flex items-center space-x-2">
           <div className="px-2.5 py-1 rounded-lg bg-amber-400 text-teal-950 font-black text-xs uppercase tracking-wider flex items-center space-x-1 shadow-sm">
             <Smartphone className="w-3.5 h-3.5" />
-            <span>Show to Speak Mode</span>
+            <span>Show to Speak</span>
           </div>
           {category && (
             <span className="text-xs text-white/70 font-medium hidden sm:inline">
@@ -133,12 +133,12 @@ export const ShowToSpeakModal: React.FC = () => {
           )}
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1.5 sm:space-x-2">
           {/* Favourite button */}
           <button
             onClick={() => toggleSavePhrase(showToSpeakPhrase.id)}
             aria-label="Save phrase"
-            className={`p-2 rounded-xl transition-colors ${
+            className={`p-2 rounded-xl transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center ${
               isSaved
                 ? 'text-amber-400 bg-white/10'
                 : 'text-white/60 hover:text-amber-400 hover:bg-white/10'
@@ -151,7 +151,7 @@ export const ShowToSpeakModal: React.FC = () => {
           <button
             onClick={handleCopy}
             aria-label="Copy phrase"
-            className="p-2 rounded-xl text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+            className="p-2 rounded-xl text-white/60 hover:text-white hover:bg-white/10 transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center"
           >
             {copied ? (
               <Check className="w-5 h-5 text-emerald-400" />
@@ -167,7 +167,7 @@ export const ShowToSpeakModal: React.FC = () => {
               setShowToSpeakPhrase(null);
             }}
             aria-label="Close Show to Speak view"
-            className="p-2 rounded-xl text-white/70 hover:text-white bg-white/10 hover:bg-white/20 transition-colors"
+            className="p-2 rounded-xl text-white/70 hover:text-white bg-white/10 hover:bg-white/20 transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center"
           >
             <X className="w-6 h-6" />
           </button>
@@ -175,10 +175,10 @@ export const ShowToSpeakModal: React.FC = () => {
       </div>
 
       {/* Main Focus Card - Ultra High Contrast */}
-      <div className="max-w-2xl w-full mx-auto my-auto py-6">
-        <div className="bg-[#FAF8F5] rounded-3xl p-6 sm:p-10 shadow-2xl border-4 border-amber-300 flex flex-col justify-center text-center relative overflow-hidden">
+      <div className="max-w-2xl w-full mx-auto my-auto py-4 sm:py-6">
+        <div className="bg-[#FAF8F5] rounded-3xl p-4 sm:p-8 md:p-10 shadow-2xl border-4 border-amber-300 flex flex-col justify-center text-center relative overflow-hidden">
           {/* Subtle top indicator for user instruction */}
-          <div className="mb-3 inline-flex items-center justify-center space-x-1.5 self-center bg-teal-900/10 text-teal-950 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+          <div className="mb-2 sm:mb-3 inline-flex items-center justify-center space-x-1.5 self-center bg-teal-900/10 text-teal-950 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
             <span>👇 Turn screen to the person</span>
           </div>
 
@@ -194,7 +194,7 @@ export const ShowToSpeakModal: React.FC = () => {
                   <button
                     key={v.id}
                     onClick={() => setSelectedVariantId(v.id)}
-                    className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${
+                    className={`px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition-all min-h-[32px] ${
                       isSelected
                         ? 'bg-amber-400 text-teal-950 shadow-xs ring-2 ring-amber-300'
                         : 'bg-stone-200/80 text-stone-700 hover:bg-stone-300'
@@ -208,26 +208,26 @@ export const ShowToSpeakModal: React.FC = () => {
           )}
 
           {/* Kannada Text (Gigantic & Bold) */}
-          <div className="my-3 sm:my-6">
-            <h1 className="font-kannada text-4xl sm:text-5xl md:text-6xl font-black text-stone-900 leading-tight tracking-normal selection:bg-amber-300">
+          <div className="my-2 sm:my-5">
+            <h1 className="font-kannada text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-stone-900 leading-tight tracking-normal selection:bg-amber-300 break-words">
               {displayKannada}
             </h1>
           </div>
 
           {/* Roman Transliteration */}
-          <div className="mb-3">
-            <p className="text-xl sm:text-2xl font-bold text-teal-800 italic">
+          <div className="mb-2 sm:mb-3">
+            <p className="text-lg sm:text-xl md:text-2xl font-bold text-teal-800 italic break-words">
               {displayTransliteration}
             </p>
           </div>
 
           {/* English Meaning */}
-          <div className="pt-4 border-t border-stone-200">
-            <p className="text-base sm:text-xl font-semibold text-stone-700">
+          <div className="pt-3 sm:pt-4 border-t border-stone-200">
+            <p className="text-sm sm:text-lg md:text-xl font-semibold text-stone-700 break-words">
               "{displayEnglish}"
             </p>
             {displayContextNote && (
-              <p className="text-xs sm:text-sm text-stone-500 mt-2">
+              <p className="text-xs sm:text-sm text-stone-500 mt-1.5 sm:mt-2">
                 Context: {displayContextNote}
               </p>
             )}
@@ -235,11 +235,11 @@ export const ShowToSpeakModal: React.FC = () => {
 
           {/* Phonetic Breakdown hint */}
           {showToSpeakPhrase.pronunciationGuide && (
-            <div className="mt-4 inline-block bg-white border border-stone-200 rounded-xl px-4 py-2 self-center">
-              <span className="text-xs font-semibold text-stone-400 uppercase tracking-wider mr-2">
+            <div className="mt-3 sm:mt-4 inline-block bg-white border border-stone-200 rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 self-center max-w-full">
+              <span className="text-[10px] sm:text-xs font-semibold text-stone-400 uppercase tracking-wider mr-1 sm:mr-2">
                 Phonetic:
               </span>
-              <span className="text-sm font-bold text-stone-700 tracking-wide font-mono">
+              <span className="text-xs sm:text-sm font-bold text-stone-700 tracking-wide font-mono break-words">
                 {showToSpeakPhrase.pronunciationGuide}
               </span>
             </div>
@@ -247,12 +247,12 @@ export const ShowToSpeakModal: React.FC = () => {
 
           {/* Fallback voice notice if no Kannada voice is in browser and no prerecorded audio */}
           {!hasKannadaVoice && (
-            <div className={`mt-4 p-2.5 rounded-xl border text-xs flex items-center justify-center space-x-1.5 ${
+            <div className={`mt-3 sm:mt-4 p-2 sm:p-2.5 rounded-xl border text-[11px] sm:text-xs flex items-center justify-center space-x-1.5 ${
               hasPrerecordedAudio(showToSpeakPhrase.id)
                 ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
                 : 'bg-amber-50 border-amber-200/80 text-amber-900'
             }`}>
-              <Info className={`w-4 h-4 flex-shrink-0 ${
+              <Info className={`w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0 ${
                 hasPrerecordedAudio(showToSpeakPhrase.id) ? 'text-emerald-700' : 'text-amber-700'
               }`} />
               <span>
@@ -266,11 +266,12 @@ export const ShowToSpeakModal: React.FC = () => {
       </div>
 
       {/* Bottom Controls: Previous, Big Speaker, Next */}
-      <div className="max-w-2xl w-full mx-auto flex items-center justify-between gap-4 pt-2">
+      <div className="max-w-2xl w-full mx-auto flex items-center justify-between gap-2 sm:gap-4 pt-2 shrink-0">
         <button
           onClick={goToPrev}
           disabled={!hasPrev}
-          className={`flex items-center space-x-1 px-4 py-3 rounded-2xl font-bold text-sm transition-all ${
+          aria-label="Previous phrase"
+          className={`flex items-center space-x-1 px-3 sm:px-4 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all min-h-[48px] min-w-[48px] justify-center ${
             hasPrev
               ? 'bg-white/10 text-white hover:bg-white/20'
               : 'opacity-30 cursor-not-allowed text-white/40'
@@ -283,7 +284,7 @@ export const ShowToSpeakModal: React.FC = () => {
         {/* Big Central Audio Trigger */}
         <button
           onClick={() => handleSpeak()}
-          className={`flex-1 max-w-xs flex items-center justify-center space-x-2 py-4 px-6 rounded-2xl font-extrabold text-base shadow-lg transition-transform active:scale-95 ${
+          className={`flex-1 max-w-xs flex items-center justify-center space-x-2 py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl font-extrabold text-sm sm:text-base shadow-lg transition-transform active:scale-95 min-h-[48px] ${
             isSpeaking
               ? 'bg-rose-600 text-white animate-pulse'
               : 'bg-gradient-to-r from-amber-400 to-amber-500 text-teal-950 hover:brightness-105'
@@ -291,12 +292,12 @@ export const ShowToSpeakModal: React.FC = () => {
         >
           {isSpeaking ? (
             <>
-              <VolumeX className="w-6 h-6" />
+              <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
               <span>Stop Speaking</span>
             </>
           ) : (
             <>
-              <Volume2 className="w-6 h-6" />
+              <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
               <span>Speak Out Loud</span>
             </>
           )}
@@ -305,7 +306,8 @@ export const ShowToSpeakModal: React.FC = () => {
         <button
           onClick={goToNext}
           disabled={!hasNext}
-          className={`flex items-center space-x-1 px-4 py-3 rounded-2xl font-bold text-sm transition-all ${
+          aria-label="Next phrase"
+          className={`flex items-center space-x-1 px-3 sm:px-4 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all min-h-[48px] min-w-[48px] justify-center ${
             hasNext
               ? 'bg-white/10 text-white hover:bg-white/20'
               : 'opacity-30 cursor-not-allowed text-white/40'
