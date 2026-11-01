@@ -138,7 +138,7 @@ Every phrase includes Kannada Unicode script, English translation, Roman transli
 ### Installation
 ```bash
 # 1. Clone or navigate into the project directory
-git clone https://github.com/<your-username>/NammaNudi.git
+git clone https://github.com/SahimSha/NammaNudi.git
 cd NammaNudi
 
 # 2. Install dependencies
