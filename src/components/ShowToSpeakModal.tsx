@@ -26,7 +26,7 @@ export const ShowToSpeakModal: React.FC = () => {
     phrases
   } = useApp();
 
-  const { speak, stop, isSpeaking, hasKannadaVoice } = useSpeech({
+  const { speak, stop, isSpeaking, isLoading, hasKannadaVoice } = useSpeech({
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
   const [copied, setCopied] = React.useState(false);
@@ -285,15 +285,15 @@ export const ShowToSpeakModal: React.FC = () => {
         <button
           onClick={() => handleSpeak()}
           className={`flex-1 max-w-xs flex items-center justify-center space-x-2 py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl font-extrabold text-sm sm:text-base shadow-lg transition-transform active:scale-95 min-h-[48px] ${
-            isSpeaking
+            isSpeaking || isLoading
               ? 'bg-rose-600 text-white animate-pulse'
               : 'bg-gradient-to-r from-amber-400 to-amber-500 text-teal-950 hover:brightness-105'
           }`}
         >
-          {isSpeaking ? (
+          {isSpeaking || isLoading ? (
             <>
               <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />
-              <span>Stop Speaking</span>
+              <span>{isLoading ? 'Loading Audio...' : 'Stop Speaking'}</span>
             </>
           ) : (
             <>

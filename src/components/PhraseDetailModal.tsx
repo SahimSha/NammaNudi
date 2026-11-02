@@ -37,7 +37,7 @@ export const PhraseDetailModal: React.FC = () => {
     toggleEnrollSRS
   } = useApp();
 
-  const { speak, stop, isSpeaking, voiceStatus, hasKannadaVoice } = useSpeech({
+  const { speak, stop, isSpeaking, isLoading, voiceStatus, hasKannadaVoice } = useSpeech({
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
   const [copied, setCopied] = React.useState(false);
@@ -236,15 +236,15 @@ export const PhraseDetailModal: React.FC = () => {
               <button
                 onClick={() => handleSpeak()}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all min-h-[44px] ${
-                  isSpeaking
+                  isSpeaking || isLoading
                     ? 'bg-rose-600 text-white animate-pulse'
                     : 'bg-teal-800 hover:bg-teal-900 text-white'
                 }`}
               >
-                {isSpeaking ? (
+                {isSpeaking || isLoading ? (
                   <>
                     <VolumeX className="w-4 h-4" />
-                    <span>Stop Audio</span>
+                    <span>{isLoading ? 'Loading Audio...' : 'Stop Audio'}</span>
                   </>
                 ) : (
                   <>

@@ -35,6 +35,7 @@ export const PronunciationPracticeModal: React.FC = () => {
     speak,
     stop: stopReferenceSpeech,
     isSpeaking: isReferenceSpeaking,
+    isLoading: isReferenceLoading,
     hasKannadaVoice,
     voiceStatus
   } = useSpeech({
@@ -246,15 +247,15 @@ export const PronunciationPracticeModal: React.FC = () => {
               <button
                 onClick={handleToggleReferenceAudio}
                 className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm transition-all active:scale-98 min-h-[44px] ${
-                  isReferenceSpeaking
+                  isReferenceSpeaking || isReferenceLoading
                     ? 'bg-rose-600 text-white animate-pulse'
                     : 'bg-teal-800 hover:bg-teal-900 text-white'
                 }`}
               >
-                {isReferenceSpeaking ? (
+                {isReferenceSpeaking || isReferenceLoading ? (
                   <>
                     <VolumeX className="w-4 h-4" />
-                    <span>Stop Reference Audio</span>
+                    <span>{isReferenceLoading ? 'Loading Reference...' : 'Stop Reference Audio'}</span>
                   </>
                 ) : (
                   <>
@@ -511,13 +512,13 @@ export const PronunciationPracticeModal: React.FC = () => {
                   <button
                     onClick={handleToggleReferenceAudio}
                     className={`flex items-center justify-center space-x-2 px-3 py-2.5 rounded-xl text-xs font-bold border transition-all ${
-                      isReferenceSpeaking
+                      isReferenceSpeaking || isReferenceLoading
                         ? 'bg-rose-600 text-white border-rose-600'
                         : 'bg-white text-teal-900 border-teal-200 hover:bg-teal-50'
                     }`}
                   >
                     <Volume2 className="w-3.5 h-3.5" />
-                    <span>{isReferenceSpeaking ? 'Stop Reference' : '1. Play Reference'}</span>
+                    <span>{isReferenceSpeaking || isReferenceLoading ? (isReferenceLoading ? 'Loading...' : 'Stop Reference') : '1. Play Reference'}</span>
                   </button>
 
                   <button

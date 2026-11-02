@@ -72,7 +72,73 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. Same-origin static assets (JS, CSS, SVGs, fonts)
+  // 2. Audio files (/audio/kn/*.mp3) — Cache-first with Range request support for offline playback
+  if (url.origin === location.origin && (url.pathname.includes('/audio/') || url.pathname.endsWith('.mp3'))) {
+    event.respondWith(
+      (async () => {
+        const cache = await caches.open(CACHE_NAME);
+        const cleanRequest = new Request(url.pathname, { method: 'GET' });
+        const cached = await cache.match(cleanRequest);
+
+        if (cached) {
+          if (request.headers.has('range')) {
+            const rangeHeader = request.headers.get('range');
+            const arrayBuffer = await cached.arrayBuffer();
+            const bytes = /^bytes=(\d+)-(\d+)?$/g.exec(rangeHeader || '');
+            if (bytes) {
+              const start = parseInt(bytes[1], 10);
+              const end = bytes[2] ? parseInt(bytes[2], 10) : arrayBuffer.byteLength - 1;
+              const sliced = arrayBuffer.slice(start, end + 1);
+              return new Response(sliced, {
+                status: 206,
+                statusText: 'Partial Content',
+                headers: {
+                  ...Object.fromEntries(cached.headers.entries()),
+                  'Content-Range': `bytes ${start}-${end}/${arrayBuffer.byteLength}`,
+                  'Content-Length': String(sliced.byteLength),
+                  'Accept-Ranges': 'bytes'
+                }
+              });
+            }
+          }
+          return cached;
+        }
+
+        try {
+          const networkResponse = await fetch(cleanRequest);
+          if (networkResponse && networkResponse.status === 200) {
+            await cache.put(cleanRequest, networkResponse.clone());
+          }
+          if (request.headers.has('range')) {
+            const arrayBuffer = await networkResponse.clone().arrayBuffer();
+            const rangeHeader = request.headers.get('range');
+            const bytes = /^bytes=(\d+)-(\d+)?$/g.exec(rangeHeader || '');
+            if (bytes) {
+              const start = parseInt(bytes[1], 10);
+              const end = bytes[2] ? parseInt(bytes[2], 10) : arrayBuffer.byteLength - 1;
+              const sliced = arrayBuffer.slice(start, end + 1);
+              return new Response(sliced, {
+                status: 206,
+                statusText: 'Partial Content',
+                headers: {
+                  ...Object.fromEntries(networkResponse.headers.entries()),
+                  'Content-Range': `bytes ${start}-${end}/${arrayBuffer.byteLength}`,
+                  'Content-Length': String(sliced.byteLength),
+                  'Accept-Ranges': 'bytes'
+                }
+              });
+            }
+          }
+          return networkResponse;
+        } catch {
+          return (await cache.match(cleanRequest)) || Response.error();
+        }
+      })()
+    );
+    return;
+  }
+
+  // 3. Same-origin static assets (JS, CSS, SVGs, fonts)
   if (url.origin === location.origin) {
     event.respondWith(
       caches.match(request).then((cachedResponse) => {
@@ -104,7 +170,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. External assets (e.g. Google Fonts)
+  // 4. External assets (e.g. Google Fonts)
   if (url.hostname.includes('fonts.googleapis.com') || url.hostname.includes('fonts.gstatic.com')) {
     event.respondWith(
       caches.match(request).then((cached) => {

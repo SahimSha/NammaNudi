@@ -36,6 +36,7 @@ export interface Phrase {
   needsDialectReview?: boolean;
   needsSpeakerReview?: boolean;
   variants?: PhraseVariant[];
+  audioUrl?: string;
 }
 
 export interface QuizQuestion {

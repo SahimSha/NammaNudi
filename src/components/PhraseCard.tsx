@@ -26,11 +26,13 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
     showToast
   } = useApp();
 
-  const { speak, stop, isSpeaking } = useSpeech({
+  const { speak, stop, isSpeaking, isLoading, activePhraseId } = useSpeech({
     onErrorNotice: (msg) => showToast(msg, 'warning')
   });
   const [thisSpeaking, setThisSpeaking] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const isThisPlaying = (activePhraseId === phrase.id && (isSpeaking || isLoading)) || (thisSpeaking && isSpeaking);
 
   const isSaved = isPhraseSaved(phrase.id);
   const category = CATEGORIES.find((c) => c.id === phrase.categoryId);
@@ -47,7 +49,7 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
   const handleSpeak = (e: React.MouseEvent) => {
     e.stopPropagation();
     addRecentPhrase(phrase.id);
-    if (thisSpeaking && isSpeaking) {
+    if (isThisPlaying) {
       stop();
       setThisSpeaking(false);
       return;
@@ -178,18 +180,22 @@ export const PhraseCard: React.FC<PhraseCardProps> = ({
           {/* Audio Pronunciation Button */}
           <button
             onClick={handleSpeak}
-            title="Listen to pronunciation"
-            aria-label="Listen to pronunciation"
+            title={isThisPlaying ? 'Stop audio' : 'Listen to pronunciation'}
+            aria-label={
+              isThisPlaying
+                ? `Stop audio for ${phrase.transliteration}`
+                : `Listen to pronunciation for ${phrase.transliteration}`
+            }
             className={`flex items-center space-x-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-semibold transition-all min-h-[36px] ${
-              thisSpeaking && isSpeaking
+              isThisPlaying
                 ? 'bg-teal-600 text-white animate-pulse'
                 : 'bg-teal-50 text-teal-800 hover:bg-teal-100 border border-teal-200/60'
             }`}
           >
-            {thisSpeaking && isSpeaking ? (
+            {isThisPlaying ? (
               <>
                 <VolumeX className="w-3.5 h-3.5" />
-                <span>Speaking</span>
+                <span>{isLoading && activePhraseId === phrase.id ? 'Loading...' : 'Speaking'}</span>
               </>
             ) : (
               <>

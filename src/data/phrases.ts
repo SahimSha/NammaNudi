@@ -4,7 +4,7 @@ export const PHRASES: Phrase[] = [
   // 1. TRAVEL & DIRECTIONS (travel-directions)
   {
     id: 'td-01',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-01.mp3',    categoryId: 'travel-directions',
     kannada: 'ಇಲ್ಲಿಗೆ ಹೇಗೆ ಹೋಗುವುದು?',
     transliteration: 'Illige hege hoguvudu?',
     english: 'How do I go here? / How to reach here?',
@@ -44,7 +44,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-02',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-02.mp3',    categoryId: 'travel-directions',
     kannada: 'ಸ್ವಲ್ಪ ಮುಂದಕ್ಕೆ ಹೋಗಿ, ಆಮೇಲೆ ಬಲಕ್ಕೆ ತಿರುಗಿ.',
     transliteration: 'Swalpa mundakke hogi, aamele balakke tirugi.',
     english: 'Go a little forward, then turn right.',
@@ -56,7 +56,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-03',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-03.mp3',    categoryId: 'travel-directions',
     kannada: 'ಎಡಕ್ಕೆ ಹೋಗಬೇಕಾ ಅಥವಾ ಬಲಕ್ಕಾ?',
     transliteration: 'Yedakke hogabeka athava balakka?',
     english: 'Should I go left or right?',
@@ -68,7 +68,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-04',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-04.mp3',    categoryId: 'travel-directions',
     kannada: 'ಇಲ್ಲಿ ಹತ್ತಿರ ಮೆಟ್ರೋ ನಿಲ್ದಾಣ ಎಲ್ಲಿದೆ?',
     transliteration: 'Illi hathira Metro nildaana yellide?',
     english: 'Where is the nearest Metro station around here?',
@@ -80,7 +80,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-05',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-05.mp3',    categoryId: 'travel-directions',
     kannada: 'ಇದು ಎಷ್ಟು ದೂರ ಇದೆ?',
     transliteration: 'Idu eshtu doora ide?',
     english: 'How far is this?',
@@ -92,7 +92,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-06',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-06.mp3',    categoryId: 'travel-directions',
     kannada: 'ನಾನು ದಾರಿ ತಪ್ಪಿದ್ದೇನೆ, ದಯವಿಟ್ಟು ಸಹಾಯ ಮಾಡಿ.',
     transliteration: 'Naanu daari thappiddeene, dayavittu sahaaya maadi.',
     english: 'I have lost my way, please help me.',
@@ -123,7 +123,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-07',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-07.mp3',    categoryId: 'travel-directions',
     kannada: 'ನೇರವಾಗಿ ಹೋಗಿ, ಸರ್ಕಲ್ ಹತ್ತಿರ ನಿಲ್ಲಿಸಿ.',
     transliteration: 'Neraavaagi hogi, circle hathira nillisi.',
     english: 'Go straight and stop near the circle / roundabout.',
@@ -135,7 +135,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-08',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-08.mp3',    categoryId: 'travel-directions',
     kannada: 'ರೈಲ್ವೆ ನಿಲ್ದಾಣ ಯಾವ ಕಡೆ ಬರುತ್ತದೆ?',
     transliteration: 'Railway nildaana yaava kade barutthe?',
     english: 'Which direction is the railway station?',
@@ -147,7 +147,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-09',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-09.mp3',    categoryId: 'travel-directions',
     kannada: 'ಇಲ್ಲಿಂದ ನಡ್ಕೊಂಡು ಹೋಗಬಹುದಾ?',
     transliteration: 'Illinda nadkondu hogabahuda?',
     english: 'Can I walk from here?',
@@ -161,7 +161,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'td-10',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/td-10.mp3',    categoryId: 'travel-directions',
     kannada: 'ನಕ್ಷೆಯಲ್ಲಿ ತೋರಿಸಬಹುದಾ?',
     transliteration: 'Naksheyalli thorisabahuda?',
     english: 'Can you show it on the map?',
@@ -175,7 +175,7 @@ export const PHRASES: Phrase[] = [
   // 2. PUBLIC TRANSPORT & BUS STATIONS (public-transport)
   {
     id: 'pt-01',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-01.mp3',    categoryId: 'public-transport',
     kannada: 'ಮೆಜೆಸ್ಟಿಕ್‌ಗೆ ಒಂದು ಟಿಕೆಟ್ ಕೊಡಿ.',
     transliteration: 'Majestic-ge ondu ticket kodi.',
     english: 'Please give one ticket to Majestic.',
@@ -214,7 +214,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-02',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-02.mp3',    categoryId: 'public-transport',
     kannada: 'ಈ ಬಸ್ ಶಿವಾಜಿನಗರಕ್ಕೆ ಹೋಗುತ್ತಾ?',
     transliteration: 'Ee bus Shivajinagara-kke hogutthaa?',
     english: 'Does this bus go to Shivajinagar?',
@@ -226,7 +226,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-03',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-03.mp3',    categoryId: 'public-transport',
     kannada: 'ಮುಂದಿನ ನಿಲ್ದಾಣ ಯಾವುದು?',
     transliteration: 'Mundina nildaana yaavudu?',
     english: 'Which is the next stop?',
@@ -238,7 +238,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-04',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-04.mp3',    categoryId: 'public-transport',
     kannada: 'ನನ್ನ ಸ್ಟಾಪ್ ಬಂದಾಗ ದಯವಿಟ್ಟು ತಿಳಿಸಿ.',
     transliteration: 'Nanna stop bandaaga dayavittu thilisi.',
     english: 'Please let me know when my stop arrives.',
@@ -250,7 +250,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-05',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-05.mp3',    categoryId: 'public-transport',
     kannada: 'ಆಟೋ ಮೀಟರ್ ಹಾಕಿ ಬರುತ್ತೀರಾ?',
     transliteration: 'Auto meter haaki baruttheera?',
     english: 'Will you come by meter?',
@@ -289,7 +289,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-06',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-06.mp3',    categoryId: 'public-transport',
     kannada: 'ಇಲ್ಲಿ ಇಳಿಯುತ್ತೇನೆ, ನಿಲ್ಲಿಸಿ ಅಣ್ಣಾ.',
     transliteration: 'Illi iliyutthene, nillisi anna.',
     english: 'I will get down here, please stop brother.',
@@ -328,7 +328,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-07',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-07.mp3',    categoryId: 'public-transport',
     kannada: 'ಮೆಟ್ರೋ ಸ್ಮಾರ್ಟ್ ಕಾರ್ಡ್ ರಿಚಾರ್ಜ್ ಮಾಡಬೇಕು.',
     transliteration: 'Metro smart card recharge maadabeku.',
     english: 'I need to recharge my Metro smart card.',
@@ -340,7 +340,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-08',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-08.mp3',    categoryId: 'public-transport',
     kannada: 'ಚಿಲ್ಲರೆ ಇಲ್ಲ, ಯುಪಿಐ ಮಾಡಬಹುದಾ?',
     transliteration: 'Chillare illa, UPI maadabahuda?',
     english: 'I don’t have change, can I pay via UPI?',
@@ -352,7 +352,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-09',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-09.mp3',    categoryId: 'public-transport',
     kannada: 'ಬಸ್ ಎಷ್ಟು ಹೊತ್ತಿಗೆ ಹೊರಡುತ್ತದೆ?',
     transliteration: 'Bus eshtu hotthige horaduttade?',
     english: 'What time does the bus leave?',
@@ -364,7 +364,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'pt-10',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/pt-10.mp3',    categoryId: 'public-transport',
     kannada: 'ಇಂದಿರಾನಗರಕ್ಕೆ ಎಷ್ಟು ಆಗುತ್ತೆ ಅಣ್ಣಾ?',
     transliteration: 'Indiranagara-kke eshtu aagutthe anna?',
     english: 'How much will it cost to Indiranagar, brother?',
@@ -379,7 +379,7 @@ export const PHRASES: Phrase[] = [
   // 3. SHOPPING & MARKETS (shopping-markets)
   {
     id: 'sm-01',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-01.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಇದು ಎಷ್ಟು ರೂಪಾಯಿ?',
     transliteration: 'Idu eshtu roopaayi?',
     english: 'How much is this? (What is the price?)',
@@ -418,7 +418,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-02',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-02.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಸ್ವಲ್ಪ ಕಡಿಮೆ ಮಾಡಿ ಕೊಡಿ.',
     transliteration: 'Swalpa kadime maadi kodi.',
     english: 'Please give some discount / make it a little cheaper.',
@@ -457,7 +457,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-03',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-03.mp3',    categoryId: 'shopping-markets',
     kannada: 'ತಾಜಾ ತರಕಾರಿಗಳು ಇವೆಯಾ?',
     transliteration: 'Taaja tharakarigalu iveya?',
     english: 'Are there fresh vegetables?',
@@ -469,7 +469,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-04',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-04.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಒಂದು ಕೆಜಿ ಈರುಳ್ಳಿ ಕೊಡಿ.',
     transliteration: 'Ondu kg eerulli kodi.',
     english: 'Give one kilo of onions.',
@@ -481,7 +481,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-05',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-05.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಯುಪಿಐ ಕ್ಯೂಆರ್ ಕೋಡ್ ಎಲ್ಲಿದೆ?',
     transliteration: 'UPI QR code yellide?',
     english: 'Where is the UPI QR code?',
@@ -493,7 +493,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-06',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-06.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಇದು ಬೇರೆ ಬಣ್ಣದಲ್ಲಿ ಸಿಗುತ್ತಾ?',
     transliteration: 'Idu bere bannadalli sigutthaa?',
     english: 'Is this available in another colour?',
@@ -505,7 +505,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-07',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-07.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಸ್ವಲ್ಪ ದೊಡ್ಡ ಸೈಜ್ ತೋರಿಸಿ.',
     transliteration: 'Swalpa dodda size thorisi.',
     english: 'Please show a slightly bigger size.',
@@ -517,7 +517,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-08',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-08.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಬಿಲ್ ಕೊಡ್ತೀರಾ?',
     transliteration: 'Bill kodtheera?',
     english: 'Will you give a bill / receipt?',
@@ -529,7 +529,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-09',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-09.mp3',    categoryId: 'shopping-markets',
     kannada: 'ಕ್ಯಾರಿ ಬ್ಯಾಗ್ ಅಥವಾ ಚೀಲ ಇದೆಯಾ?',
     transliteration: 'Carry bag athava cheela ideya?',
     english: 'Do you have a carry bag or cloth bag?',
@@ -541,7 +541,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'sm-10',
-    categoryId: 'shopping-markets',
+    audioUrl: '/audio/kn/sm-10.mp3',    categoryId: 'shopping-markets',
     kannada: 'ನನಗೆ ಇದು ಬೇಡ, ಬೇರೆ ತೋರಿಸಿ.',
     transliteration: 'Nanage idu beda, bere thorisi.',
     english: 'I don’t want this, show another one.',
@@ -555,7 +555,7 @@ export const PHRASES: Phrase[] = [
   // 4. FOOD & RESTAURANTS (food-dining)
   {
     id: 'fd-01',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-01.mp3',    categoryId: 'food-dining',
     kannada: 'ಒಂದು ಮಸಾಲೆ ದೋಸೆ ಮತ್ತು ಬಿಸಿ ಫಿಲ್ಟರ್ ಕಾಫಿ ಕೊಡಿ.',
     transliteration: 'Ondu masala dose matthu bisi filter coffee kodi.',
     english: 'One masala dosa and hot filter coffee please.',
@@ -594,7 +594,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-02',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-02.mp3',    categoryId: 'food-dining',
     kannada: 'ಸ್ವಲ್ಪ ಖಾರ ಕಡಿಮೆ ಮಾಡಿ.',
     transliteration: 'Swalpa khaara kadime maadi.',
     english: 'Please make it less spicy.',
@@ -633,7 +633,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-03',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-03.mp3',    categoryId: 'food-dining',
     kannada: 'ಕುಡಿಯಲು ಬಿಸಿ ನೀರು ಸಿಗುತ್ತಾ?',
     transliteration: 'Kudiyalu bisi neeru sigutthaa?',
     english: 'Can I get warm / hot drinking water?',
@@ -645,7 +645,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-04',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-04.mp3',    categoryId: 'food-dining',
     kannada: 'ಇಲ್ಲಿ ಸ್ಪೆಷಲ್ ಊಟ ಏನು?',
     transliteration: 'Illi special oota yenu?',
     english: 'What is the special meal / dish here?',
@@ -657,7 +657,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-05',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-05.mp3',    categoryId: 'food-dining',
     kannada: 'ಬಿಲ್ ತನ್ನಿ, ಕೈ ತೊಳೆಯುವ ಜಾಗ ಎಲ್ಲಿದೆ?',
     transliteration: 'Bill tanni, kai tholeyuva jaaga yellide?',
     english: 'Bring the bill, and where is the handwash area?',
@@ -669,7 +669,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-06',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-06.mp3',    categoryId: 'food-dining',
     kannada: 'ಪಾರ್ಸಲ್ ಕಟ್ಟಿ ಕೊಡಿ.',
     transliteration: 'Parcel katti kodi.',
     english: 'Please pack it for takeaway / parcel.',
@@ -681,7 +681,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-07',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-07.mp3',    categoryId: 'food-dining',
     kannada: 'ಸಾಂಬಾರ್ ಸ್ವಲ್ಪ ಜಾಸ್ತಿ ಹಾಕಿ.',
     transliteration: 'Sambar swalpa jaasti haaki.',
     english: 'Please pour a little more sambar.',
@@ -693,7 +693,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-08',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-08.mp3',    categoryId: 'food-dining',
     kannada: 'ಇದು ಸಸ್ಯಾಹಾರ ಹೋಟೆಲ್ ಅಲ್ವಾ?',
     transliteration: 'Idu sasyaahaara hotel alva?',
     english: 'This is a vegetarian restaurant, right?',
@@ -705,7 +705,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-09',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-09.mp3',    categoryId: 'food-dining',
     kannada: 'ಉಪ್ಪು ಸ್ವಲ್ಪ ಕಡಿಮೆ ಇದೆ.',
     transliteration: 'Uppu swalpa kadime ide.',
     english: 'Salt is a bit less.',
@@ -717,7 +717,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'fd-10',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/fd-10.mp3',    categoryId: 'food-dining',
     kannada: 'ತಿಂಡಿ ತುಂಬಾ ರುಚಿಯಾಗಿದೆ!',
     transliteration: 'Thindi thumba ruchiyaagide!',
     english: 'The snack / food is very delicious!',
@@ -731,7 +731,7 @@ export const PHRASES: Phrase[] = [
   // 5. HEALTHCARE & MEDICAL (healthcare)
   {
     id: 'hc-01',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-01.mp3',    categoryId: 'healthcare',
     kannada: 'ನನಗೆ ತಲೆನೋವು ಮತ್ತು ಜ್ವರ ಬಂದಿದೆ.',
     transliteration: 'Nanage thalenoovu matthu jwara bandide.',
     english: 'I have a headache and fever.',
@@ -743,7 +743,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-02',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-02.mp3',    categoryId: 'healthcare',
     kannada: 'ಹತ್ತಿರದ ಔಷಧಿ ಅಂಗಡಿ ಎಲ್ಲಿದೆ?',
     transliteration: 'Hatthirada aushadhi angadi yellide?',
     english: 'Where is the nearest medical shop / pharmacy?',
@@ -782,7 +782,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-03',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-03.mp3',    categoryId: 'healthcare',
     kannada: 'ಡಾಕ್ಟರ್ ಯಾವಾಗ ಸಿಗುತ್ತಾರೆ?',
     transliteration: 'Doctor yaavaaga sigutthaare?',
     english: 'When will the doctor be available?',
@@ -794,7 +794,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-04',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-04.mp3',    categoryId: 'healthcare',
     kannada: 'ಹೊಟ್ಟೆ ನೋವಿಗೆ ಮಾತ್ರೆ ಇದೆಯಾ?',
     transliteration: 'Hotte novige maathre ideya?',
     english: 'Is there a tablet for stomach ache?',
@@ -806,7 +806,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-05',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-05.mp3',    categoryId: 'healthcare',
     kannada: 'ಈ ಔಷಧಿಯನ್ನು ಊಟದ ನಂತರ ತಗೋಬೇಕಾ?',
     transliteration: 'Ee aushadhiyannu ootada nanthara thagobeka?',
     english: 'Should I take this medicine after food?',
@@ -818,7 +818,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-06',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-06.mp3',    categoryId: 'healthcare',
     kannada: 'ನನಗೆ ಅಲರ್ಜಿ ಇದೆ, ಬೇರೆ ಔಷಧಿ ಕೊಡಿ.',
     transliteration: 'Nanage allergy ide, bere aushadhi kodi.',
     english: 'I have an allergy, give another medicine.',
@@ -830,7 +830,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-07',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-07.mp3',    categoryId: 'healthcare',
     kannada: 'ಬಿಪಿ ಮತ್ತು ಶುಗರ್ ಪರೀಕ್ಷೆ ಮಾಡಿಸಬೇಕು.',
     transliteration: 'BP matthu sugar pareekshe maadisabeku.',
     english: 'I need to get my blood pressure and sugar checked.',
@@ -842,7 +842,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-08',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-08.mp3',    categoryId: 'healthcare',
     kannada: 'ನನಗೆ ಉಸಿರಾಡಲು ಸ್ವಲ್ಪ ಕಷ್ಟವಾಗುತ್ತಿದೆ.',
     transliteration: 'Nanage usiraadalu swalpa kashtavaagutthide.',
     english: 'I am finding it a little difficult to breathe.',
@@ -854,7 +854,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-09',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-09.mp3',    categoryId: 'healthcare',
     kannada: 'ದಯವಿಟ್ಟು ಆಂಬ್ಯುಲೆನ್ಸ್ ಕರೆಯಿರಿ.',
     transliteration: 'Dayavittu ambulance kareyiri.',
     english: 'Please call an ambulance.',
@@ -866,7 +866,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'hc-10',
-    categoryId: 'healthcare',
+    audioUrl: '/audio/kn/hc-10.mp3',    categoryId: 'healthcare',
     kannada: 'ದಿನಕ್ಕೆ ಎಷ್ಟು ಸಲ ಈ ಮಾತ್ರೆ ತಗೋಬೇಕು?',
     transliteration: 'Dinakke eshtu sala ee maathre thagobeku?',
     english: 'How many times a day should I take this tablet?',
@@ -880,7 +880,7 @@ export const PHRASES: Phrase[] = [
   // 6. EMERGENCIES (emergencies)
   {
     id: 'em-01',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-01.mp3',    categoryId: 'emergencies',
     kannada: 'ದಯವಿಟ್ಟು ಬೇಗ ಸಹಾಯ ಮಾಡಿ!',
     transliteration: 'Dayavittu bega sahaaya maadi!',
     english: 'Please help quickly!',
@@ -892,7 +892,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-02',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-02.mp3',    categoryId: 'emergencies',
     kannada: 'ಪೊಲೀಸ್ ಠಾಣೆ ಎಲ್ಲಿದೆ?',
     transliteration: 'Police thaane yellide?',
     english: 'Where is the police station?',
@@ -904,7 +904,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-03',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-03.mp3',    categoryId: 'emergencies',
     kannada: 'ನನ್ನ ಮೊಬೈಲ್ ಮತ್ತು ಪರ್ಸ್ ಕಳೆದುಹೋಗಿದೆ.',
     transliteration: 'Nanna mobile matthu purse kaleduhogide.',
     english: 'My phone and purse are lost / missing.',
@@ -916,7 +916,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-04',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-04.mp3',    categoryId: 'emergencies',
     kannada: 'ಇಲ್ಲಿ ಅಪಘಾತ ಆಗಿದೆ.',
     transliteration: 'Illi apaghaatha aagide.',
     english: 'An accident has happened here.',
@@ -928,7 +928,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-05',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-05.mp3',    categoryId: 'emergencies',
     kannada: 'ದಯವಿಟ್ಟು ಪೊಲೀಸ್ ಅಥವಾ 112 ಗೆ ಕರೆ ಮಾಡಿ.',
     transliteration: 'Dayavittu police athava 112 ge kare maadi.',
     english: 'Please call the police or 112.',
@@ -940,7 +940,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-06',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-06.mp3',    categoryId: 'emergencies',
     kannada: 'ನನಗೆ ತುರ್ತು ಸಹಾಯ ಬೇಕಾಗಿದೆ.',
     transliteration: 'Nanage thurtu sahaaya bekaagide.',
     english: 'I need urgent emergency help.',
@@ -952,7 +952,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-07',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-07.mp3',    categoryId: 'emergencies',
     kannada: 'ನನ್ನನ್ನು ಯಾರೋ ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ, ರಕ್ಷಿಸಿ.',
     transliteration: 'Nannannu yaaroo himbaalisutthiddaare, rakshisi.',
     english: 'Someone is following me, please protect me.',
@@ -964,7 +964,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-08',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-08.mp3',    categoryId: 'emergencies',
     kannada: 'ಬೆಂಕಿ ಬಿದ್ದಿದೆ, ಫೈರ್ ಬ್ರಿಗೇಡ್ ಕರೆಯಿರಿ.',
     transliteration: 'Benki biddide, fire brigade kareyiri.',
     english: 'A fire has broken out, call the fire brigade.',
@@ -976,7 +976,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-09',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-09.mp3',    categoryId: 'emergencies',
     kannada: 'ನನಗೆ ದಾರಿ ಗೊತ್ತಿಲ್ಲ, ನಾನು ಕಳೆದುಹೋಗಿದ್ದೇನೆ.',
     transliteration: 'Nanage daari gotthilla, naanu kaleduhogiddene.',
     english: 'I don’t know the way, I am lost.',
@@ -988,7 +988,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'em-10',
-    categoryId: 'emergencies',
+    audioUrl: '/audio/kn/em-10.mp3',    categoryId: 'emergencies',
     kannada: 'ಶಾಂತರಾಗಿರಿ, ಎಲ್ಲವೂ ಸರಿಯಾಗುತ್ತದೆ.',
     transliteration: 'Shaantharaagiri, yellavoo sariyaagutthe.',
     english: 'Stay calm, everything will be alright.',
@@ -1002,7 +1002,7 @@ export const PHRASES: Phrase[] = [
   // 7. EDUCATION & CAMPUS (education-campus)
   {
     id: 'ed-01',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-01.mp3',    categoryId: 'education-campus',
     kannada: 'ಗ್ರಂಥಾಲಯ ಎಷ್ಟು ಗಂಟೆಗೆ ಮುಚ್ಚುತ್ತಾರೆ?',
     transliteration: 'Granthaalaya eshtu gantege mucchutthaare?',
     english: 'What time does the library close?',
@@ -1014,7 +1014,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-02',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-02.mp3',    categoryId: 'education-campus',
     kannada: 'ಪ್ರೊಫೆಸರ್ ಅವರ ಕೊಠಡಿ ಎಲ್ಲಿದೆ?',
     transliteration: 'Professor avara kothadi yellide?',
     english: 'Where is the professor’s cabin / room?',
@@ -1026,7 +1026,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-03',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-03.mp3',    categoryId: 'education-campus',
     kannada: 'ನನಗೆ ಈ ನೋಟ್ಸ್ ಜೆರಾಕ್ಸ್ ಮಾಡಿಕೊಳ್ಳಲು ಕೊಡ್ತೀರಾ?',
     transliteration: 'Nanage ee notes xerox maadikollalu kodtheera?',
     english: 'Will you lend me these notes to make photocopies?',
@@ -1038,7 +1038,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-04',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-04.mp3',    categoryId: 'education-campus',
     kannada: 'ಪರೀಕ್ಷಾ ಹಾಲ್ ಎಲ್ಲಿದೆ?',
     transliteration: 'Pareekshaa hall yellide?',
     english: 'Where is the examination hall?',
@@ -1050,7 +1050,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-05',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-05.mp3',    categoryId: 'education-campus',
     kannada: 'ಈ ಅಸೈನ್‌ಮೆಂಟ್ ಸಲ್ಲಿಸಲು ಕೊನೆಯ ದಿನಾಂಕ ಯಾವಾಗ?',
     transliteration: 'Ee assignment sallisalu koneya dinaanka yaavaaga?',
     english: 'When is the deadline / last date to submit this assignment?',
@@ -1062,7 +1062,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-06',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-06.mp3',    categoryId: 'education-campus',
     kannada: 'ಕ್ಲಾಸ್ ಯಾವಾಗ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ?',
     transliteration: 'Class yaavaaga praarambhavaagutthe?',
     english: 'When does the class start?',
@@ -1074,7 +1074,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-07',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-07.mp3',    categoryId: 'education-campus',
     kannada: 'ಕ್ಯಾಂಟೀನ್ ಯಾವ ಕಡೆ ಇದೆ?',
     transliteration: 'Canteen yaava kade ide?',
     english: 'Which side is the campus canteen?',
@@ -1086,7 +1086,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-08',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-08.mp3',    categoryId: 'education-campus',
     kannada: 'ಕನ್ನಡ ಕಲಿಯಲು ನನಗೆ ಸ್ವಲ್ಪ ಸಹಾಯ ಮಾಡ್ತೀರಾ?',
     transliteration: 'Kannada kaliyalu nanage swalpa sahaaya maadtheera?',
     english: 'Will you help me a little with learning Kannada?',
@@ -1098,7 +1098,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-09',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-09.mp3',    categoryId: 'education-campus',
     kannada: 'ನನ್ನ ಐಡಿ ಕಾರ್ಡ್ ಕಳೆದುಹೋಗಿದೆ, ಹೊಸದು ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ?',
     transliteration: 'Nanna ID card kaleduhogide, hosadu yelli sigutthe?',
     english: 'I lost my student ID card, where do I get a new one?',
@@ -1110,7 +1110,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ed-10',
-    categoryId: 'education-campus',
+    audioUrl: '/audio/kn/ed-10.mp3',    categoryId: 'education-campus',
     kannada: 'ಇವತ್ತು ರಜೆ ಇದೆಯಾ?',
     transliteration: 'Ivatthu raje ideya?',
     english: 'Is today a holiday?',
@@ -1124,7 +1124,7 @@ export const PHRASES: Phrase[] = [
   // 8. WORKPLACE & OFFICE (workplace)
   {
     id: 'wp-01',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-01.mp3',    categoryId: 'workplace',
     kannada: 'ಶುಭೋದಯ! ಹೇಗಿದ್ದೀರಾ?',
     transliteration: 'Shubhodaya! Hegiddeera?',
     english: 'Good morning! How are you?',
@@ -1136,7 +1136,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-02',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-02.mp3',    categoryId: 'workplace',
     kannada: 'ಮೀಟಿಂಗ್ ಎಷ್ಟು ಗಂಟೆಗೆ ಆರಂಭವಾಗುತ್ತದೆ?',
     transliteration: 'Meeting eshtu gantege aarambhavaagutthe?',
     english: 'What time does the meeting start?',
@@ -1148,7 +1148,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-03',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-03.mp3',    categoryId: 'workplace',
     kannada: 'ಊಟಕ್ಕೆ ಹೋಗೋಣ್ವಾ?',
     transliteration: 'Ootakke hogonvaa?',
     english: 'Shall we go for lunch?',
@@ -1162,7 +1162,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-04',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-04.mp3',    categoryId: 'workplace',
     kannada: 'ನಾನು ಒಂದು ದಿನ ರಜೆ ತೆಗೆದುಕೊಳ್ಳಬಹುದಾ?',
     transliteration: 'Naanu ondu dina raje thegedukollabahuda?',
     english: 'Can I take one day of leave?',
@@ -1174,7 +1174,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-05',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-05.mp3',    categoryId: 'workplace',
     kannada: 'ಈ ಕೆಲಸವನ್ನು ಇವತ್ತೇ ಮುಗಿಸುತ್ತೇನೆ.',
     transliteration: 'Ee kelasavannu ivatthe mugisutthene.',
     english: 'I will finish this task today itself.',
@@ -1186,7 +1186,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-06',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-06.mp3',    categoryId: 'workplace',
     kannada: 'ನಿಮ್ಮ ಸಹಾಯಕ್ಕೆ ತುಂಬಾ ಧನ್ಯವಾದಗಳು.',
     transliteration: 'Nimma sahaayakke thumba dhanyavaadagalu.',
     english: 'Thank you very much for your help.',
@@ -1198,7 +1198,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-07',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-07.mp3',    categoryId: 'workplace',
     kannada: 'ದಯವಿಟ್ಟು ಈ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಿ.',
     transliteration: 'Dayavittu ee email parisheelisi.',
     english: 'Please review / check this email.',
@@ -1210,7 +1210,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-08',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-08.mp3',    categoryId: 'workplace',
     kannada: 'ನನಗೆ ಈ ವಿಷಯ ಅರ್ಥವಾಗಲಿಲ್ಲ, ಮತ್ತೊಮ್ಮೆ ಹೇಳಿ.',
     transliteration: 'Nanage ee vishaya arthavaagalilla, matthomme heli.',
     english: 'I did not understand this topic, please explain again.',
@@ -1222,7 +1222,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-09',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-09.mp3',    categoryId: 'workplace',
     kannada: 'ಟೀ ಬ್ರೇಕ್ ತಗೊಳ್ಳೋಣ್ವಾ?',
     transliteration: 'Tea break thagollonvaa?',
     english: 'Shall we take a quick tea / coffee break?',
@@ -1236,7 +1236,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'wp-10',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/wp-10.mp3',    categoryId: 'workplace',
     kannada: 'ನಾಳೆ ಸಿಗೋಣ, ಬಾಯ್!',
     transliteration: 'Naale sigona, bye!',
     english: 'See you tomorrow, bye!',
@@ -1250,7 +1250,7 @@ export const PHRASES: Phrase[] = [
   // 9. ACCOMMODATION & DAILY NEEDS (accommodation-daily)
   {
     id: 'ad-01',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-01.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಇಲ್ಲಿ 2BHK ಬಾಡಿಗೆ ಮನೆ ಇದೆಯಾ?',
     transliteration: 'Illi 2BHK baadige mane ideya?',
     english: 'Is there a 2BHK rental house available here?',
@@ -1262,7 +1262,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-02',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-02.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ತಿಂಗಳಿಗೆ ಬಾಡಿಗೆ ಎಷ್ಟು ಮತ್ತು ಅಡ್ವಾನ್ಸ್ ಎಷ್ಟು?',
     transliteration: 'Thingalige baadige eshtu matthu advance eshtu?',
     english: 'How much is the monthly rent and deposit/advance?',
@@ -1274,7 +1274,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-03',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-03.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ನೀರು ಮತ್ತು ಕರೆಂಟ್ 24 ಗಂಟೆ ಬರುತ್ತಾ?',
     transliteration: 'Neeru matthu current 24 gante barutthaa?',
     english: 'Is water and electricity available 24 hours?',
@@ -1286,7 +1286,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-04',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-04.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಮನೆಯಲ್ಲಿ ಪೈಪ್ ಸೋರುತ್ತಿದೆ, ಪ್ಲಂಬರ್ ಕರೆಯಿರಿ.',
     transliteration: 'Maneyalli pipe sorutthide, plumber kareyiri.',
     english: 'The pipe is leaking in the house, please call a plumber.',
@@ -1298,7 +1298,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-05',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-05.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಕಸ ತಗೋಳೋ ಗಾಡಿ ಬಂತಾ?',
     transliteration: 'Kasa thagolo gaadi banthaa?',
     english: 'Has the garbage collection vehicle arrived?',
@@ -1312,7 +1312,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-06',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-06.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಮನೆ ಕೆಲಸಕ್ಕೆ ಯಾರಾದರೂ ಪರಿಚಿತರು ಸಿಗುತ್ತಾರಾ?',
     transliteration: 'Mane kelasakke yaaraadaroo parichitharu sigutthaaraa?',
     english: 'Do you know someone reliable for household work / cleaning?',
@@ -1324,7 +1324,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-07',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-07.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಕರೆಂಟ್ ಬಿಲ್ ಎಲ್ಲಿ ಕಟ್ಟಬೇಕು?',
     transliteration: 'Current bill yelli kattabeku?',
     english: 'Where should I pay the electricity bill (BESCOM)?',
@@ -1336,7 +1336,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-08',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-08.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ನಮಗೆ 20 ಲೀಟರ್ ಕುಡಿಯುವ ನೀರಿನ ಕ್ಯಾನ್ ಬೇಕು.',
     transliteration: 'Namage 20 litre kudiyuva neerina can beku.',
     english: 'We need a 20-litre drinking water can.',
@@ -1348,7 +1348,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-09',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-09.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಇಂಟರ್ನೆಟ್ ವೈಫೈ ಕೆಲಸ ಮಾಡುತ್ತಿಲ್ಲ.',
     transliteration: 'Internet WiFi kelasa maadutthilla.',
     english: 'The internet WiFi is not working.',
@@ -1360,7 +1360,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'ad-10',
-    categoryId: 'accommodation-daily',
+    audioUrl: '/audio/kn/ad-10.mp3',    categoryId: 'accommodation-daily',
     kannada: 'ಅಕ್ಕಪಕ್ಕದಲ್ಲಿ ಲಾಂಡ್ರಿ ಶಾಪ್ ಎಲ್ಲಿ ಸಿಗುತ್ತದೆ?',
     transliteration: 'Akkapakkadalli laundry shop yelli sigutthe?',
     english: 'Where can I find an ironing / laundry shop nearby?',
@@ -1374,7 +1374,7 @@ export const PHRASES: Phrase[] = [
   // BONUS ESSENTIAL KANNADA EVERYDAY SURVIVAL PHRASES
   {
     id: 'bs-01',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/bs-01.mp3',    categoryId: 'travel-directions',
     kannada: 'ನಮಸ್ಕಾರ! ಹೇಗಿದ್ದೀರಾ?',
     transliteration: 'Namaskara! Hegiddeera?',
     english: 'Hello / Greetings! How are you?',
@@ -1386,7 +1386,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'bs-02',
-    categoryId: 'public-transport',
+    audioUrl: '/audio/kn/bs-02.mp3',    categoryId: 'public-transport',
     kannada: 'ಕನ್ನಡ ಸ್ವಲ್ಪ ಸ್ವಲ್ಪ ಬರುತ್ತೆ.',
     transliteration: 'Kannada swalpa swalpa barutthe.',
     english: 'I know a little bit of Kannada.',
@@ -1400,7 +1400,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'bs-03',
-    categoryId: 'travel-directions',
+    audioUrl: '/audio/kn/bs-03.mp3',    categoryId: 'travel-directions',
     kannada: 'ದಯವಿಟ್ಟು ನಿಧಾನವಾಗಿ ಮಾತನಾಡಿ.',
     transliteration: 'Dayavittu nidhaanavaagi maathanaadi.',
     english: 'Please speak slowly.',
@@ -1412,7 +1412,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'bs-04',
-    categoryId: 'workplace',
+    audioUrl: '/audio/kn/bs-04.mp3',    categoryId: 'workplace',
     kannada: 'ನನಗೆ ಕನ್ನಡ ಸರಿಯಾಗಿ ಗೊತ್ತಿಲ್ಲ.',
     transliteration: 'Nanage Kannada sariyaagi gotthilla.',
     english: 'I do not know Kannada properly.',
@@ -1424,7 +1424,7 @@ export const PHRASES: Phrase[] = [
   },
   {
     id: 'bs-05',
-    categoryId: 'food-dining',
+    audioUrl: '/audio/kn/bs-05.mp3',    categoryId: 'food-dining',
     kannada: 'ತುಂಬಾ ಧನ್ಯವಾದಗಳು ಅಣ್ಣಾ!',
     transliteration: 'Thumba dhanyavaadagalu anna!',
     english: 'Thank you very much, brother!',
